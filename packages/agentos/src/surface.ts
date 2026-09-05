@@ -24,8 +24,10 @@ const CLIENT = "Codex CLI";
 const CLIENT_VERSION = "0.153.3";
 const ENDPOINT = "https://agent.binance.com/mcp/agentic";
 
-// Surface classification only, following P1's narrow definition. This is not
-// policy enforcement: no operation in this set was called during observation.
+// These catalog operations were manually classified as financially or account
+// mutating on the observed Agent OS surface. The list is intentionally narrower
+// than the mutation heuristic below: anything mutation-shaped but not audited
+// here becomes UNKNOWN and is withheld by the runtime rather than assumed READ.
 const WRITE_TOOLS = new Set([
   "convert.acceptQuote", "convert.cancelLimitOrder", "convert.placeLimitOrder",
   "futures_coin.autoCancelAllOpenOrders", "futures_coin.cancelAllOpenOrders",
@@ -49,6 +51,12 @@ const WRITE_TOOLS = new Set([
   "spot.orderListOpoco", "spot.orderListOto", "spot.orderListOtoco",
   "spot.orderOco", "spot.sorOrder", "wallet.userUniversalTransfer",
 ]);
+
+// A stale allowlist is dangerous only if a mutating operation is silently
+// interpreted as READ. This catches common mutation verbs across present and
+// future Binance namespaces. False positives become UNKNOWN (review required),
+// never an execution bypass.
+const MUTATION_SEGMENT = /(?:^|[._-])(accept|amend|borrow|cancel|change|claim|close|create|delete|deposit|enable|execute|liquidat|lock|modify|new|open|place|purchase|redeem|repay|send|set|stake|subscribe|transfer|unlock|update|withdraw)(?:[A-Z._-]|$)/i;
 
 function isObject(value: unknown): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -84,8 +92,10 @@ function decodedToolResponse(response: JsonObject): unknown {
   }
 }
 
-function classification(name: string): Classification {
-  return WRITE_TOOLS.has(name) ? "WRITE" : "READ";
+export function classifySurfaceTool(name: string): Classification {
+  if (WRITE_TOOLS.has(name)) return "WRITE";
+  if (MUTATION_SEGMENT.test(name)) return "UNKNOWN";
+  return "READ";
 }
 
 function firstLine(value: string | undefined): string {
@@ -119,13 +129,15 @@ export async function generateSurface(repoRoot: string): Promise<string> {
       for (const candidate of structured.tools) {
         if (!isObject(candidate) || typeof candidate.name !== "string") continue;
         const tool = candidate as unknown as CatalogTool;
-        const kind = classification(tool.name);
+        const kind = classifySurfaceTool(tool.name);
         catalog.set(tool.name, {
           name: tool.name,
           classification: kind,
           reasoning: kind === "WRITE"
-            ? `${firstLine(tool.description)} Catalog-only observation; the operation was not invoked.`
-            : `${firstLine(tool.description)} It does not place/cancel an order or move funds.`,
+            ? `${firstLine(tool.description)} Manually classified as state-changing; catalog observation only.`
+            : kind === "UNKNOWN"
+              ? `${firstLine(tool.description)} Mutation-shaped name was not manually audited; withheld by default.`
+              : `${firstLine(tool.description)} No mutation-shaped operation was observed in the catalog name.`,
           observedInputShape: tool.inputSchema ?? null,
           observedResponseShape: null,
           observedAt,
@@ -138,10 +150,13 @@ export async function generateSurface(repoRoot: string): Promise<string> {
     if (canonicalName.endsWith("__tool_execute")) {
       const operation = payload.tool_input.toolName;
       if (typeof operation !== "string") continue;
+      const kind = WRITE_TOOLS.has(operation) ? "WRITE" : classifySurfaceTool(operation);
       executions.set(operation, {
         name: operation,
-        classification: classification(operation),
-        reasoning: "Called through the Binance MCP dispatcher on the read-only P1 exercise path.",
+        classification: kind,
+        reasoning: kind === "READ"
+          ? "Called through the Binance MCP dispatcher on the read-only P1 exercise path."
+          : "Observed through the Binance MCP dispatcher; mutation classification remains fail-closed unless manually audited.",
         observedInputShape: shapeOf(payload.tool_input.arguments),
         observedResponseShape: shapeOf(decodedToolResponse(payload.tool_response)),
         observedAt,
@@ -181,6 +196,7 @@ export async function generateSurface(repoRoot: string): Promise<string> {
     endpoint: ENDPOINT,
     observedAt: newestObservation,
     toolCount: tools.length,
+    classificationPolicy: "explicit-write + mutation-shaped-unknown + read-default",
     tools,
   }, null, 2)}\n`, "utf8");
   return outputPath;
