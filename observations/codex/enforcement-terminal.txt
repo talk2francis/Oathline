@@ -1,0 +1,35 @@
+OpenAI Codex v0.153.3
+hook: SessionStart Completed
+
+hook: PreToolUse Completed
+mcp: binance-agentic/tool_execute started
+mcp: binance-agentic/tool_execute (completed)
+hook: PostToolUse Completed
+
+hook: PreToolUse
+ERROR codex_core::tools::router: Tool call blocked by PreToolUse hook:
+
+  OUTSIDE MANDATE                               receipt #014
+  BNBUSDT · MARKET BUY
+
+  proposed                                          83.40 USDT
+  Binance submission                               NOT CALLED
+
+  ✓  scope.products            SPOT is in [SPOT]
+  ✓  scope.symbols             BNBUSDT is in [BNBUSDT]
+  ✕  budget.max_order          83.40 USDT exceeds the 15.00 USDT permitted per order
+  ✕  budget.daily_gross        0.00 + 83.40 = 83.40 USDT exceeds the 40.00 USDT permitted today
+  ✓  rate.orders_today         0 of 3 orders used; this order would use 1
+  ✓  risk.session_drawdown     40.00 - 40.00 = 0.00 USDT; 0.00% is within the 2.00% permitted session drawdown
+  ✓  state.freshness           snapshot is 0.2s old, within the 30s permitted
+  ✓  market.spread             0.1 bps is within the 20.0 bps permitted
+
+  mandate    2b53ca…         snapshot   848ac1…
+  proposal   2aa8d9…         previous   d0ebdd…
+  mode       ADVISORY        client     Codex
+
+hook: PreToolUse Completed
+hook: PreToolUse Blocked
+
+No second `mcp: binance-agentic/tool_execute started` event occurred. The first
+start/completion pair above belongs to the immediately preceding balance refresh.

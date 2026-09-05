@@ -49,7 +49,7 @@ maximum, never on account data older than 30 seconds, and stop entirely after a 
 session drawdown. Neither layer replaces the other.
 
 How it works. You write a short mandate in TOML, signed locally, with a required
-expiry. Oathline then lives in the hook lifecycle of Claude Code. On PostToolUse it
+expiry. Oathline then lives in the hook lifecycle of Codex. On PostToolUse it
 observes Binance's actual replies to the agent's read calls and builds a hashed,
 timestamped snapshot of account and market state, so the model never gets to tell
 Oathline what the balance is. On PreToolUse, before any Binance write tool executes,
@@ -93,8 +93,8 @@ cannot guarantee, including that hook enforcement depends on the host runtime an
 degrades to advisory when that fails.
 
 Repo: https://github.com/talk2francis/oathline
-Site: https://useoathline.xyz
-For judges: https://useoathline.xyz/judge
+Site: https://oathline.xyz
+For judges: https://oathline.xyz/judge
 ```
 
 ### Q: Which platform did you post your video on?
@@ -114,8 +114,8 @@ https://youtu.be/<id>
 Most entrants will treat this as an afterthought. It is the field that tells you what Binance is actually buying: recipes other people can run. Write it as if someone will follow it tonight.
 
 ```
-Prerequisites: a Binance account with KYC complete, a desktop browser, and Claude
-Code installed. About 8 minutes.
+Prerequisites: a Binance account with KYC complete, a desktop browser, and Codex
+installed. About 8 minutes.
 
 1. Create and fund an Agentic sub-account.
    On desktop, Profile > Dashboard > Sub-account > Account Management. Create an
@@ -124,9 +124,10 @@ Code installed. About 8 minutes.
    agent trade. 40 USDT is enough to follow this guide. The agent cannot pull funds
    from your main account and cannot withdraw; this first transfer is always manual.
 
-2. Connect Claude Code to Binance Agent OS.
-   claude mcp add binance-mcp-server --transport http https://agent.binance.com/mcp/agentic
-   Open /mcp, select binance-mcp-server, authenticate through Binance OAuth, select
+2. Connect Codex to Binance Agent OS.
+   codex mcp add binance-agentic --url https://agent.binance.com/mcp/agentic
+   codex mcp login binance-agentic
+   Open /mcp, select binance-agentic, authenticate through Binance OAuth, select
    your Agentic sub-account, and grant Market data, Account, and Spot Trade only.
    Leave Transfer and Futures off. Verify with:
    "Use the Binance MCP Server to show the current BNBUSDT price and 24-hour change."
@@ -140,10 +141,10 @@ Code installed. About 8 minutes.
    ~/.oathline/oathline.toml.
 
 4. Enable the runtime.
-   npx @xyndicate/oathline install --client claude-code
+   npx @xyndicate/oathline install --client codex
    Writes the SessionStart, PreToolUse, and PostToolUse hooks into
-   .claude/settings.json, matched against the Binance write tools recorded in the
-   observed surface file. Confirm with /hooks in Claude Code; you should see three
+   .codex/hooks.json, matched against the Binance write tools recorded in the
+   observed surface file. Confirm with /hooks in Codex; you should see three
    Oathline entries.
 
 5. Write your mandate.
@@ -154,13 +155,13 @@ Code installed. About 8 minutes.
    yourself tomorrow. expires_at is required. Then:
    npx @xyndicate/oathline arm
    Anything you do not grant is denied. There is no implicit permission.
-   If you would rather use a form, https://useoathline.xyz/mandate builds one in your
+   If you would rather use a form, https://oathline.xyz/mandate builds one in your
    browser and sends nothing anywhere.
 
 6. Add the reference agent.
-   Copy agents/tide/tide.md from the repo into .claude/agents/. It is a BNB/USDT spot
-   workflow that reads live market data and one external input, forms a thesis, and
-   proposes an order. Use it as written or as a template.
+   Open agents/tide/tide.md from the repo in Codex. It is a BNB/USDT spot workflow
+   that reads live market data and one external input, forms a thesis, and proposes
+   an order. Use it as written or as a template.
 
 7. Run it.
    Ask the agent for a view and an order. Before anything reaches Binance you get a
@@ -201,7 +202,7 @@ Screen recording only. No face, no music, no intro card. Subtitles rather than v
 
 | Time | Screen | Line |
 |---|---|---|
-| 0:00 | Binance web UI. Agentic sub-account, Account Type visible, 40 USDT balance. Then `/mcp` in Claude Code showing the OAuth connection. | "A real Binance Agentic sub-account, connected through the official Agent OS OAuth flow. Oathline has no Binance API key. It never touches the connection." |
+| 0:00 | Binance web UI. Agentic sub-account, Account Type visible, 40 USDT balance. Then `/mcp` in Codex showing the OAuth connection. | "A real Binance Agentic sub-account, connected through the official Agent OS OAuth flow. Oathline has no Binance API key. It never touches the connection." |
 | 0:10 | Tide reads the fixture. Proposes SELL $83.40 BNBUSDT. **Hold two full seconds on the ordinary-looking proposal.** | "One sentence hidden in that article changed what the agent wanted to do. Look at the proposal. It looks completely normal." |
 | 0:20 | **The ruling card. Full frame. Three seconds of silence.** | *(say nothing — let them read)* |
 | 0:26 | Cursor traces the two failed lines | "Eighty-three forty against a fifteen dollar limit. Fifty-two ten already spent today, plus eighty-three forty, against a forty dollar daily cap. Nothing was sent to Binance." |
@@ -210,7 +211,7 @@ Screen recording only. No face, no music, no intro card. Subtitles rather than v
 | 1:00 | `oathline verify` → chain valid. Edit one byte. Verify again → names the sequence. | "The receipt chain is not decorative. You can check it, and you can break it." |
 | 1:10 | Fixture 05: twelve small orders, the fourth denied on `budget.max_daily_gross_usdt` | "And it is stateful. Twelve orders, each individually legal. A per-order approval dialog cannot catch this. Oathline stops it at four." |
 | 1:20 | `LIMITS.md` scrolling | "Eight things Oathline cannot guarantee. Top of the readme, not a footnote." |
-| 1:26 | Static end card: `Policy before execution. Evidence after.` · `github.com/talk2francis/oathline` · `useoathline.xyz` | — |
+| 1:26 | Static end card: `Policy before execution. Evidence after.` · `github.com/talk2francis/oathline` · `oathline.xyz` | — |
 
 **Notes.**
 - The two-second hold at 0:10 is doing more work than any other frame. The judge has to *feel* how ordinary the bad proposal looks before the fix means anything.
@@ -256,7 +257,7 @@ Track A, Trading Workflows.
 
 Video: <youtube>
 Repo: github.com/talk2francis/oathline
-For judges: useoathline.xyz/judge
+For judges: oathline.xyz/judge
 ```
 
 **Reply, posted immediately under it:**
@@ -304,8 +305,8 @@ That first reply is not modesty. In a field where everyone is claiming instituti
 - [ ] `oathline verify` passes on `receipts/demo/`
 - [ ] Demo receipts contain a real execution with its Binance order id, and a real block
 - [ ] `oathline reconcile` output committed, coverage line present
-- [ ] `observations/claude-code/enforcement.md` records what the client actually did
-- [ ] `observations/claude-code/surface.json` committed with dates and method
+- [ ] `observations/codex/enforcement.md` records what the client actually did
+- [ ] `observations/codex/surface.json` committed with dates and method
 - [ ] `LIMITS.md`, `SECURITY.md`, `PRODUCT.md` all exist; LIMITS linked in README top third
 - [ ] README's three commands verified on a clean machine or fresh directory
 - [ ] Every number in the README traced to an artifact; unsubstantiated ones deleted
@@ -360,7 +361,7 @@ Master plan §3. Everyone else becomes the execution path and self-attests their
 It does not, and §0.2 and §0.3 of the master plan record exactly what was corrected and why. We do not claim every write is confirmed, and we do not claim Binance has no policy layer.
 
 **"Can PostToolUse actually carry usable Binance payloads?"**
-Empirical. P1 logs raw payloads before any logic is written, and `observations/claude-code/PAYLOADS.md` records the answer either way. If the shapes are unusable, the snapshot degrades to observed-fields-only and SNAPSHOT-tier clauses escalate. Ugly, honest, still shippable.
+Empirical. P1 logs raw payloads before any logic is written, and `observations/codex/PAYLOADS.md` records the answer either way. If the shapes are unusable, the snapshot degrades to observed-fields-only and SNAPSHOT-tier clauses escalate. Ugly, honest, still shippable.
 
 **"Can reconciliation read enough history?"**
 Empirical, verified in P4, with a mandatory coverage line in the output. A partial reconciliation is never presented as complete.
@@ -368,4 +369,4 @@ Empirical, verified in P4, with a mandatory coverage line in the output. A parti
 **"Would a non-technical user understand why 52.10 + 83.40 > 40.00 matters?"**
 Yes. That is why the arithmetic is the visual and not a risk score.
 
-The one I cannot pre-answer is whether Claude Code honours the deny against the Binance MCP path on your machine. That is a fact about your runtime, not an argument. P3 finds out, `observations/` records it, and the plan works either way. Bring me the result and I will adjust the copy to match it rather than the hope.
+The one I cannot pre-answer is whether Codex honours the deny against the Binance MCP path on your machine. That is a fact about your runtime, not an argument. P3 finds out, `observations/` records it, and the plan works either way. Bring me the result and I will adjust the copy to match it rather than the hope.

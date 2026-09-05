@@ -21,7 +21,7 @@ Target: Binance Agent OS Mini Hackathon, Track A, Trading Workflows. Deadline 8 
 ```
 packages/core            mandate · policy · state · canonical · decimal   ZERO deps
 packages/agentos         normalize-input · normalize-output · surface
-packages/runtime-claude  pre-tool-use · post-tool-use · state-observer
+packages/runtime-codex   pre-tool-use · post-tool-use · state-observer
 packages/receipts        chain · sign · reconcile
 packages/cli             oathline init|arm|status|verify|reconcile|report|surface|replay
 agents/tide/             the reference Agent OS workflow
@@ -49,7 +49,7 @@ A mandate that does not grant a capability does not permit it. `products = ["SPO
 All monetary and price arithmetic uses decimal strings via `packages/core/decimal`. `0.1 + 0.2 === 0.30000000000000004` inside a risk engine is not an edge case, it is a defect waiting for a demo. Any `number` type touching a USDT amount is a review failure.
 
 **L4 — Never invent a Binance tool name.**
-Tool names, input shapes, and response shapes come from `observations/claude-code/surface.json`, produced by observing the live connection. A matcher written from a guess that silently matches nothing is the most likely way this project fails quietly. An unrecognised financial tool produces `NEEDS_APPROVAL`, never a silent allow.
+Tool names, input shapes, and response shapes come from `observations/codex/surface.json`, produced by observing the live connection. A matcher written from a guess that silently matches nothing is the most likely way this project fails quietly. An unrecognised financial tool produces `NEEDS_APPROVAL`, never a silent allow.
 
 **L5 — The model never supplies state.**
 Account balances, positions, prices, and spreads come only from `PostToolUse` observation of Binance's own replies. If the agent says the balance is $412, that is text, not state. Snapshot fields never observed are `null`.

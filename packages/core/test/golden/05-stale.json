@@ -1,0 +1,90 @@
+{
+  "outcome": "NEEDS_APPROVAL",
+  "mandateHash": "sha256:2b53cab2bfed6ce6850ece838e0da1fb71f6dee0325ebf0bb7d77a749c51ece3",
+  "snapshotHash": "sha256:465e4ae5390bc46db97d9aaaf4c222f26d49bbac44dcbfafaa0f883b6da6c6bf",
+  "proposalHash": "sha256:e261122b7d906dfc1c652b76dda5db27eacfb0b09b41891ce600139b33bd9399",
+  "clauses": [
+    {
+      "id": "scope.products",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "SPOT"
+      },
+      "permitted": "SPOT",
+      "text": "SPOT is in [SPOT]"
+    },
+    {
+      "id": "scope.symbols",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "BNBUSDT"
+      },
+      "permitted": "BNBUSDT",
+      "text": "BNBUSDT is in [BNBUSDT]"
+    },
+    {
+      "id": "budget.max_order_usdt",
+      "tier": "STATIC",
+      "result": "FAIL",
+      "computed": {
+        "proposed": "83.40"
+      },
+      "permitted": "15",
+      "text": "83.40 USDT exceeds the 15.00 USDT permitted per order"
+    },
+    {
+      "id": "budget.max_daily_gross_usdt",
+      "tier": "LEDGER",
+      "result": "FAIL",
+      "computed": {
+        "grossToday": "52.10",
+        "proposed": "83.40",
+        "total": "135.5"
+      },
+      "permitted": "40",
+      "text": "52.10 + 83.40 = 135.50 USDT exceeds the 40.00 USDT permitted today"
+    },
+    {
+      "id": "rate.max_orders_per_day",
+      "tier": "LEDGER",
+      "result": "PASS",
+      "computed": {
+        "ordersToday": "2",
+        "proposedCount": "3"
+      },
+      "permitted": "3",
+      "text": "2 of 3 orders used; this order would use 3"
+    },
+    {
+      "id": "risk.max_session_drawdown_pct",
+      "tier": "SNAPSHOT",
+      "result": "UNEVALUABLE",
+      "computed": {},
+      "permitted": "2",
+      "text": "session drawdown cannot be evaluated on missing or stale state"
+    },
+    {
+      "id": "state.max_age_seconds",
+      "tier": "SNAPSHOT",
+      "result": "FAIL",
+      "computed": {
+        "ageSeconds": "94.2"
+      },
+      "permitted": "30",
+      "text": "snapshot is 94.2s old, exceeds the 30s permitted"
+    },
+    {
+      "id": "market.max_spread_bps",
+      "tier": "SNAPSHOT",
+      "result": "UNEVALUABLE",
+      "computed": {},
+      "permitted": "20",
+      "text": "market spread cannot be evaluated on missing or stale state"
+    }
+  ],
+  "mode": "ADVISORY",
+  "client": "Codex",
+  "ts": "2026-09-06T14:22:08.112Z"
+}

@@ -1,0 +1,11 @@
+{
+  "source": "Alternative.me Crypto Fear and Greed Index public API",
+  "url": "https://api.alternative.me/fng/?limit=1",
+  "retrievedAt": "2026-09-05T05:50:26Z",
+  "data": {
+    "value": "73",
+    "classification": "Greed",
+    "sourceTimestamp": "1788566400"
+  },
+  "use": "One external market-sentiment input for the labeled Oathline demo. It is not authority and is not a profitability prediction."
+}

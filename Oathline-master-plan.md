@@ -16,7 +16,7 @@ This document replaces the Ambit plan. The revision came out of a cross-review t
 
 ### 0.1 Corrected: a command hook cannot call MCP tools
 
-The Ambit plan told the `PreToolUse` hook to "gather account and market state via the READ tools." **That is not possible.** A command hook communicates over stdin, stdout, and exit codes. It cannot initiate a tool call inside the client. Claude Code does have an `mcp_tool` hook handler type, but relying on it for enforcement is wrong: it requires the server to already be connected, and a connection or tool error produces a *non-blocking* error, meaning the gate fails open. A risk control that fails open is not a risk control.
+The Ambit plan told the `PreToolUse` hook to "gather account and market state via the read tools." **That is not possible.** A command hook communicates over stdin, stdout, and exit codes. It cannot initiate a tool call inside the client. Codex does have an `mcp_tool` hook handler type, but relying on it for enforcement is wrong: it requires the server to already be connected. A risk control must not depend on a state-fetch side effect succeeding inside the enforcement hook.
 
 **The fix is better than the thing it replaces.** `PostToolUse` receives `tool_name`, the original `tool_input`, the returned `tool_response`, and `tool_use_id`. So when the agent calls a Binance **read** tool, Oathline's hook sees Binance's actual reply and updates a local, timestamped, hashed **snapshot**. The model never gets to tell us the balance. Binance tells us, and we overhear it.
 
@@ -34,7 +34,7 @@ Ambit's argument rested on Binance gating every write behind a human confirmatio
 
 Both can be true — the docs describe the default, autonomy is configurable. We do not know which applies to our connection until we look.
 
-**So we do not assert it. We observe it and record what we saw.** `observations/claude-code/` will contain the actual behaviour of our actual connection, with client version and date. That file is worth more than any claim we could make.
+**So we do not assert it. We observe it and record what we saw.** `observations/codex/` will contain the actual behaviour of our actual connection, with client version and date. That file is worth more than any claim we could make.
 
 Either way the argument holds, and is stronger for being conditional:
 
@@ -176,7 +176,7 @@ Prevention is best-effort and depends on the host runtime. Evidence is not. We s
                  OAuth · no API key · Agentic sub-account
                            │
               ┌────────────▼────────────┐
-              │      CLAUDE CODE        │
+              │         CODEX           │
               │   agent: tide           │
               └────────────┬────────────┘
                            │
@@ -248,7 +248,7 @@ Why this is the right shape:
 {
   "snapshotVersion": "1.0",
   "source": "binance-agent-os",
-  "client": "claude-code",
+  "client": "codex",
   "clientVersion": "...",
   "capturedAt": "2026-09-06T14:22:05.412Z",
   "toolUseIds": ["toolu_01ABC..."],
@@ -464,7 +464,7 @@ This is the visual centrepiece and the thing that has to be understood in three 
 
   mandate    6e148f…        snapshot   81fc02…
   proposal   90a174…        previous   3b591e…
-  mode       ENFORCED       client     Claude Code
+  mode       ENFORCED       client     Codex
 ```
 
 The line `52.10 + 83.40 = 135.50 > 40.00` is doing enormous work. Anyone, technical or not, can read that. No security dashboard, no risk score, no severity badge. Arithmetic a person can check.
@@ -534,7 +534,7 @@ oathline/
 │   │   ├── normalize-input/   Binance write tool_input → ProposedAction
 │   │   ├── normalize-output/  Binance tool_response → Snapshot / Execution
 │   │   └── surface/           observed tool surface + drift detection
-│   ├── runtime-claude/
+│   ├── runtime-codex/
 │   │   ├── pre-tool-use/
 │   │   ├── post-tool-use/
 │   │   └── state-observer/
@@ -548,7 +548,7 @@ oathline/
 ├── mandates/                  conservative · tide-bnb-evening · read-only
 ├── fixtures/redteam/
 ├── receipts/demo/             the actual demo run
-├── observations/claude-code/
+├── observations/codex/
 ├── schemas/                   json schema for mandate · snapshot · ruling · receipt
 └── site/
 ```
@@ -559,7 +559,7 @@ Node 22, TypeScript strict, pnpm workspaces. No database. No Docker. No server. 
 
 ## 11. The website
 
-`useoathline.xyz`. Static export, no backend, no analytics. Everything interactive runs client-side so a judge can verify claims without installing anything and without depending on our uptime.
+`oathline.xyz`. Static export, no backend, no analytics. Everything interactive runs client-side so a judge can verify claims without installing anything and without depending on our uptime.
 
 ### `/` — Product
 
@@ -623,7 +623,7 @@ Not in the nav. Linked from the X post and the survey.
 |---|---|
 | Uses official Agent OS | OAuth setup recording, `observations/` |
 | No Binance API key anywhere | architecture, `.env.example`, secret scan |
-| The block is real | `/replay`, `observations/claude-code/` |
+| The block is real | `/replay`, `observations/codex/` |
 | Rulings are deterministic | test vectors, determinism test |
 | A real execution happened | Binance order id in `receipts/demo/` |
 | The chain is not decorative | `/verify` |
@@ -638,7 +638,7 @@ Large heading: **What Oathline cannot guarantee.** Full §14 list.
 
 ### `/docs/install`
 
-Honest client status. **Claude Code: ENFORCED, tested on version X.** **Codex CLI: experimental, advisory until observed.** No manufactured parity.
+Honest client status. **Codex: ENFORCED only if observed on version X; otherwise ADVISORY.** **Claude Code: untested.** No manufactured parity.
 
 ---
 
@@ -670,7 +670,7 @@ Rules:
 
 ## 13. Business model
 
-**Free forever, MIT:** core, Claude adapter, CLI, mandate format, receipt schema, verifier, single-account reconciliation. Base-layer infrastructure that charges rent does not get adopted.
+**Free forever, MIT:** core, Codex adapter, CLI, mandate format, receipt schema, verifier, single-account reconciliation. Base-layer infrastructure that charges rent does not get adopted.
 
 **Oathline Control — team SaaS.** Central policy distribution, mandate version approval, fleet status across multiple Agentic sub-accounts, hosted receipt index, drift and orphan alerts, Slack and webhooks, retention, scheduled reconciliation.
 
@@ -721,7 +721,7 @@ PROOF
   Real Binance execution     receipts/demo/ · order id ...
   Real blocked proposal      receipts/demo/ · fixtures/redteam/01
   Reconciliation             MATCHED 3 · ORPHAN 0 · DIVERGED 0
-  Observed runtime behaviour observations/claude-code/
+  Observed runtime behaviour observations/codex/
   Tests                      47 passing
   Limitations                LIMITS.md
 
@@ -741,7 +741,7 @@ No reviewer, human or model, should have to infer what this is.
 
 1. Official Agent OS OAuth connection
 2. A real Agentic sub-account
-3. Claude Code `PreToolUse` enforcement, observed and documented
+3. Codex `PreToolUse` enforcement, observed and documented
 4. Deterministic mandate with eight clauses
 5. `PostToolUse` state observer feeding a hashed, timed snapshot
 6. Signed, hash-chained receipts
@@ -752,7 +752,7 @@ No reviewer, human or model, should have to infer what this is.
 
 **T1 — strongly wanted.** Site (`/`, `/replay`, `/verify`, `/judge`, `/limits`), `/mandate` builder, weekly report, full six-fixture corpus.
 
-**T2 — if comfortable.** `/surface` and drift lock, `/receipts/[id]`, Codex CLI experiment, JSON schemas published.
+**T2 — if comfortable.** `/surface` and drift lock, `/receipts/[id]`, Claude Code compatibility experiment, JSON schemas published.
 
 **Cut on sight if time tightens:** BSC anchoring, any smart contract, x402, payments, on-chain anything, futures, margin, Postgres, hosted backend, mobile, multi-agent orchestration, LLM risk scoring, news credibility classification, five-client support, npm publishing, enterprise dashboard.
 

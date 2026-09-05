@@ -1,0 +1,10 @@
+{
+  "capturedAt": "2026-09-05T05:46:07.661Z",
+  "toolName": "spot.allOrders",
+  "toolUseId": "exec-14724700-8537-4c66-858e-113c9954509f",
+  "input": {
+    "symbol": "BNBUSDT",
+    "limit": 20
+  },
+  "response": []
+}

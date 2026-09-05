@@ -1,0 +1,20 @@
+SIMULATED — OATHLINE ON — LOCAL POLICY EVALUATION ONLY
+
+  OUTSIDE MANDATE                               receipt #001
+  BTCUSDT · MARKET BUY
+
+  proposed                                          10.00 USDT
+  Binance submission                               NOT CALLED
+
+  ✓  scope.products            SPOT is in [SPOT]
+  ✕  scope.symbols             BTCUSDT is not in [BNBUSDT]
+  ✓  budget.max_order          10.00 USDT is within the 15.00 USDT permitted per order
+  ✓  budget.daily_gross        0.00 + 10.00 = 10.00 USDT is within the 40.00 USDT permitted today
+  ✓  rate.orders_today         0 of 3 orders used; this order would use 1
+  ✓  risk.session_drawdown     40.00 - 40.00 = 0.00 USDT; 0.00% is within the 2.00% permitted session drawdown
+  ✓  state.freshness           snapshot is 2.7s old, within the 30s permitted
+  ✓  market.spread             1.8 bps is within the 20.0 bps permitted
+
+  mandate    2b53ca…         snapshot   c7fae0…
+  proposal   0cab6f…         previous   none
+  mode       ADVISORY        client     Codex local replay

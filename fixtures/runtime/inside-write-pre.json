@@ -1,0 +1,13 @@
+{
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_input": {
+    "toolName": "spot.newOrder",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "side": "BUY",
+      "type": "MARKET",
+      "quoteOrderQty": 10
+    }
+  },
+  "tool_use_id": "checkpoint-stale-retry"
+}
