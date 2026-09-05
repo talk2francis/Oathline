@@ -70,6 +70,18 @@ function proposalOf(entry: ReceiptEntry | undefined): ProposedAction | null { re
 function rulingOutcome(entry: ReceiptEntry): string | null { if (typeof entry.outcome === "string") return entry.outcome; return isObject(entry.ruling) && typeof entry.ruling.outcome === "string" ? entry.ruling.outcome : null; }
 function closeEnough(left: string, right: string, tolerance = "0.00000001"): boolean { const difference = cmp(left, right) >= 0 ? sub(left, right) : sub(right, left); return cmp(difference, tolerance) <= 0; }
 
+function compareExecutionToAuthorisation(proposal: ProposedAction, execution: HistoryExecution): string[] {
+  const differences: string[] = [];
+  if (proposal.symbol !== execution.symbol) differences.push(`symbol ${execution.symbol} differs from authorised ${proposal.symbol ?? "null"}`);
+  if (proposal.side !== execution.side) differences.push(`side ${execution.side ?? "null"} differs from authorised ${proposal.side ?? "null"}`);
+  if (proposal.quantity !== null && execution.quantity !== null && cmp(execution.quantity, proposal.quantity) > 0 && !closeEnough(execution.quantity, proposal.quantity)) differences.push(`quantity ${execution.quantity} exceeds authorised ${proposal.quantity}`);
+  if (proposal.orderType === "LIMIT" && proposal.price !== null && execution.price !== null) {
+    if (proposal.side === "BUY" && cmp(execution.price, proposal.price) > 0 && !closeEnough(execution.price, proposal.price)) differences.push(`BUY fill price ${execution.price} is worse than authorised limit ${proposal.price}`);
+    if (proposal.side === "SELL" && cmp(execution.price, proposal.price) < 0 && !closeEnough(execution.price, proposal.price)) differences.push(`SELL fill price ${execution.price} is worse than authorised limit ${proposal.price}`);
+  }
+  return differences;
+}
+
 export function reconcile(captures: CapturedHistory[], entries: ReceiptEntry[], chain: ChainVerification, observedAt: string): ReconcileResult {
   const executions = executionsFromCaptures(captures); const times = captures.map((capture) => capture.capturedAt).sort();
   const eventTimes = executions.map((execution) => execution.ts).sort(); const coverageFrom = eventTimes[0] ?? times[0] ?? observedAt; const coverageTo = eventTimes[eventTimes.length - 1] ?? times[times.length - 1] ?? observedAt;
@@ -87,14 +99,7 @@ export function reconcile(captures: CapturedHistory[], entries: ReceiptEntry[], 
       if (joined) join = "time_symbol_quantity";
     }
     if (!joined || typeof joined.toolUseId !== "string") return { outcome: "ORPHAN", execution, rulingSequence: null, join: "none", differences: [], note: ORPHAN_WORDING };
-    const proposal = proposalOf(proposals.get(joined.toolUseId)); const differences: string[] = [];
-    if (!proposal) differences.push("authorisation proposal is unavailable");
-    else {
-      if (proposal.symbol !== execution.symbol) differences.push(`symbol ${execution.symbol} differs from authorised ${proposal.symbol ?? "null"}`);
-      if (proposal.side !== execution.side) differences.push(`side ${execution.side ?? "null"} differs from authorised ${proposal.side ?? "null"}`);
-      if (proposal.quantity !== null && execution.quantity !== null && !closeEnough(proposal.quantity, execution.quantity)) differences.push(`quantity ${execution.quantity} differs from authorised ${proposal.quantity}`);
-      if (proposal.price !== null && execution.price !== null && !closeEnough(proposal.price, execution.price)) differences.push(`price ${execution.price} differs from authorised ${proposal.price}; no slippage allowance was granted`);
-    }
+    const proposal = proposalOf(proposals.get(joined.toolUseId)); const differences = proposal ? compareExecutionToAuthorisation(proposal, execution) : ["authorisation proposal is unavailable"];
     return { outcome: differences.length === 0 ? "MATCHED" : "DIVERGED", execution, rulingSequence: joined.seq, join, differences, note: differences.length === 0 ? "Execution corresponds to a prior INSIDE_MANDATE authorisation." : `Execution differs materially: ${differences.join("; ")}.` };
   });
   const reconciledAuthorisations = new Set(rows.flatMap((row) => row.rulingSequence === null ? [] : [row.rulingSequence])).size;
