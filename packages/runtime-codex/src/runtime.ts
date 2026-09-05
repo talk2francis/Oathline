@@ -7,6 +7,7 @@ import { appendReceipt, deriveLedger, parseReceiptLines, verifyEntries, type Rec
 
 type RecordValue = Record<string, unknown>;
 interface Surface { tools?: Array<{ name?: string; classification?: string }> }
+interface SurfaceSets { reads: Set<string>; writes: Set<string>; unknown: Set<string>; all: Set<string> }
 const isObject = (value: unknown): value is RecordValue => typeof value === "object" && value !== null && !Array.isArray(value);
 export interface RuntimePaths { home: string; mandate: string; receipts: string; state: string; enforcement: string }
 
@@ -27,10 +28,15 @@ async function loadMandate(file: string): Promise<Mandate> {
 }
 async function atomicJson(file: string, value: unknown): Promise<void> { await mkdir(path.dirname(file), { recursive: true }); const temporary = `${file}.${process.pid}.tmp`; await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, "utf8"); await rename(temporary, file); }
 function operation(payload: { tool_input: RecordValue }): string | null { return typeof payload.tool_input.toolName === "string" ? payload.tool_input.toolName : null; }
-async function surfaceTools(repoRoot: string): Promise<{ writes: Set<string>; all: Set<string> }> {
+async function surfaceTools(repoRoot: string): Promise<SurfaceSets> {
   const surface = JSON.parse(await readFile(path.join(repoRoot, "observations/codex/surface.json"), "utf8")) as Surface;
   const named = (surface.tools ?? []).filter((tool): tool is { name: string; classification?: string } => typeof tool.name === "string");
-  return { writes: new Set(named.filter((tool) => tool.classification === "WRITE").map((tool) => tool.name)), all: new Set(named.map((tool) => tool.name)) };
+  return {
+    reads: new Set(named.filter((tool) => tool.classification === "READ").map((tool) => tool.name)),
+    writes: new Set(named.filter((tool) => tool.classification === "WRITE").map((tool) => tool.name)),
+    unknown: new Set(named.filter((tool) => tool.classification !== "READ" && tool.classification !== "WRITE").map((tool) => tool.name)),
+    all: new Set(named.map((tool) => tool.name)),
+  };
 }
 async function enforcementMode(file: string): Promise<"ENFORCED" | "ADVISORY"> { const marker = await optionalJson<RecordValue>(file); return marker?.honored === true ? "ENFORCED" : "ADVISORY"; }
 function hookDecision(decision: "allow" | "deny", reasonOrContext: string): string {
@@ -46,15 +52,19 @@ export async function preToolUse(raw: string, repoRoot: string, environment: Nod
     if (!payload) return hookDecision("deny", "Oathline could not render a ruling — order withheld");
     const toolName = operation(payload);
     if (toolName === null) return hookDecision("deny", "Oathline could not render a ruling — order withheld");
-    const surface = await surfaceTools(repoRoot); if (!surface.writes.has(toolName) && surface.all.has(toolName)) return "";
+    const surface = await surfaceTools(repoRoot);
+    if (surface.reads.has(toolName)) return "";
     const paths = runtimePaths(environment); const mandate = await loadMandate(paths.mandate); const snapshot = await optionalJson<Snapshot>(paths.state); const history = await receipts(paths.receipts);
     const args = isObject(payload.tool_input.arguments) ? payload.tool_input.arguments : {}; const symbol = typeof args.symbol === "string" ? args.symbol : null;
     const reference = symbol === null ? null : snapshot?.market[symbol]?.referencePrice ?? null;
     const normalized = normalizeWriteInput(payload.tool_input, reference);
-    const proposal = surface.all.has(toolName) ? normalized : { ...normalized, confidence: "UNKNOWN" as const };
+    // Only an explicitly audited WRITE gets an EXACT/DERIVED proposal. A catalog
+    // tool classified UNKNOWN, or a tool absent from the pinned surface entirely,
+    // is intentionally demoted to UNKNOWN so the policy cannot pass it.
+    const proposal = surface.writes.has(toolName) ? normalized : { ...normalized, confidence: "UNKNOWN" as const };
     const now = new Date().toISOString(); const mode = await enforcementMode(paths.enforcement);
     const ledger = deriveLedger(history, now, mode, "Codex");
-    const proposalReceipt = await appendReceipt(paths.receipts, { ts: now, kind: "proposal", toolUseId: payload.tool_use_id, toolName, proposal, notionalUsdt: proposal.notionalUsdt });
+    const proposalReceipt = await appendReceipt(paths.receipts, { ts: now, kind: "proposal", toolUseId: payload.tool_use_id, toolName, surfaceClassification: surface.writes.has(toolName) ? "WRITE" : surface.unknown.has(toolName) ? "UNKNOWN" : surface.all.has(toolName) ? "UNEXPECTED" : "UNOBSERVED", proposal, notionalUsdt: proposal.notionalUsdt });
     const ruling = rule(mandate, snapshot, ledger, proposal); const card = renderRulingCard(ruling, proposal, { receiptSequence: proposalReceipt.seq + 1, previousHash: proposalReceipt.hash, binanceSubmission: ruling.outcome === "INSIDE_MANDATE" ? "PENDING" : "NOT CALLED" });
     await appendReceipt(paths.receipts, { ts: now, kind: "ruling", toolUseId: payload.tool_use_id, toolName, ruling, mandateHash: ruling.mandateHash, snapshotHash: ruling.snapshotHash, proposalHash: ruling.proposalHash, outcome: ruling.outcome, mode: ruling.mode, binanceSubmission: ruling.outcome === "INSIDE_MANDATE" ? "PENDING" : "NOT_CALLED" });
     return ruling.outcome === "INSIDE_MANDATE" ? hookDecision("allow", `Oathline ruling for this order. The user expects to see these figures restated in your confirmation.\n\n${card}`) : hookDecision("deny", card);
@@ -70,6 +80,13 @@ export async function postToolUse(raw: string, repoRoot: string, environment: No
   const paths = runtimePaths(environment); const surface = await surfaceTools(repoRoot); const now = new Date().toISOString();
   if (surface.writes.has(toolName)) {
     await appendReceipt(paths.receipts, { ts: now, kind: "execution", toolUseId: payload.tool_use_id, toolName, orderId: extractOrderId(payload.tool_response), isError: payload.tool_response.isError === true, toolResponse: payload.tool_response }); return;
+  }
+  if (!surface.reads.has(toolName)) {
+    const driftDirectory = path.join(repoRoot, "observations", "codex", "drift"); await mkdir(driftDirectory, { recursive: true });
+    const filename = `${now.replaceAll(":", "-")}-${payload.tool_use_id.replaceAll(/[^A-Za-z0-9_-]/g, "_")}.json`;
+    await writeFile(path.join(driftDirectory, filename), `${JSON.stringify({ observedAt: now, toolName, classification: surface.unknown.has(toolName) ? "UNKNOWN" : "UNOBSERVED", reason: "PostToolUse observed for an operation Oathline did not classify as READ or audited WRITE", payload: parsed }, null, 2)}\n`, "utf8");
+    await appendReceipt(paths.receipts, { ts: now, kind: "surface_drift", toolUseId: payload.tool_use_id, toolName, classification: surface.unknown.has(toolName) ? "UNKNOWN" : "UNOBSERVED", toolResponse: payload.tool_response });
+    return;
   }
   const previous = await optionalJson<Snapshot>(paths.state); const input = isObject(payload.tool_input.arguments) ? payload.tool_input.arguments : {};
   if (toolName === "spot.allOrders" || toolName === "spot.myTrades") {
