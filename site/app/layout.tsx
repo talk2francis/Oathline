@@ -6,6 +6,7 @@ import "@fontsource/newsreader/400.css";
 import "@fontsource/newsreader/600.css";
 import "./globals.css";
 import "./polish.css";
+import "./mandate-polish.css";
 
 export const metadata: Metadata = {
   title: { default: "Oathline — Policy before execution. Evidence after.", template: "%s · Oathline" },
