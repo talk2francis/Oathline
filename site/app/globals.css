@@ -58,7 +58,7 @@ h3 { font: 500 18px/1.25 var(--serif); }
 .ruling-title { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding: 26px 0 22px; }
 .ruling-title strong { display: block; font: 600 clamp(28px, 4vw, 43px)/1 var(--serif); letter-spacing: -.025em; text-transform: uppercase; }
 .ruling-title div span { display: block; margin-top: 8px; font: 600 10px/1 var(--mono); letter-spacing: .12em; color: #6c685f; }
-.denied-code { padding: 8px 9px 6px; color: var(--denied); border: 1px solid var(--denied); font: 700 10px/1 var(--mono); letter-spacing: .12em; }
+.denied-code { padding: 8px 9px 6px; color: var(--document-ink); border: 1px solid var(--denied); background: var(--denied); font-family: var(--mono); font-size: 19px; font-weight: 700; line-height: 1; letter-spacing: .12em; }
 .notional { padding: 15px 0; display: flex; align-items: flex-end; justify-content: space-between; border-top: 1px solid #cbc6b9; border-bottom: 1px solid #cbc6b9; font-size: 11px; color: #6c685f; }
 .notional strong { color: var(--document-ink); font: 500 27px/1 var(--mono); }
 .notional small { font-size: 10px; }
@@ -67,8 +67,8 @@ h3 { font: 500 18px/1.25 var(--serif); }
 .check-mark { font: 700 15px/1 var(--mono); }
 .check-mark.permitted { color: var(--permitted); }
 .check-mark.denied { color: var(--denied); }
-.check code { font: 600 9px/1.35 var(--mono); color: #6c685f; }
-.check p { margin: 0; font: 500 10px/1.35 var(--mono); }
+.check code { min-width: 0; color: #6c685f; font-family: var(--mono); font-size: 9px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+.check p { min-width: 0; margin: 0; font-family: var(--mono); font-size: 10px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
 .hash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 28px; padding: 17px 0; border-top: 1px solid #bdb8ac; font: 500 9px/1.4 var(--mono); color: #716d64; }
 .hash-grid code { color: var(--document-ink); }
 .document-foot { padding-top: 16px; border-top: 2px solid var(--document-ink); color: #625e56; }
@@ -91,7 +91,7 @@ h3 { font: 500 18px/1.25 var(--serif); }
 .proof-strip { display: grid; grid-template-columns: 1fr auto; gap: 40px; padding: 35px; border: 1px solid var(--line); background: var(--ink-2); }
 .proof-counts { display: grid; grid-template-columns: repeat(3, minmax(90px, 1fr)); gap: 28px; }
 .proof-counts strong { display: block; font: 400 42px/1 var(--serif); }
-.proof-counts span { font: 500 9px/1 var(--mono); color: var(--mute); text-transform: uppercase; letter-spacing: .1em; }
+.proof-counts span { font: 500 9px/1 var(--mono); color: #85858b; text-transform: uppercase; letter-spacing: .1em; }
 .proof-result { align-self: center; color: var(--permitted); font: 600 12px/1.5 var(--mono); text-align: right; }
 .steps { counter-reset: step; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
 .step { counter-increment: step; background: var(--ink-2); padding: 32px; }
@@ -105,7 +105,7 @@ h3 { font: 500 18px/1.25 var(--serif); }
 .limit-list strong { color: #e6e4dd; }
 
 .code-shell { border: 1px solid var(--line); background: #0d0d0f; overflow: hidden; }
-.code-label { padding: 11px 16px; border-bottom: 1px solid var(--line); color: var(--mute); font: 600 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.code-label { padding: 11px 16px; border-bottom: 1px solid var(--line); color: #85858b; font: 600 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
 .code-shell pre { margin: 0; padding: 24px; overflow: auto; color: #c7c6c0; font: 500 12px/1.65 var(--mono); white-space: pre-wrap; }
 .data-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); }
 .data-table th, .data-table td { padding: 17px 18px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -217,6 +217,8 @@ footer a { text-align: right; }
   .surface-list summary { grid-template-columns: 1fr 65px; }
   .surface-list summary > span:last-child { display: none; }
   .surface-detail dl { grid-template-columns: 1fr; }
+  .data-table { table-layout: fixed; }
+  .data-table th, .data-table td { padding: 12px 8px; overflow-wrap: anywhere; }
   .form-grid { grid-template-columns: 1fr; }
   .document-foot { flex-direction: column; }
   .section-heading { grid-template-columns: 34px 1fr; }

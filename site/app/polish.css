@@ -106,7 +106,7 @@ body::before {
   gap: 10px;
   flex-wrap: wrap;
   margin: -6px 0 16px;
-  color: #777269;
+  color: #6b675f;
   font: 600 8px/1 var(--mono);
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -134,7 +134,7 @@ body::before {
 }
 .proof-ribbon span {
   white-space: nowrap;
-  color: #727278;
+  color: #85858b;
   font: 600 8px/1 var(--mono);
   letter-spacing: .09em;
 }
@@ -211,7 +211,7 @@ body::before {
 }
 .accent-panel { background: linear-gradient(145deg, #171716, #111113); }
 .accent-panel::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--brass); opacity: .8; }
-.boundary-tag { position: absolute; left: 36px; bottom: 28px; color: #5f5f65; font: 600 8px/1 var(--mono); letter-spacing: .12em; }
+.boundary-tag { position: absolute; left: 36px; bottom: 28px; color: #85858b; font: 600 8px/1 var(--mono); letter-spacing: .12em; }
 
 .failure-flow { display: grid; grid-template-columns: 1fr 42px 1fr 42px 1fr; align-items: stretch; }
 .failure-flow article {
@@ -220,7 +220,7 @@ body::before {
   border: 1px solid var(--line);
   background: var(--ink-2);
 }
-.failure-flow article > span { color: #696970; font: 600 8px/1 var(--mono); letter-spacing: .11em; }
+.failure-flow article > span { color: #85858b; font: 600 8px/1 var(--mono); letter-spacing: .11em; }
 .failure-flow article strong { display: block; margin: 38px 0 14px; color: #dedcd5; font: 500 24px/1.08 var(--serif); }
 .failure-flow article p { color: #8e8e94; font-size: 13px; line-height: 1.55; }
 .failure-flow .failure-stop { border-color: rgba(212,68,74,.38); background: linear-gradient(145deg, rgba(212,68,74,.055), var(--ink-2) 46%); }
@@ -251,7 +251,7 @@ body::before {
   border: 1px solid #313136;
   background: #101012;
 }
-.sequence-order span { color: #66666c; font: 600 9px/1 var(--mono); }
+.sequence-order span { color: #85858b; font: 600 9px/1 var(--mono); }
 .sequence-order strong { font: 400 28px/1 var(--serif); }
 .sequence-order small { color: var(--permitted); font: 700 8px/1 var(--mono); letter-spacing: .1em; }
 .sequence-order.deny { border-color: rgba(212,68,74,.55); }
@@ -299,7 +299,7 @@ body::before {
     animation-timeline: view();
     animation-range: entry 6% cover 24%;
   }
-  @keyframes section-reveal { from { opacity: .25; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes section-reveal { from { transform: translateY(18px); } to { transform: translateY(0); } }
 }
 
 @media (max-width: 1080px) {
