@@ -5,14 +5,15 @@ import { GeistSans } from "geist/font/sans";
 import "@fontsource/newsreader/400.css";
 import "@fontsource/newsreader/600.css";
 import "./globals.css";
+import "./polish.css";
 
 export const metadata: Metadata = {
-  title: { default: "Oathline — Policy before execution", template: "%s · Oathline" },
-  description: "A zero-key runtime control and evidence layer for Binance Agent OS.",
+  title: { default: "Oathline — Policy before execution. Evidence after.", template: "%s · Oathline" },
+  description: "A zero-key runtime control and execution-evidence layer for Binance Agent OS.",
 };
 
 const links: ReadonlyArray<readonly [string, string]> = [
-  ["Replay", "/replay"], ["Verify", "/verify"], ["Mandate", "/mandate"],
+  ["Proof", "/judge"], ["Replay", "/replay"], ["Verify", "/verify"], ["Mandate", "/mandate"],
   ["Surface", "/surface"], ["Limits", "/limits"], ["Install", "/docs/install"],
 ];
 
