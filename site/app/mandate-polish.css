@@ -1,0 +1,11 @@
+.mandate-proof-note {
+  margin-bottom: 26px;
+  padding: 15px 16px;
+  border: 1px solid rgba(62,154,102,.24);
+  background: rgba(62,154,102,.035);
+  color: #a8aaa5;
+  font: 600 9px/1.35 var(--mono);
+  letter-spacing: .08em;
+}
+.mandate-proof-note strong { margin-left: 8px; color: #d7d8d1; }
+.mandate-proof-note small { display: block; margin: 8px 0 0 13px; color: #73737a; font: 500 9px/1.45 var(--mono); letter-spacing: 0; }
