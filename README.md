@@ -15,8 +15,9 @@ PROOF
   Real Binance execution     receipts/demo/ · order id 12534006821
   Real blocked proposal      receipts/demo/ · receipt 32 · fixtures/redteam/01
   Reconciliation             MATCHED 1 · ORPHAN 0 · DIVERGED 0
+  Observed Agent OS tools    318 · observations/codex/surface.json
   Observed runtime behaviour observations/codex/
-  Tests                      73 passing
+  Tests                      77 passing
   Limitations                LIMITS.md
 
 TRY IT
@@ -63,6 +64,29 @@ pnpm oathline arm
 ```
 
 Oathline stores no Binance API key, OAuth token, or exchange credential. Binance authentication remains inside the official Agent OS connection.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  A[Agent workflow] --> P[Proposed action]
+  B[Binance read replies] --> O[PostToolUse observer]
+  O --> S[Observed snapshot]
+  P --> G[PreToolUse gate]
+  M[Signed mandate] --> G
+  S --> G
+  L[Receipt-derived ledger] --> G
+  G -->|inside mandate| C[Official Agent OS MCP call]
+  G -->|outside or unevaluable| W[Withhold call]
+  C --> X[Binance]
+  C --> E[Execution receipt]
+  G --> R[Ruling receipt]
+  H[Observed Binance history] --> Q[Reconcile]
+  E --> Q
+  R --> Q
+```
+
+Oathline is beside the client lifecycle, not inside the Binance transport. OAuth and Binance credentials remain with the official Agent OS connection.
 
 ## Client status
 

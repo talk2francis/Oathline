@@ -16,7 +16,15 @@ export function runtimePaths(environment: NodeJS.ProcessEnv = process.env): Runt
 }
 async function optionalJson<T>(file: string): Promise<T | null> { try { return JSON.parse(await readFile(file, "utf8")) as T; } catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return null; throw error; } }
 async function receipts(file: string): Promise<ReceiptEntry[]> { try { const values = parseReceiptLines(await readFile(file, "utf8")); const checked = verifyEntries(values); if (!checked.valid) throw new Error(checked.error ?? "receipt chain invalid"); return values; } catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return []; throw error; } }
-async function loadMandate(file: string): Promise<Mandate> { const parsed = parseMandate(await readFile(file, "utf8")); if (!parsed.ok) throw new Error(parsed.error); return parsed.value; }
+async function loadMandate(file: string): Promise<Mandate> {
+  let text: string;
+  try { text = await readFile(file, "utf8"); }
+  catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") throw new Error(`mandate not found at ${file}`);
+    throw error;
+  }
+  const parsed = parseMandate(text); if (!parsed.ok) throw new Error(parsed.error); return parsed.value;
+}
 async function atomicJson(file: string, value: unknown): Promise<void> { await mkdir(path.dirname(file), { recursive: true }); const temporary = `${file}.${process.pid}.tmp`; await writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, "utf8"); await rename(temporary, file); }
 function operation(payload: { tool_input: RecordValue }): string | null { return typeof payload.tool_input.toolName === "string" ? payload.tool_input.toolName : null; }
 async function surfaceTools(repoRoot: string): Promise<{ writes: Set<string>; all: Set<string> }> {
@@ -34,8 +42,10 @@ function hookDecision(decision: "allow" | "deny", reasonOrContext: string): stri
 
 export async function preToolUse(raw: string, repoRoot: string, environment: NodeJS.ProcessEnv = process.env): Promise<string> {
   try {
-    const parsed: unknown = JSON.parse(raw); const payload = parseHookPayload(parsed); if (!payload) return "";
-    const toolName = operation(payload); if (toolName === null) return "";
+    const parsed: unknown = JSON.parse(raw); const payload = parseHookPayload(parsed);
+    if (!payload) return hookDecision("deny", "Oathline could not render a ruling — order withheld");
+    const toolName = operation(payload);
+    if (toolName === null) return hookDecision("deny", "Oathline could not render a ruling — order withheld");
     const surface = await surfaceTools(repoRoot); if (!surface.writes.has(toolName) && surface.all.has(toolName)) return "";
     const paths = runtimePaths(environment); const mandate = await loadMandate(paths.mandate); const snapshot = await optionalJson<Snapshot>(paths.state); const history = await receipts(paths.receipts);
     const args = isObject(payload.tool_input.arguments) ? payload.tool_input.arguments : {}; const symbol = typeof args.symbol === "string" ? args.symbol : null;
