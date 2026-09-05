@@ -7,6 +7,11 @@
   "engines": {
     "node": ">=22 <23"
   },
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.5.23"
+    }
+  },
   "scripts": {
     "oathline": "node packages/cli/dist/index.js",
     "check:core-deps": "node scripts/check-core-runtime-deps.mjs",
