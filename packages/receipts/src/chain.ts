@@ -44,6 +44,6 @@ export function deriveLedger(entries: ReceiptEntry[], evaluatedAt: string, mode:
     ordersToday += 1; lastOrderAt = entry.ts;
     if (typeof entry.toolUseId === "string") grossToday = add(grossToday, proposals.get(entry.toolUseId) ?? "0");
   }
-  const session = entries.find((entry) => entry.kind === "session_start" && typeof entry.sessionOpenEquityUsdt === "string");
+  const session = [...entries].reverse().find((entry) => entry.kind === "session_start" && typeof entry.sessionOpenEquityUsdt === "string");
   return { ordersToday, grossToday, lastOrderAt, sessionOpenEquityUsdt: typeof session?.sessionOpenEquityUsdt === "string" ? session.sessionOpenEquityUsdt : null, evaluatedAt, mode, client };
 }
