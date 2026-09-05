@@ -9,3 +9,23 @@
 }
 .mandate-proof-note strong { margin-left: 8px; color: #d7d8d1; }
 .mandate-proof-note small { display: block; margin: 8px 0 0 13px; color: #73737a; font: 500 9px/1.45 var(--mono); letter-spacing: 0; }
+
+.judge-proof-header {
+  margin: -26px 0 42px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid rgba(62,154,102,.24);
+  background: linear-gradient(90deg, rgba(62,154,102,.05), transparent);
+}
+.judge-proof-header strong { color: #aaa9a4; font-size: 12px; font-weight: 500; }
+.judge-steps { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+  .judge-proof-header { align-items: flex-start; flex-direction: column; }
+  .judge-steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .judge-steps { grid-template-columns: 1fr; }
+}
