@@ -12,7 +12,6 @@ order_types = []
 [budget]
 max_order_usdt = "0"
 max_daily_gross_usdt = "0"
-max_position_usdt = "0"
 
 [rate]
 max_orders_per_day = 0

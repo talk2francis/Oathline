@@ -4,7 +4,7 @@ import { canonicalJson, generateSigningKeyPair, mandateHash, parseMandate, signM
 import { mandate } from "./fixtures.js";
 
 describe("mandates and canonical serialization", () => {
-  it("parses the reference TOML", () => { const result = parseMandate(readFileSync("../../mandates/tide-bnb-evening.toml", "utf8")); expect(result.ok).toBe(true); });
+  it("parses the reference TOML without advertising an unenforced position cap", () => { const result = parseMandate(readFileSync("../../mandates/tide-bnb-evening.toml", "utf8")); expect(result.ok).toBe(true); if (result.ok) expect(result.value.budget.max_position_usdt).toBeNull(); });
   it("requires expires_at", () => { const text = readFileSync("../../mandates/tide-bnb-evening.toml", "utf8").replace(/expires_at.*\n/, ""); const result = parseMandate(text); expect(result).toEqual({ ok: false, error: "expires_at must be a string" }); });
   it("sorts canonical keys", () => expect(canonicalJson({ z: 1, a: { d: 2, b: 1 } })).toBe('{"a":{"b":1,"d":2},"z":1}'));
   it("excludes signature from mandate hash", () => { const signed = mandate(); expect(mandateHash({ ...signed, signature: null })).toBe(mandateHash(signed)); });

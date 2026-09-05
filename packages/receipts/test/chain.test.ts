@@ -21,4 +21,12 @@ describe("append-only receipt chain", () => {
     ] as ReceiptEntry[];
     expect(deriveLedger(entries, "2026-09-05T10:05:00Z", "ENFORCED", "Codex").sessionOpenEquityUsdt).toBe("120");
   });
+
+  it("does not use a session boundary later than the evaluation", () => {
+    const entries = [
+      { seq: 1, ts: "2026-09-05T08:00:00Z", kind: "session_start", prev: null, hash: "x", sessionOpenEquityUsdt: "100" },
+      { seq: 2, ts: "2026-09-05T12:00:00Z", kind: "session_start", prev: "x", hash: "y", sessionOpenEquityUsdt: "140" },
+    ] as ReceiptEntry[];
+    expect(deriveLedger(entries, "2026-09-05T10:05:00Z", "ENFORCED", "Codex").sessionOpenEquityUsdt).toBe("100");
+  });
 });

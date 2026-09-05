@@ -82,6 +82,19 @@ function compareExecutionToAuthorisation(proposal: ProposedAction, execution: Hi
   return differences;
 }
 
+function fallbackAuthorisation(execution: HistoryExecution, rulings: ReceiptEntry[], proposals: Map<string, ReceiptEntry>): ReceiptEntry | undefined {
+  if (execution.quantity === null) return undefined;
+  return rulings
+    .flatMap((entry) => {
+      const proposal = typeof entry.toolUseId === "string" ? proposalOf(proposals.get(entry.toolUseId)) : null;
+      if (!proposal || proposal.symbol !== execution.symbol || proposal.side !== execution.side || proposal.quantity === null) return [];
+      const distance = Math.abs(Date.parse(entry.ts) - Date.parse(execution.ts));
+      if (!Number.isFinite(distance) || distance > 30_000 || cmp(execution.quantity ?? "0", proposal.quantity) > 0) return [];
+      return [{ entry, distance }];
+    })
+    .sort((left, right) => left.distance - right.distance || left.entry.seq - right.entry.seq)[0]?.entry;
+}
+
 export function reconcile(captures: CapturedHistory[], entries: ReceiptEntry[], chain: ChainVerification, observedAt: string): ReconcileResult {
   const executions = executionsFromCaptures(captures); const times = captures.map((capture) => capture.capturedAt).sort();
   const eventTimes = executions.map((execution) => execution.ts).sort(); const coverageFrom = eventTimes[0] ?? times[0] ?? observedAt; const coverageTo = eventTimes[eventTimes.length - 1] ?? times[times.length - 1] ?? observedAt;
@@ -95,7 +108,7 @@ export function reconcile(captures: CapturedHistory[], entries: ReceiptEntry[], 
     if (byOrder && typeof byOrder.toolUseId === "string") { joined = rulings.find((entry) => entry.toolUseId === byOrder.toolUseId); join = "order_id"; }
     if (!joined && execution.toolUseId) { joined = rulings.find((entry) => entry.toolUseId === execution.toolUseId); if (joined) join = "tool_use_id"; }
     if (!joined) {
-      joined = rulings.find((entry) => { const candidate = typeof entry.toolUseId === "string" ? proposalOf(proposals.get(entry.toolUseId)) : null; if (!candidate || candidate.symbol !== execution.symbol || candidate.quantity === null || execution.quantity === null) return false; return Math.abs(Date.parse(entry.ts) - Date.parse(execution.ts)) <= 30_000 && closeEnough(candidate.quantity, execution.quantity); });
+      joined = fallbackAuthorisation(execution, rulings, proposals);
       if (joined) join = "time_symbol_quantity";
     }
     if (!joined || typeof joined.toolUseId !== "string") return { outcome: "ORPHAN", execution, rulingSequence: null, join: "none", differences: [], note: ORPHAN_WORDING };

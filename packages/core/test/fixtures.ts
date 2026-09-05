@@ -5,7 +5,7 @@ const PRIVATE_KEY = "MC4CAQAwBQYDK2VwBCIEIGnOuJmuuDOF4DZ44gxXfHznoforG8kuU6Y8l76
 const baseMandate: Mandate = {
   meta: { name: "tide-bnb-evening", expires_at: "2026-09-08T22:00:00Z", timezone: "Africa/Lagos" },
   scope: { products: ["SPOT"], symbols: ["BNBUSDT"], sides: ["BUY", "SELL"], order_types: ["MARKET", "LIMIT"] },
-  budget: { max_order_usdt: "15", max_daily_gross_usdt: "40", max_position_usdt: "50" },
+  budget: { max_order_usdt: "15", max_daily_gross_usdt: "40", max_position_usdt: null },
   rate: { max_orders_per_day: 3, cooldown_seconds: 300 }, risk: { max_session_drawdown_pct: "2" },
   market: { max_spread_bps: "20" }, state: { max_age_seconds: 30 },
   escalation: { stale_state: "ASK", unknown_tool: "ASK", hard_violation: "DENY" }, signature: null,

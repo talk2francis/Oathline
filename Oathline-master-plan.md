@@ -258,7 +258,7 @@ Why this is the right shape:
     "positions": {}
   },
   "market": {
-    "BNBUSDT": { "bid": "684.10", "ask": "684.31", "referencePrice": "684.20", "spreadBps": 3.1 }
+    "BNBUSDT": { "bid": "684.10", "ask": "684.31", "referencePrice": "684.20", "spreadBps": "3.1" }
   },
   "sessionOpenEquityUsdt": "441.00",
   "hash": "sha256:81fc02..."
@@ -272,13 +272,13 @@ Fields are populated only from observed replies. Anything never observed is `nul
 Every clause declares which tier it needs. This is what makes the architecture legible and what stops a coding agent from writing a clause that cannot be evaluated.
 
 **STATIC** — evaluable from the proposed tool input alone.
-`scope.products`, `scope.symbols`, `scope.sides`, `scope.order_types`, `budget.max_order_usdt`, `risk.max_leverage`
+`scope.products`, `scope.symbols`, `scope.sides`, `scope.order_types`, `budget.max_order_usdt`
 
 **LEDGER** — computed from Oathline's own prior receipts.
-`budget.max_daily_gross_usdt`, `rate.max_orders_per_day`, `rate.max_orders_per_hour`, `rate.cooldown_seconds`, `budget.max_position_usdt`
+`budget.max_daily_gross_usdt`, `rate.max_orders_per_day`, `rate.cooldown_seconds`
 
 **SNAPSHOT** — requires recent observed Binance state.
-`risk.max_session_drawdown_pct`, `market.max_spread_bps`, `risk.max_price_deviation_bps`, `budget.max_pct_equity`
+`risk.max_session_drawdown_pct`, `state.max_age_seconds`, `market.max_spread_bps`
 
 ### 5.4 The freshness rule, and why it is the best thing in the product
 
@@ -397,7 +397,6 @@ order_types = ["MARKET", "LIMIT"]
 [budget]
 max_order_usdt       = "15"
 max_daily_gross_usdt = "40"
-max_position_usdt    = "50"
 
 [rate]
 max_orders_per_day = 3
@@ -742,7 +741,7 @@ No reviewer, human or model, should have to infer what this is.
 1. Official Agent OS OAuth connection
 2. A real Agentic sub-account
 3. Codex `PreToolUse` enforcement, observed and documented
-4. Deterministic mandate with eight clauses
+4. Deterministic mandate with eleven clauses
 5. `PostToolUse` state observer feeding a hashed, timed snapshot
 6. Signed, hash-chained receipts
 7. Reconciliation against Binance account history

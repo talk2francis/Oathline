@@ -55,7 +55,7 @@ Tool names, input shapes, and response shapes come from `observations/codex/surf
 Account balances, positions, prices, and spreads come only from `PostToolUse` observation of Binance's own replies. If the agent says the balance is $412, that is text, not state. Snapshot fields never observed are `null`.
 
 **L6 — Never evaluate a SNAPSHOT-tier clause on stale state.**
-If the snapshot is older than `state.max_age_seconds`, the outcome is `NEEDS_APPROVAL` with the reason. Do not guess, do not extrapolate, do not fail open.
+If the snapshot is older than `state.max_age_seconds`, every dependent SNAPSHOT-tier clause is `UNEVALUABLE`; stale state can never produce a pass. Staleness alone makes the outcome `NEEDS_APPROVAL`. An independently provable STATIC- or LEDGER-tier hard violation remains `OUTSIDE_MANDATE` because it does not depend on the stale snapshot. Do not guess, do not extrapolate, do not fail open.
 
 **L7 — Every clause failure shows its arithmetic.**
 No bare `FAIL` anywhere in any output. A failure renders the computed values, the permitted value, and the clause id. `52.10 + 83.40 = 135.50 > 40.00 permitted today` is the standard. If you cannot show the arithmetic, the check is not deterministic and violates L1.
@@ -174,27 +174,31 @@ function rule(
 
 1. Mandate expired, malformed, or signature invalid → `OUTSIDE_MANDATE`
 2. `proposal.confidence === "UNKNOWN"` or tool not in observed surface → `NEEDS_APPROVAL`
-3. Any SNAPSHOT-tier clause needed and snapshot missing or stale → `NEEDS_APPROVAL`
-4. Any clause FAIL where `escalation.hard_violation === "DENY"` → `OUTSIDE_MANDATE`
-5. Any clause UNEVALUABLE → `NEEDS_APPROVAL`
-6. Otherwise → `INSIDE_MANDATE`
+3. Any STATIC- or LEDGER-tier clause FAIL where `escalation.hard_violation === "DENY"` → `OUTSIDE_MANDATE`
+4. Any SNAPSHOT-tier clause needed and snapshot missing or stale → `NEEDS_APPROVAL`
+5. Any remaining clause FAIL where `escalation.hard_violation === "DENY"` → `OUTSIDE_MANDATE`
+6. Any clause FAIL or UNEVALUABLE → `NEEDS_APPROVAL`
+7. Otherwise → `INSIDE_MANDATE`
 
 Every clause appears in `clauses`, including passes. The card renders all of them. Order is stable and matches registry order so cards diff cleanly.
 
-### The eight T0 clauses
+### The eleven T0 clauses
 
 | id | tier |
 |---|---|
 | `scope.products` | STATIC |
 | `scope.symbols` | STATIC |
+| `scope.sides` | STATIC |
+| `scope.order_types` | STATIC |
 | `budget.max_order_usdt` | STATIC |
 | `budget.max_daily_gross_usdt` | LEDGER |
 | `rate.max_orders_per_day` | LEDGER |
+| `rate.cooldown_seconds` | LEDGER |
 | `risk.max_session_drawdown_pct` | SNAPSHOT |
 | `state.max_age_seconds` | SNAPSHOT gate — evaluated first |
 | `market.max_spread_bps` | SNAPSHOT |
 
-Do not add a ninth until all eight have PASS and FAIL vectors and verbatim-asserted failure text.
+Do not add another clause until all eleven have PASS and FAIL vectors and verbatim-asserted failure text.
 
 ---
 

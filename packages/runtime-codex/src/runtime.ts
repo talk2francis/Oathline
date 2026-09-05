@@ -8,6 +8,8 @@ import { appendReceipt, deriveLedger, parseReceiptLines, verifyEntries, type Rec
 type RecordValue = Record<string, unknown>;
 interface Surface { tools?: Array<{ name?: string; classification?: string }> }
 interface SurfaceSets { reads: Set<string>; writes: Set<string>; unknown: Set<string>; all: Set<string> }
+const ENFORCED_CLIENT = "Codex CLI";
+const ENFORCED_CLIENT_VERSION = "0.153.3";
 const isObject = (value: unknown): value is RecordValue => typeof value === "object" && value !== null && !Array.isArray(value);
 export interface RuntimePaths { home: string; mandate: string; receipts: string; state: string; enforcement: string }
 
@@ -38,7 +40,10 @@ async function surfaceTools(repoRoot: string): Promise<SurfaceSets> {
     all: new Set(named.map((tool) => tool.name)),
   };
 }
-async function enforcementMode(file: string): Promise<"ENFORCED" | "ADVISORY"> { const marker = await optionalJson<RecordValue>(file); return marker?.honored === true ? "ENFORCED" : "ADVISORY"; }
+async function enforcementMode(file: string): Promise<"ENFORCED" | "ADVISORY"> {
+  const marker = await optionalJson<RecordValue>(file);
+  return marker?.honored === true && marker.client === ENFORCED_CLIENT && marker.clientVersion === ENFORCED_CLIENT_VERSION ? "ENFORCED" : "ADVISORY";
+}
 function hookDecision(decision: "allow" | "deny", reasonOrContext: string): string {
   if (decision === "deny") {
     return JSON.stringify({ hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "deny", permissionDecisionReason: reasonOrContext } });

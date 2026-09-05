@@ -13,7 +13,6 @@ order_types = ["MARKET", "LIMIT"]
 [budget]
 max_order_usdt       = "15"
 max_daily_gross_usdt = "40"
-max_position_usdt    = "50"
 
 [rate]
 max_orders_per_day = 3

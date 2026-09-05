@@ -56,7 +56,25 @@ const WRITE_TOOLS = new Set([
 // interpreted as READ. This catches common mutation verbs across present and
 // future Binance namespaces. False positives become UNKNOWN (review required),
 // never an execution bypass.
-const MUTATION_SEGMENT = /(?:^|[._-])(accept|amend|borrow|cancel|change|claim|close|create|delete|deposit|enable|execute|liquidat|lock|modify|new|open|place|purchase|redeem|repay|send|set|stake|subscribe|transfer|unlock|update|withdraw)(?:[A-Z._-]|$)/i;
+const MUTATION_WORDS = new Set([
+  "accept", "adjust", "amend", "borrow", "burn", "cancel", "change", "claim", "close", "create", "delete", "deposit", "disable", "edit", "enable", "execute", "exit", "keepalive", "liquidate", "liquidation", "lock", "modify", "new", "place", "purchase", "redeem", "repay", "send", "set", "stake", "start", "stop", "subscribe", "toggle", "transfer", "unlock", "update", "withdraw",
+]);
+const READ_WORDS = new Set([
+  "account", "allocations", "balance", "basis", "book", "commission", "depth", "exchange", "filters", "get", "history", "info", "information", "interest", "klines", "list", "my", "orders", "ping", "position", "price", "query", "rate", "recent", "reference", "rules", "schedule", "status", "ticker", "time", "trades",
+]);
+const OBSERVED_READ_TOOLS = new Set([
+  "spot.allOrders", "spot.depth", "spot.myTrades", "spot.ticker24hr", "wallet.queryUserWalletBalance",
+]);
+
+function operationWords(name: string): string[] {
+  const operation = name.split(".").at(-1) ?? name;
+  return operation.replace(/([a-z0-9])([A-Z])/g, "$1 $2").split(/[_\s-]+/).map((word) => word.toLowerCase()).filter(Boolean);
+}
+
+function observedAtFromFilename(file: string): string | null {
+  const match = /^(\d{4}-\d{2}-\d{2}T)(\d{2})-(\d{2})-(\d{2}\.\d{3}Z)-/.exec(file);
+  return match ? `${match[1]}${match[2]}:${match[3]}:${match[4]}` : null;
+}
 
 function isObject(value: unknown): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -94,8 +112,12 @@ function decodedToolResponse(response: JsonObject): unknown {
 
 export function classifySurfaceTool(name: string): Classification {
   if (WRITE_TOOLS.has(name)) return "WRITE";
-  if (MUTATION_SEGMENT.test(name)) return "UNKNOWN";
-  return "READ";
+  if (OBSERVED_READ_TOOLS.has(name)) return "READ";
+  const words = operationWords(name);
+  if (words[0] === "open") return "UNKNOWN";
+  if (words.some((word) => MUTATION_WORDS.has(word))) return "UNKNOWN";
+  if (words.some((word) => READ_WORDS.has(word))) return "READ";
+  return "UNKNOWN";
 }
 
 function firstLine(value: string | undefined): string {
@@ -112,14 +134,15 @@ export async function generateSurface(repoRoot: string): Promise<string> {
 
   for (const file of files) {
     const filePath = path.join(rawDir, file);
-    const observedAt = (await stat(filePath)).mtime.toISOString();
-    if (observedAt > newestObservation) newestObservation = observedAt;
+    let observedAt = observedAtFromFilename(file) ?? (await stat(filePath)).mtime.toISOString();
     let payload: unknown;
     try {
       payload = JSON.parse(await readFile(filePath, "utf8")) as unknown;
     } catch {
       continue;
     }
+    if (isObject(payload) && typeof payload.observedAt === "string" && Number.isFinite(Date.parse(payload.observedAt))) observedAt = new Date(payload.observedAt).toISOString();
+    if (observedAt > newestObservation) newestObservation = observedAt;
     if (!isObject(payload) || !isObject(payload.tool_input) || !isObject(payload.tool_response)) continue;
     const canonicalName = typeof payload.tool_name === "string" ? payload.tool_name : "";
 
@@ -137,7 +160,7 @@ export async function generateSurface(repoRoot: string): Promise<string> {
             ? `${firstLine(tool.description)} Manually classified as state-changing; catalog observation only.`
             : kind === "UNKNOWN"
               ? `${firstLine(tool.description)} Mutation-shaped name was not manually audited; withheld by default.`
-              : `${firstLine(tool.description)} No mutation-shaped operation was observed in the catalog name.`,
+              : `${firstLine(tool.description)} Name matches the conservative read classifier for the pinned catalog.`,
           observedInputShape: tool.inputSchema ?? null,
           observedResponseShape: null,
           observedAt,
@@ -196,7 +219,7 @@ export async function generateSurface(repoRoot: string): Promise<string> {
     endpoint: ENDPOINT,
     observedAt: newestObservation,
     toolCount: tools.length,
-    classificationPolicy: "explicit-write + mutation-shaped-unknown + read-default",
+    classificationPolicy: "explicit-write + observed-or-query-shaped-read + unknown-default",
     tools,
   }, null, 2)}\n`, "utf8");
   return outputPath;

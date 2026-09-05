@@ -34,6 +34,9 @@ function decimal(value: unknown): string | null { if (typeof value !== "string")
 export function normalizeReadResponse(operation: string, input: RecordValue, response: RecordValue, toolUseId: string, capturedAt: string, clientVersion: string, previous: Snapshot | null): NormalizedRead {
   const decoded = decodeToolResponse(response); const body = blank(previous, capturedAt, toolUseId, clientVersion);
   if (operation === "wallet.queryUserWalletBalance") {
+    // Binance defaults this endpoint to BTC. Only an explicit USDT quote makes
+    // the aggregate wallet balances safe to label and sum as USDT equity.
+    if (input.quoteAsset !== "USDT") return { ok: false, reason: "wallet balance cannot populate USDT equity without an explicit USDT quoteAsset" };
     if (!Array.isArray(decoded) || !decoded.every((item) => isObject(item) && typeof item.walletName === "string" && decimal(item.balance) !== null)) return { ok: false, reason: "wallet balance response did not match the observed array shape" };
     let equity = "0"; for (const item of decoded) if (isObject(item)) equity = add(equity, decimal(item.balance) ?? "0");
     body.account = { ...body.account, equityUsdt: equity };

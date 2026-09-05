@@ -1,6 +1,6 @@
 {
   "outcome": "NEEDS_APPROVAL",
-  "mandateHash": "sha256:2b53cab2bfed6ce6850ece838e0da1fb71f6dee0325ebf0bb7d77a749c51ece3",
+  "mandateHash": "sha256:2f8dba2c30aaf8c4abf564e9cdd0408b608e9379cf6bc52290a4797abd187e2b",
   "snapshotHash": "sha256:012a33513749b926965f8d723aa904e0abd87dc9b196290e0064274e23715ace",
   "proposalHash": "sha256:aec2f609c3cabc1708af6bb05137f7acb717c5b9de827911c4800a7ea937f980",
   "clauses": [
@@ -23,6 +23,26 @@
       },
       "permitted": "BNBUSDT",
       "text": "BNBUSDT is in [BNBUSDT]"
+    },
+    {
+      "id": "scope.sides",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "SELL"
+      },
+      "permitted": "BUY,SELL",
+      "text": "SELL is in [BUY, SELL]"
+    },
+    {
+      "id": "scope.order_types",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "MARKET"
+      },
+      "permitted": "MARKET,LIMIT",
+      "text": "MARKET is in [MARKET, LIMIT]"
     },
     {
       "id": "budget.max_order_usdt",
@@ -56,6 +76,16 @@
       },
       "permitted": "3",
       "text": "2 of 3 orders used; this order would use 3"
+    },
+    {
+      "id": "rate.cooldown_seconds",
+      "tier": "LEDGER",
+      "result": "PASS",
+      "computed": {
+        "lastOrderAt": "none"
+      },
+      "permitted": "300",
+      "text": "no prior successful order is recorded; 300s cooldown is available"
     },
     {
       "id": "risk.max_session_drawdown_pct",

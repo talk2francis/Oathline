@@ -45,7 +45,7 @@ That gives the product four separate jobs:
 Deterministic policy vector. This card is not presented as a Binance execution.
 
 ```text
-OUTSIDE MANDATE                               receipt #001
+OUTSIDE MANDATE                                vector #001
   BNBUSDT · MARKET SELL
 
   proposed                                          83.40 USDT
@@ -58,13 +58,13 @@ OUTSIDE MANDATE                               receipt #001
   ✕  budget.max_order_usdt       83.40 USDT exceeds the 15.00 USDT permitted per order
   ✕  budget.max_daily_gross_usdt 52.10 + 83.40 = 135.50 USDT exceeds the 40.00 USDT permitted today
   ✓  rate.max_orders_per_day     2 of 3 orders used; this order would use 3
-  ✓  rate.cooldown_seconds       no prior execution conflicts with the 300s cooldown
+  ✓  rate.cooldown_seconds       no prior successful order is recorded; 300s cooldown is available
   ✓  risk.max_session_drawdown_pct
                                  441.00 - 438.20 = 2.80 USDT; 0.63% is within 2.00%
   ✓  state.max_age_seconds       snapshot is 2.7s old, within the 30s permitted
   ✓  market.max_spread_bps       3.1 bps is within the 20.0 bps permitted
 
-  mandate    2b53ca…         snapshot   012a33…
+  mandate    2f8dba…         snapshot   012a33…
   proposal   e26112…         submission NOT CALLED
   mode       ADVISORY        client     Codex local replay
 ```
