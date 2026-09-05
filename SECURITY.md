@@ -29,7 +29,7 @@ Oathline adds continuing, deterministic conditions to authority already bounded 
 
 ## Observation hygiene
 
-The runtime raw logger stores only the hook fields needed to reproduce Agent OS observations and recursively redacts credential-, identity-, balance-, and equity-shaped scalar fields before writing repo evidence. Session ids, transcript paths, cwd, model metadata, and permission-mode metadata are not persisted by the hardened logger.
+The runtime raw logger stores only the hook fields needed to reproduce Agent OS observations and recursively redacts credential-, identity-, balance-, and equity-shaped scalar fields, including JSON embedded in text responses. The same sanitizer covers execution responses, history captures, and surface-drift evidence. Session ids, transcript paths, cwd, model metadata, and permission-mode metadata are not persisted by the hardened logger.
 
 Historical observation files created before that redaction change must be treated as private until a repository-history privacy and secret scan has passed. Before making the repository public, run a secret scanner against **the complete Git history**, manually inspect account-history observations, and remove or rewrite any private evidence rather than relying on a later file deletion.
 

@@ -3,9 +3,10 @@
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { generateSurface } from "@oathline/agentos";
 import path from "node:path";
-import { generateSigningKeyPair, parseMandate, serializeMandate, signMandate, verifyMandate, type Mandate, type Snapshot } from "@oathline/core";
-import { appendReceipt, loadHistory, parseReceiptLines, reconcile, renderReconciliation, verifyChain, type ReceiptEntry } from "@oathline/receipts";
+import { generateSigningKeyPair, parseMandate, serializeMandate, signMandate, verifyMandate } from "@oathline/core";
+import { appendReceipt, loadHistory, parseReceiptLines, reconcile, renderReconciliation, verifyChain } from "@oathline/receipts";
 import { runtimePaths } from "@oathline/runtime-codex";
+import { runDoctor } from "./doctor.js";
 
 const VERSION = "0.1.0";
 const command = process.argv[2];
@@ -15,69 +16,10 @@ async function exists(file: string): Promise<boolean> {
   catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return false; throw error; }
 }
 
-interface DoctorCheck { state: "PASS" | "WARN" | "FAIL"; name: string; detail: string }
-function doctorLine(check: DoctorCheck): string { return `${check.state.padEnd(4)}  ${check.name.padEnd(18)} ${check.detail}`; }
-
-async function doctor(): Promise<number> {
-  const checks: DoctorCheck[] = [];
-  const major = Number.parseInt(process.versions.node.split(".")[0] ?? "0", 10);
-  checks.push({ state: major === 22 ? "PASS" : "FAIL", name: "runtime", detail: `Node ${process.versions.node}; Oathline pins major 22` });
-
-  let parsedMandate: Mandate | null = null;
-  if (!(await exists(paths.mandate))) checks.push({ state: "FAIL", name: "mandate", detail: `missing at ${paths.mandate}` });
-  else {
-    const parsed = parseMandate(await readFile(paths.mandate, "utf8"));
-    if (!parsed.ok) checks.push({ state: "FAIL", name: "mandate", detail: parsed.error });
-    else {
-      parsedMandate = parsed.value;
-      const signed = verifyMandate(parsed.value); const expired = Date.now() >= Date.parse(parsed.value.meta.expires_at);
-      checks.push({ state: signed && !expired ? "PASS" : "FAIL", name: "mandate", detail: signed ? (expired ? `signature valid; EXPIRED ${parsed.value.meta.expires_at}` : `signature valid; expires ${parsed.value.meta.expires_at}`) : "signature missing or invalid" });
-    }
-  }
-
-  if (!(await exists(paths.enforcement))) checks.push({ state: "WARN", name: "enforcement", detail: "no observed host-honour marker; runtime is advisory until probed" });
-  else {
-    let marker: unknown = null; try { marker = JSON.parse(await readFile(paths.enforcement, "utf8")) as unknown; } catch { /* reported below */ }
-    const record = typeof marker === "object" && marker !== null ? marker as Record<string, unknown> : null;
-    checks.push({ state: record?.honored === true ? "PASS" : "WARN", name: "enforcement", detail: record?.honored === true ? `host denial observed${typeof record.client === "string" ? ` · ${record.client}` : ""}` : "marker exists but host denial has not been proven" });
-  }
-
-  const surfaceFile = path.resolve("observations/codex/surface.json");
-  if (!(await exists(surfaceFile))) checks.push({ state: "FAIL", name: "surface", detail: "observed Agent OS surface is missing" });
-  else {
-    try {
-      const surface = JSON.parse(await readFile(surfaceFile, "utf8")) as { toolCount?: unknown; clientVersion?: unknown; observedAt?: unknown };
-      checks.push({ state: typeof surface.toolCount === "number" && surface.toolCount > 0 ? "PASS" : "FAIL", name: "surface", detail: `${String(surface.toolCount ?? "unknown")} tools · client ${String(surface.clientVersion ?? "unknown")} · ${String(surface.observedAt ?? "unknown date")}` });
-    } catch { checks.push({ state: "FAIL", name: "surface", detail: "surface.json could not be parsed" }); }
-  }
-
-  if (!(await exists(paths.state))) checks.push({ state: "WARN", name: "state", detail: "no observed Binance state yet; snapshot clauses will not pass" });
-  else {
-    try {
-      const state = JSON.parse(await readFile(paths.state, "utf8")) as Snapshot; const ageSeconds = Math.max(0, (Date.now() - Date.parse(state.capturedAt)) / 1000);
-      const maxAge = parsedMandate?.state.max_age_seconds ?? 30; const fresh = Number.isFinite(ageSeconds) && ageSeconds <= maxAge;
-      checks.push({ state: fresh ? "PASS" : "WARN", name: "state", detail: `${ageSeconds.toFixed(1)}s old · mandate permits ${maxAge}s` });
-    } catch { checks.push({ state: "WARN", name: "state", detail: "state.json could not be parsed" }); }
-  }
-
-  const chain = await verifyChain(paths.receipts);
-  checks.push({ state: chain.valid ? "PASS" : "FAIL", name: "receipt chain", detail: chain.valid ? `${chain.entries} entries · 0 broken links` : `broken at ${chain.firstBrokenSequence}: ${chain.error ?? "unknown"}` });
-
-  let receiptEntries: ReceiptEntry[] = [];
-  try { receiptEntries = parseReceiptLines(await readFile(paths.receipts, "utf8")); } catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
-  const lastReconcile = [...receiptEntries].reverse().find((entry) => entry.kind === "reconcile");
-  if (!lastReconcile) checks.push({ state: "WARN", name: "reconciliation", detail: "no reconciliation receipt yet" });
-  else checks.push({ state: Number(lastReconcile.orphan ?? 0) === 0 && Number(lastReconcile.diverged ?? 0) === 0 ? "PASS" : "WARN", name: "reconciliation", detail: `matched ${String(lastReconcile.matched ?? "?")} · orphan ${String(lastReconcile.orphan ?? "?")} · diverged ${String(lastReconcile.diverged ?? "?")}` });
-
-  const failures = checks.filter((check) => check.state === "FAIL").length; const warnings = checks.filter((check) => check.state === "WARN").length;
-  process.stdout.write(`OATHLINE DOCTOR\n${"=".repeat(72)}\n${checks.map(doctorLine).join("\n")}\n${"=".repeat(72)}\n${failures === 0 ? "READY" : "NOT READY"} · ${failures} fail · ${warnings} warn\n`);
-  return failures === 0 ? 0 : 1;
-}
-
 try {
   if (command === "--version" || command === "-v") process.stdout.write(`${VERSION}\n`);
   else if (command === "surface") process.stdout.write(`${await generateSurface(path.resolve(process.cwd()))}\n`);
-  else if (command === "doctor") process.exitCode = await doctor();
+  else if (command === "doctor") { const result = await runDoctor(); process.stdout.write(result.output); process.exitCode = result.exitCode; }
   else if (command === "init") {
     await mkdir(paths.home, { recursive: true });
     if (!(await exists(paths.mandate))) await writeFile(paths.mandate, await readFile(path.resolve("mandates/tide-bnb-evening.toml"), "utf8"), "utf8");

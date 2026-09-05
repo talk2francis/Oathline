@@ -4,12 +4,13 @@ import path from "node:path";
 import { decodeToolResponse, normalizeReadResponse, normalizeWriteInput, extractOrderId, parseHookPayload } from "@oathline/agentos";
 import { mandateHash, parseMandate, renderRulingCard, rule, sub, verifyMandate, type Mandate, type Snapshot } from "@oathline/core";
 import { appendReceipt, deriveLedger, parseReceiptLines, verifyEntries, type ReceiptEntry } from "@oathline/receipts";
+import { sanitizeObservation } from "../sanitize.mjs";
 
 type RecordValue = Record<string, unknown>;
 interface Surface { tools?: Array<{ name?: string; classification?: string }> }
 interface SurfaceSets { reads: Set<string>; writes: Set<string>; unknown: Set<string>; all: Set<string> }
-const ENFORCED_CLIENT = "Codex CLI";
-const ENFORCED_CLIENT_VERSION = "0.153.3";
+export const ENFORCED_CLIENT = "Codex CLI";
+export const ENFORCED_CLIENT_VERSION = "0.153.3";
 const isObject = (value: unknown): value is RecordValue => typeof value === "object" && value !== null && !Array.isArray(value);
 export interface RuntimePaths { home: string; mandate: string; receipts: string; state: string; enforcement: string }
 
@@ -40,10 +41,8 @@ async function surfaceTools(repoRoot: string): Promise<SurfaceSets> {
     all: new Set(named.map((tool) => tool.name)),
   };
 }
-async function enforcementMode(file: string): Promise<"ENFORCED" | "ADVISORY"> {
-  const marker = await optionalJson<RecordValue>(file);
-  return marker?.honored === true && marker.client === ENFORCED_CLIENT && marker.clientVersion === ENFORCED_CLIENT_VERSION ? "ENFORCED" : "ADVISORY";
-}
+export function isObservedEnforcementMarker(value: unknown): boolean { return isObject(value) && value.honored === true && value.client === ENFORCED_CLIENT && value.clientVersion === ENFORCED_CLIENT_VERSION; }
+async function enforcementMode(file: string): Promise<"ENFORCED" | "ADVISORY"> { return isObservedEnforcementMarker(await optionalJson<unknown>(file)) ? "ENFORCED" : "ADVISORY"; }
 function hookDecision(decision: "allow" | "deny", reasonOrContext: string): string {
   if (decision === "deny") {
     return JSON.stringify({ hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "deny", permissionDecisionReason: reasonOrContext } });
@@ -84,26 +83,26 @@ export async function postToolUse(raw: string, repoRoot: string, environment: No
   const toolName = operation(payload); if (toolName === null) return;
   const paths = runtimePaths(environment); const surface = await surfaceTools(repoRoot); const now = new Date().toISOString();
   if (surface.writes.has(toolName)) {
-    await appendReceipt(paths.receipts, { ts: now, kind: "execution", toolUseId: payload.tool_use_id, toolName, orderId: extractOrderId(payload.tool_response), isError: payload.tool_response.isError === true, toolResponse: payload.tool_response }); return;
+    await appendReceipt(paths.receipts, { ts: now, kind: "execution", toolUseId: payload.tool_use_id, toolName, orderId: extractOrderId(payload.tool_response), isError: payload.tool_response.isError === true, toolResponse: sanitizeObservation(payload.tool_response) }); return;
   }
   if (!surface.reads.has(toolName)) {
     const driftDirectory = path.join(repoRoot, "observations", "codex", "drift"); await mkdir(driftDirectory, { recursive: true });
     const filename = `${now.replaceAll(":", "-")}-${payload.tool_use_id.replaceAll(/[^A-Za-z0-9_-]/g, "_")}.json`;
-    await writeFile(path.join(driftDirectory, filename), `${JSON.stringify({ observedAt: now, toolName, classification: surface.unknown.has(toolName) ? "UNKNOWN" : "UNOBSERVED", reason: "PostToolUse observed for an operation Oathline did not classify as READ or audited WRITE", payload: parsed }, null, 2)}\n`, "utf8");
-    await appendReceipt(paths.receipts, { ts: now, kind: "surface_drift", toolUseId: payload.tool_use_id, toolName, classification: surface.unknown.has(toolName) ? "UNKNOWN" : "UNOBSERVED", toolResponse: payload.tool_response });
+    await writeFile(path.join(driftDirectory, filename), `${JSON.stringify({ observedAt: now, toolName, classification: surface.unknown.has(toolName) ? "UNKNOWN" : "UNOBSERVED", reason: "PostToolUse observed for an operation Oathline did not classify as READ or audited WRITE", payload: sanitizeObservation(parsed) }, null, 2)}\n`, "utf8");
+    await appendReceipt(paths.receipts, { ts: now, kind: "surface_drift", toolUseId: payload.tool_use_id, toolName, classification: surface.unknown.has(toolName) ? "UNKNOWN" : "UNOBSERVED", toolResponse: sanitizeObservation(payload.tool_response) });
     return;
   }
   const previous = await optionalJson<Snapshot>(paths.state); const input = isObject(payload.tool_input.arguments) ? payload.tool_input.arguments : {};
   if (toolName === "spot.allOrders" || toolName === "spot.myTrades") {
     const historyDirectory = path.join(repoRoot, "observations", "history"); await mkdir(historyDirectory, { recursive: true });
     const filename = `${now.replaceAll(":", "-")}-${toolName.replaceAll(".", "-")}.json`;
-    await writeFile(path.join(historyDirectory, filename), `${JSON.stringify({ capturedAt: now, toolName, toolUseId: payload.tool_use_id, input, response: decodeToolResponse(payload.tool_response) }, null, 2)}\n`, "utf8");
+    await writeFile(path.join(historyDirectory, filename), `${JSON.stringify({ capturedAt: now, toolName, toolUseId: payload.tool_use_id, input: sanitizeObservation(input), response: sanitizeObservation(decodeToolResponse(payload.tool_response)) }, null, 2)}\n`, "utf8");
   }
   const result = normalizeReadResponse(toolName, input, payload.tool_response, payload.tool_use_id, now, "0.153.3", previous);
   if (!result.ok) {
     const driftDirectory = path.join(repoRoot, "observations", "codex", "drift"); await mkdir(driftDirectory, { recursive: true });
     const filename = `${now.replaceAll(":", "-")}-${payload.tool_use_id.replaceAll(/[^A-Za-z0-9_-]/g, "_")}.json`;
-    await writeFile(path.join(driftDirectory, filename), `${JSON.stringify({ observedAt: now, toolName, reason: result.reason, payload: parsed }, null, 2)}\n`, "utf8"); return;
+    await writeFile(path.join(driftDirectory, filename), `${JSON.stringify({ observedAt: now, toolName, reason: result.reason, payload: sanitizeObservation(parsed) }, null, 2)}\n`, "utf8"); return;
   }
   await atomicJson(paths.state, result.snapshot);
   await appendReceipt(paths.receipts, { ts: now, kind: "snapshot", toolUseId: payload.tool_use_id, toolName, snapshotHash: result.snapshot.hash, capturedAt: result.snapshot.capturedAt });
