@@ -1,1 +1,57 @@
-{"session_id":"01a07026-c5bb-7dc3-aaf1-5450f2d8b992","turn_id":"01a07026-c7cd-7d81-adb5-bb6b5e21be69","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T07-59-44-01a07026-c5bb-7dc3-aaf1-5450f2d8b992.jsonl","cwd":"/root/Oathline","hook_event_name":"PostToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_execute","tool_input":{"toolName":"spot.getAccount","arguments":{"omitZeroBalances":true}},"tool_response":{"content":[{"type":"text","text":"{\"makerCommission\":10,\"takerCommission\":10,\"buyerCommission\":0,\"sellerCommission\":0,\"commissionRates\":{\"maker\":\"0.00100000\",\"taker\":\"0.00100000\",\"buyer\":\"0.00000000\",\"seller\":\"0.00000000\"},\"canTrade\":true,\"canWithdraw\":true,\"canDeposit\":true,\"brokered\":false,\"requireSelfTradePrevention\":false,\"preventSor\":false,\"updateTime\":1788587610333,\"accountType\":\"SPOT\",\"balances\":[{\"asset\":\"BNB\",\"free\":\"0.00899325\",\"locked\":\"0.00000000\"},{\"asset\":\"USDT\",\"free\":\"33.49768000\",\"locked\":\"0.00000000\"}],\"permissions\":[\"TRD_GRP_068\"],\"uid\":1273695152}"}],"structuredContent":{"makerCommission":10,"takerCommission":10,"buyerCommission":0,"sellerCommission":0,"commissionRates":{"maker":"0.00100000","taker":"0.00100000","buyer":"0.00000000","seller":"0.00000000"},"canTrade":true,"canWithdraw":true,"canDeposit":true,"brokered":false,"requireSelfTradePrevention":false,"preventSor":false,"updateTime":1788587610333,"accountType":"SPOT","balances":[{"asset":"BNB","free":"0.00899325","locked":"0.00000000"},{"asset":"USDT","free":"33.49768000","locked":"0.00000000"}],"permissions":["TRD_GRP_068"],"uid":1273695152},"isError":false},"tool_use_id":"exec-35188abc-01a1-4b15-aeef-1458af51183e"}
+{
+  "observedAt": "2026-09-05T06:00:26.773Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-35188abc-01a1-4b15-aeef-1458af51183e",
+  "tool_input": {
+    "toolName": "spot.getAccount",
+    "arguments": {
+      "omitZeroBalances": "[REDACTED]"
+    }
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"makerCommission\":10,\"takerCommission\":10,\"buyerCommission\":0,\"sellerCommission\":0,\"commissionRates\":{\"maker\":\"0.00100000\",\"taker\":\"0.00100000\",\"buyer\":\"0.00000000\",\"seller\":\"0.00000000\"},\"canTrade\":true,\"canWithdraw\":true,\"canDeposit\":true,\"brokered\":false,\"requireSelfTradePrevention\":false,\"preventSor\":false,\"updateTime\":1788587610333,\"accountType\":\"SPOT\",\"balances\":[{\"asset\":\"[REDACTED]\",\"free\":\"[REDACTED]\",\"locked\":\"[REDACTED]\"},{\"asset\":\"[REDACTED]\",\"free\":\"[REDACTED]\",\"locked\":\"[REDACTED]\"}],\"permissions\":[\"TRD_GRP_068\"],\"uid\":\"[REDACTED]\"}"
+      }
+    ],
+    "structuredContent": {
+      "makerCommission": 10,
+      "takerCommission": 10,
+      "buyerCommission": 0,
+      "sellerCommission": 0,
+      "commissionRates": {
+        "maker": "0.00100000",
+        "taker": "0.00100000",
+        "buyer": "0.00000000",
+        "seller": "0.00000000"
+      },
+      "canTrade": true,
+      "canWithdraw": true,
+      "canDeposit": true,
+      "brokered": false,
+      "requireSelfTradePrevention": false,
+      "preventSor": false,
+      "updateTime": 1788587610333,
+      "accountType": "SPOT",
+      "balances": [
+        {
+          "asset": "[REDACTED]",
+          "free": "[REDACTED]",
+          "locked": "[REDACTED]"
+        },
+        {
+          "asset": "[REDACTED]",
+          "free": "[REDACTED]",
+          "locked": "[REDACTED]"
+        }
+      ],
+      "permissions": [
+        "TRD_GRP_068"
+      ],
+      "uid": "[REDACTED]"
+    },
+    "isError": false
+  }
+}

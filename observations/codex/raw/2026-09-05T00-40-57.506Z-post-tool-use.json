@@ -1,1 +1,515 @@
-{"session_id":"01a06f01-a2ac-7e72-a2f4-578a9268c6b2","turn_id":"01a06f01-a448-7861-a08e-8cc3759506ba","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T02-39-33-01a06f01-a2ac-7e72-a2f4-578a9268c6b2.jsonl","cwd":"/root/Oathline","hook_event_name":"PostToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"market-data","cursor":"ZnV0dXJlc191c2RzLnF1ZXJ5SW5kZXhQcmljZUNvbnN0aXR1ZW50cw"},"tool_response":{"content":[{"type":"text","text":"{\"tools\":[{\"name\":\"futures_usds.queryInsuranceFundBalanceSnapshot\",\"description\":\"Query Insurance Fund Balance Snapshot\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BNBUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.recentTradesList\",\"description\":\"Recent Trades List\\nGet recent market trades\\n\\nNotes:\\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":50}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.rpiOrderBook\",\"description\":\"RPI Order Book\\nQuery symbol orderbook with RPI orders\\n\\nRPI(Retail Price Improvement) orders are included and aggreated in the\\nresponse message. Crossed price levels are hidden and invisible.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"limit\":{\"type\":\"integer\",\"description\":\"Valid limits:[1000]\",\"format\":\"int64\",\"example\":1000}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.symbolOrderBookTicker\",\"description\":\"Symbol Order Book Ticker\\nBest price/qty on the order book for a symbol or symbols.\\n\\nRetail Price Improvement(RPI) orders are not visible and excluded in the\\nresponse message.\\n\\nNotes:\\n- If the symbol is not sent, bookTickers for all symbols will be returned in an array.\\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.symbolPriceTicker\",\"description\":\"Symbol Price Ticker\\nLatest price for a symbol or symbols.\\n\\nNotes:\\n- If the symbol is not sent, prices for all symbols will be returned in an array.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.symbolPriceTickerV2\",\"description\":\"Symbol Price Ticker V2\\nLatest price for a symbol or symbols.\\n\\nNotes:\\n- If the symbol is not sent, prices for all symbols will be returned in an array.\\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.takerBuySellVolume\",\"description\":\"Taker Buy/Sell Volume\\nTaker Buy/Sell Volume\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.testConnectivity\",\"description\":\"Test Connectivity\\nTest connectivity to the Rest API.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.ticker24hrPriceChangeStatistics\",\"description\":\"24hr Ticker Price Change Statistics\\n24 hour rolling window price change statistics.\\n**Careful** when accessing this with no symbol.\\n\\nNotes:\\n- If the symbol is not sent, tickers for all symbols will be returned in an array.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.topTraderLongShortRatioAccounts\",\"description\":\"Top Trader Long/Short Account Ratio (MARKET_DATA)\\nThe proportion of net long and net short accounts to total accounts of\\nthe top 20% users with the highest margin balance. Each account is\\ncounted once only.\\n\\nLong Account % = Accounts of top traders with net long positions / Total\\naccounts of top traders with open positions\\n\\nShort Account % = Accounts of top traders with net short positions /\\nTotal accounts of top traders with open positions\\n\\nLong/Short Ratio (Accounts) = Long Account % / Short Account %\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.topTraderLongShortRatioPositions\",\"description\":\"Top Trader Long/Short Position Ratio (MARKET_DATA)\\nThe proportion of net long and net short positions to total open\\npositions of the top 20% users with the highest margin balance.\\n\\nLong Position % = Long positions of top traders / Total open positions\\nof top traders\\n\\nShort Position % = Short positions of top traders / Total open positions\\nof top traders\\n\\nLong/Short Ratio (Positions) = Long Position % / Short Position %\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.tradingSchedule\",\"description\":\"Trading Schedule\\nTrading session schedules for the underlying assets of TradFi Perps are provided for a one-week period forward and one-week period backward starting from the day prior to the query time, covering the U.S. equity market, Korean equity market, Hong Kong equity market, and the commodity market.\\n\\nSession types per market:\\n- U.S. equity market: \\\"PRE_MARKET\\\", \\\"REGULAR\\\", \\\"AFTER_MARKET\\\", \\\"OVERNIGHT\\\", \\\"NO_TRADING\\\".\\n- Commodity market: \\\"REGULAR\\\", \\\"NO_TRADING\\\".\\n- Korean equity market: \\\"REGULAR\\\", \\\"NO_TRADING\\\".\\n- Hong Kong equity market: \\\"REGULAR\\\", \\\"NO_TRADING\\\".\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.crossMarginCollateralRatio\",\"description\":\"Cross margin collateral ratio (MARKET_DATA)\\nCross margin collateral ratio\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getAllCrossMarginPairs\",\"description\":\"Get All Cross Margin Pairs (MARKET_DATA)\\nGet All Cross Margin Pairs\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBBTC\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getAllIsolatedMarginSymbol\",\"description\":\"Get All Isolated Margin Symbol (MARKET_DATA)\\nGet All Isolated Margin Symbol\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBBTC\"},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getAllMarginAssets\",\"description\":\"Get All Margin Assets (MARKET_DATA)\\nGet All Margin Assets.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"asset\":{\"type\":\"string\",\"example\":\"USDC\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getDelistSchedule\",\"description\":\"Get Delist Schedule (MARKET_DATA)\\nGet tokens or symbols delist schedule for cross margin and isolated margin\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getLimitPricePairs\",\"description\":\"Get Limit Price Pairs (MARKET_DATA)\\nQuery trading pairs with restriction on limit price range.\\n\\nIn margin trading, you can place orders with limit price. Limit price\\nshould be within (-15%, 15%) of current index price for a list of margin\\ntrading pairs. This rule only impacts limit sell orders with limit price\\nthat is lower than current index price and limit buy orders with limit\\nprice that is higher than current index price.\\n\\n- Buy order: Your order will be rejected with an error message\\nnotification if the limit price is 15% above the index price.\\n\\n- Sell order: Your order will be rejected with an error message\\nnotification if the limit price is 15% below the index price.\\n\\nPlease review the limit price order placing strategy, backtest and\\ncalibrate the planned order size with the trading volume and order book\\ndepth to prevent trading loss.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getListSchedule\",\"description\":\"Get list Schedule (MARKET_DATA)\\nGet the upcoming tokens or symbols listing schedule for Cross Margin and Isolated Margin.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getMarginAssetRiskBasedLiquidationRatio\",\"description\":\"Get Margin Asset Risk-Based Liquidation Ratio (MARKET_DATA)\\nGet Margin Asset Risk-Based Liquidation Ratio\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getMarginRestrictedAssets\",\"description\":\"Get Margin Restricted Assets (MARKET_DATA)\\nGet the list of margin-restricted assets.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.queryIsolatedMarginTierData\",\"description\":\"Query Isolated Margin Tier Data (USER_DATA)\\nGet isolated margin tier data collection with any tier as https://www.binance.com/en/margin-data\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"tier\":{\"type\":\"integer\",\"description\":\"All margin tier data will be returned if tier is omitted\",\"format\":\"int64\",\"example\":1},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"margin.queryLiabilityCoinLeverageBracketInCrossMarginProMode\",\"description\":\"Query Liability Coin Leverage Bracket in Cross Margin Pro Mode (MARKET_DATA)\\nLiability Coin Leverage Bracket in Cross Margin Pro Mode\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.queryMarginAvailableInventory\",\"description\":\"Query Margin Available Inventory (USER_DATA)\\nMargin available Inventory query\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\",\"enum\":[\"MARGIN\",\"ISOLATED\"],\"example\":\"MARGIN\"}},\"required\":[\"type\"],\"additionalProperties\":false}},{\"name\":\"margin.queryMarginPriceindex\",\"description\":\"Query Margin PriceIndex (MARKET_DATA)\\nQuery Margin PriceIndex\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBBTC\"}},\"required\":[\"symbol\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"}],"structuredContent":{"tools":[{"name":"futures_usds.queryInsuranceFundBalanceSnapshot","description":"Query Insurance Fund Balance Snapshot","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","description":"Symbol","example":"BNBUSDT"}},"required":[],"additionalProperties":false}},{"name":"futures_usds.recentTradesList","description":"Recent Trades List\nGet recent market trades\n\nNotes:\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"},"limit":{"type":"integer","format":"int64","maximum":1000,"example":50}},"required":["symbol"],"additionalProperties":false}},{"name":"futures_usds.rpiOrderBook","description":"RPI Order Book\nQuery symbol orderbook with RPI orders\n\nRPI(Retail Price Improvement) orders are included and aggreated in the\nresponse message. Crossed price levels are hidden and invisible.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"},"limit":{"type":"integer","description":"Valid limits:[1000]","format":"int64","example":1000}},"required":["symbol"],"additionalProperties":false}},{"name":"futures_usds.symbolOrderBookTicker","description":"Symbol Order Book Ticker\nBest price/qty on the order book for a symbol or symbols.\n\nRetail Price Improvement(RPI) orders are not visible and excluded in the\nresponse message.\n\nNotes:\n- If the symbol is not sent, bookTickers for all symbols will be returned in an array.\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"}},"required":[],"additionalProperties":false}},{"name":"futures_usds.symbolPriceTicker","description":"Symbol Price Ticker\nLatest price for a symbol or symbols.\n\nNotes:\n- If the symbol is not sent, prices for all symbols will be returned in an array.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"}},"required":[],"additionalProperties":false}},{"name":"futures_usds.symbolPriceTickerV2","description":"Symbol Price Ticker V2\nLatest price for a symbol or symbols.\n\nNotes:\n- If the symbol is not sent, prices for all symbols will be returned in an array.\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"}},"required":[],"additionalProperties":false}},{"name":"futures_usds.takerBuySellVolume","description":"Taker Buy/Sell Volume\nTaker Buy/Sell Volume\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"},"period":{"type":"string","enum":["5m","15m","30m","1h","2h","4h","6h","12h","1d"],"example":"PERIOD_5m"},"limit":{"type":"integer","format":"int64","maximum":500,"example":50},"startTime":{"type":"integer","format":"int64","example":1623319461670},"endTime":{"type":"integer","format":"int64","example":1641782889000}},"required":["symbol","period"],"additionalProperties":false}},{"name":"futures_usds.testConnectivity","description":"Test Connectivity\nTest connectivity to the Rest API.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"futures_usds.ticker24hrPriceChangeStatistics","description":"24hr Ticker Price Change Statistics\n24 hour rolling window price change statistics.\n**Careful** when accessing this with no symbol.\n\nNotes:\n- If the symbol is not sent, tickers for all symbols will be returned in an array.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"}},"required":[],"additionalProperties":false}},{"name":"futures_usds.topTraderLongShortRatioAccounts","description":"Top Trader Long/Short Account Ratio (MARKET_DATA)\nThe proportion of net long and net short accounts to total accounts of\nthe top 20% users with the highest margin balance. Each account is\ncounted once only.\n\nLong Account % = Accounts of top traders with net long positions / Total\naccounts of top traders with open positions\n\nShort Account % = Accounts of top traders with net short positions /\nTotal accounts of top traders with open positions\n\nLong/Short Ratio (Accounts) = Long Account % / Short Account %\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"},"period":{"type":"string","enum":["5m","15m","30m","1h","2h","4h","6h","12h","1d"],"example":"PERIOD_5m"},"limit":{"type":"integer","format":"int64","maximum":500,"example":50},"startTime":{"type":"integer","format":"int64","example":1623319461670},"endTime":{"type":"integer","format":"int64","example":1641782889000}},"required":["symbol","period"],"additionalProperties":false}},{"name":"futures_usds.topTraderLongShortRatioPositions","description":"Top Trader Long/Short Position Ratio (MARKET_DATA)\nThe proportion of net long and net short positions to total open\npositions of the top 20% users with the highest margin balance.\n\nLong Position % = Long positions of top traders / Total open positions\nof top traders\n\nShort Position % = Short positions of top traders / Total open positions\nof top traders\n\nLong/Short Ratio (Positions) = Long Position % / Short Position %\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"},"period":{"type":"string","enum":["5m","15m","30m","1h","2h","4h","6h","12h","1d"],"example":"PERIOD_5m"},"limit":{"type":"integer","format":"int64","maximum":500,"example":50},"startTime":{"type":"integer","format":"int64","example":1623319461670},"endTime":{"type":"integer","format":"int64","example":1641782889000}},"required":["symbol","period"],"additionalProperties":false}},{"name":"futures_usds.tradingSchedule","description":"Trading Schedule\nTrading session schedules for the underlying assets of TradFi Perps are provided for a one-week period forward and one-week period backward starting from the day prior to the query time, covering the U.S. equity market, Korean equity market, Hong Kong equity market, and the commodity market.\n\nSession types per market:\n- U.S. equity market: \"PRE_MARKET\", \"REGULAR\", \"AFTER_MARKET\", \"OVERNIGHT\", \"NO_TRADING\".\n- Commodity market: \"REGULAR\", \"NO_TRADING\".\n- Korean equity market: \"REGULAR\", \"NO_TRADING\".\n- Hong Kong equity market: \"REGULAR\", \"NO_TRADING\".","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"margin.crossMarginCollateralRatio","description":"Cross margin collateral ratio (MARKET_DATA)\nCross margin collateral ratio","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"margin.getAllCrossMarginPairs","description":"Get All Cross Margin Pairs (MARKET_DATA)\nGet All Cross Margin Pairs","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBBTC"}},"required":[],"additionalProperties":false}},{"name":"margin.getAllIsolatedMarginSymbol","description":"Get All Isolated Margin Symbol (MARKET_DATA)\nGet All Isolated Margin Symbol","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBBTC"},"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":[],"additionalProperties":false}},{"name":"margin.getAllMarginAssets","description":"Get All Margin Assets (MARKET_DATA)\nGet All Margin Assets.","inputSchema":{"type":"object","properties":{"asset":{"type":"string","example":"USDC"}},"required":[],"additionalProperties":false}},{"name":"margin.getDelistSchedule","description":"Get Delist Schedule (MARKET_DATA)\nGet tokens or symbols delist schedule for cross margin and isolated margin","inputSchema":{"type":"object","properties":{"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":[],"additionalProperties":false}},{"name":"margin.getLimitPricePairs","description":"Get Limit Price Pairs (MARKET_DATA)\nQuery trading pairs with restriction on limit price range.\n\nIn margin trading, you can place orders with limit price. Limit price\nshould be within (-15%, 15%) of current index price for a list of margin\ntrading pairs. This rule only impacts limit sell orders with limit price\nthat is lower than current index price and limit buy orders with limit\nprice that is higher than current index price.\n\n- Buy order: Your order will be rejected with an error message\nnotification if the limit price is 15% above the index price.\n\n- Sell order: Your order will be rejected with an error message\nnotification if the limit price is 15% below the index price.\n\nPlease review the limit price order placing strategy, backtest and\ncalibrate the planned order size with the trading volume and order book\ndepth to prevent trading loss.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"margin.getListSchedule","description":"Get list Schedule (MARKET_DATA)\nGet the upcoming tokens or symbols listing schedule for Cross Margin and Isolated Margin.","inputSchema":{"type":"object","properties":{"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":[],"additionalProperties":false}},{"name":"margin.getMarginAssetRiskBasedLiquidationRatio","description":"Get Margin Asset Risk-Based Liquidation Ratio (MARKET_DATA)\nGet Margin Asset Risk-Based Liquidation Ratio","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"margin.getMarginRestrictedAssets","description":"Get Margin Restricted Assets (MARKET_DATA)\nGet the list of margin-restricted assets.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"margin.queryIsolatedMarginTierData","description":"Query Isolated Margin Tier Data (USER_DATA)\nGet isolated margin tier data collection with any tier as https://www.binance.com/en/margin-data","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BTCUSDT"},"tier":{"type":"integer","description":"All margin tier data will be returned if tier is omitted","format":"int64","example":1},"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":["symbol"],"additionalProperties":false}},{"name":"margin.queryLiabilityCoinLeverageBracketInCrossMarginProMode","description":"Query Liability Coin Leverage Bracket in Cross Margin Pro Mode (MARKET_DATA)\nLiability Coin Leverage Bracket in Cross Margin Pro Mode","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"margin.queryMarginAvailableInventory","description":"Query Margin Available Inventory (USER_DATA)\nMargin available Inventory query","inputSchema":{"type":"object","properties":{"type":{"type":"string","enum":["MARGIN","ISOLATED"],"example":"MARGIN"}},"required":["type"],"additionalProperties":false}},{"name":"margin.queryMarginPriceindex","description":"Query Margin PriceIndex (MARKET_DATA)\nQuery Margin PriceIndex","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBBTC"}},"required":["symbol"],"additionalProperties":false}}],"nextStep":"Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."},"isError":false},"tool_use_id":"exec-40556cbe-edab-46ad-a0df-7238429b0516"}
+{
+  "observedAt": "2026-09-05T00:40:57.506Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-40556cbe-edab-46ad-a0df-7238429b0516",
+  "tool_input": {
+    "category": "market-data",
+    "cursor": "ZnV0dXJlc191c2RzLnF1ZXJ5SW5kZXhQcmljZUNvbnN0aXR1ZW50cw"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"futures_usds.queryInsuranceFundBalanceSnapshot\",\"description\":\"Query Insurance Fund Balance Snapshot\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BNBUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.recentTradesList\",\"description\":\"Recent Trades List\\nGet recent market trades\\n\\nNotes:\\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":50}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.rpiOrderBook\",\"description\":\"RPI Order Book\\nQuery symbol orderbook with RPI orders\\n\\nRPI(Retail Price Improvement) orders are included and aggreated in the\\nresponse message. Crossed price levels are hidden and invisible.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"limit\":{\"type\":\"integer\",\"description\":\"Valid limits:[1000]\",\"format\":\"int64\",\"example\":1000}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.symbolOrderBookTicker\",\"description\":\"Symbol Order Book Ticker\\nBest price/qty on the order book for a symbol or symbols.\\n\\nRetail Price Improvement(RPI) orders are not visible and excluded in the\\nresponse message.\\n\\nNotes:\\n- If the symbol is not sent, bookTickers for all symbols will be returned in an array.\\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.symbolPriceTicker\",\"description\":\"Symbol Price Ticker\\nLatest price for a symbol or symbols.\\n\\nNotes:\\n- If the symbol is not sent, prices for all symbols will be returned in an array.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.symbolPriceTickerV2\",\"description\":\"Symbol Price Ticker V2\\nLatest price for a symbol or symbols.\\n\\nNotes:\\n- If the symbol is not sent, prices for all symbols will be returned in an array.\\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.takerBuySellVolume\",\"description\":\"Taker Buy/Sell Volume\\nTaker Buy/Sell Volume\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.testConnectivity\",\"description\":\"Test Connectivity\\nTest connectivity to the Rest API.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.ticker24hrPriceChangeStatistics\",\"description\":\"24hr Ticker Price Change Statistics\\n24 hour rolling window price change statistics.\\n**Careful** when accessing this with no symbol.\\n\\nNotes:\\n- If the symbol is not sent, tickers for all symbols will be returned in an array.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.topTraderLongShortRatioAccounts\",\"description\":\"Top Trader Long/Short Account Ratio (MARKET_DATA)\\nThe proportion of net long and net short accounts to total accounts of\\nthe top 20% users with the highest margin balance. Each account is\\ncounted once only.\\n\\nLong Account % = Accounts of top traders with net long positions / Total\\naccounts of top traders with open positions\\n\\nShort Account % = Accounts of top traders with net short positions /\\nTotal accounts of top traders with open positions\\n\\nLong/Short Ratio (Accounts) = Long Account % / Short Account %\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.topTraderLongShortRatioPositions\",\"description\":\"Top Trader Long/Short Position Ratio (MARKET_DATA)\\nThe proportion of net long and net short positions to total open\\npositions of the top 20% users with the highest margin balance.\\n\\nLong Position % = Long positions of top traders / Total open positions\\nof top traders\\n\\nShort Position % = Short positions of top traders / Total open positions\\nof top traders\\n\\nLong/Short Ratio (Positions) = Long Position % / Short Position %\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.tradingSchedule\",\"description\":\"Trading Schedule\\nTrading session schedules for the underlying assets of TradFi Perps are provided for a one-week period forward and one-week period backward starting from the day prior to the query time, covering the U.S. equity market, Korean equity market, Hong Kong equity market, and the commodity market.\\n\\nSession types per market:\\n- U.S. equity market: \\\"PRE_MARKET\\\", \\\"REGULAR\\\", \\\"AFTER_MARKET\\\", \\\"OVERNIGHT\\\", \\\"NO_TRADING\\\".\\n- Commodity market: \\\"REGULAR\\\", \\\"NO_TRADING\\\".\\n- Korean equity market: \\\"REGULAR\\\", \\\"NO_TRADING\\\".\\n- Hong Kong equity market: \\\"REGULAR\\\", \\\"NO_TRADING\\\".\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.crossMarginCollateralRatio\",\"description\":\"Cross margin collateral ratio (MARKET_DATA)\\nCross margin collateral ratio\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getAllCrossMarginPairs\",\"description\":\"Get All Cross Margin Pairs (MARKET_DATA)\\nGet All Cross Margin Pairs\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBBTC\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getAllIsolatedMarginSymbol\",\"description\":\"Get All Isolated Margin Symbol (MARKET_DATA)\\nGet All Isolated Margin Symbol\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBBTC\"},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getAllMarginAssets\",\"description\":\"Get All Margin Assets (MARKET_DATA)\\nGet All Margin Assets.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"asset\":{\"type\":\"string\",\"example\":\"USDC\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getDelistSchedule\",\"description\":\"Get Delist Schedule (MARKET_DATA)\\nGet tokens or symbols delist schedule for cross margin and isolated margin\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getLimitPricePairs\",\"description\":\"Get Limit Price Pairs (MARKET_DATA)\\nQuery trading pairs with restriction on limit price range.\\n\\nIn margin trading, you can place orders with limit price. Limit price\\nshould be within (-15%, 15%) of current index price for a list of margin\\ntrading pairs. This rule only impacts limit sell orders with limit price\\nthat is lower than current index price and limit buy orders with limit\\nprice that is higher than current index price.\\n\\n- Buy order: Your order will be rejected with an error message\\nnotification if the limit price is 15% above the index price.\\n\\n- Sell order: Your order will be rejected with an error message\\nnotification if the limit price is 15% below the index price.\\n\\nPlease review the limit price order placing strategy, backtest and\\ncalibrate the planned order size with the trading volume and order book\\ndepth to prevent trading loss.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getListSchedule\",\"description\":\"Get list Schedule (MARKET_DATA)\\nGet the upcoming tokens or symbols listing schedule for Cross Margin and Isolated Margin.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getMarginAssetRiskBasedLiquidationRatio\",\"description\":\"Get Margin Asset Risk-Based Liquidation Ratio (MARKET_DATA)\\nGet Margin Asset Risk-Based Liquidation Ratio\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.getMarginRestrictedAssets\",\"description\":\"Get Margin Restricted Assets (MARKET_DATA)\\nGet the list of margin-restricted assets.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.queryIsolatedMarginTierData\",\"description\":\"Query Isolated Margin Tier Data (USER_DATA)\\nGet isolated margin tier data collection with any tier as https://www.binance.com/en/margin-data\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"tier\":{\"type\":\"integer\",\"description\":\"All margin tier data will be returned if tier is omitted\",\"format\":\"int64\",\"example\":1},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"margin.queryLiabilityCoinLeverageBracketInCrossMarginProMode\",\"description\":\"Query Liability Coin Leverage Bracket in Cross Margin Pro Mode (MARKET_DATA)\\nLiability Coin Leverage Bracket in Cross Margin Pro Mode\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.queryMarginAvailableInventory\",\"description\":\"Query Margin Available Inventory (USER_DATA)\\nMargin available Inventory query\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\",\"enum\":[\"MARGIN\",\"ISOLATED\"],\"example\":\"MARGIN\"}},\"required\":[\"type\"],\"additionalProperties\":false}},{\"name\":\"margin.queryMarginPriceindex\",\"description\":\"Query Margin PriceIndex (MARKET_DATA)\\nQuery Margin PriceIndex\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBBTC\"}},\"required\":[\"symbol\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "futures_usds.queryInsuranceFundBalanceSnapshot",
+          "description": "Query Insurance Fund Balance Snapshot",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BNBUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.recentTradesList",
+          "description": "Recent Trades List\nGet recent market trades\n\nNotes:\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 50
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.rpiOrderBook",
+          "description": "RPI Order Book\nQuery symbol orderbook with RPI orders\n\nRPI(Retail Price Improvement) orders are included and aggreated in the\nresponse message. Crossed price levels are hidden and invisible.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Valid limits:[1000]",
+                "format": "int64",
+                "example": 1000
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.symbolOrderBookTicker",
+          "description": "Symbol Order Book Ticker\nBest price/qty on the order book for a symbol or symbols.\n\nRetail Price Improvement(RPI) orders are not visible and excluded in the\nresponse message.\n\nNotes:\n- If the symbol is not sent, bookTickers for all symbols will be returned in an array.\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.symbolPriceTicker",
+          "description": "Symbol Price Ticker\nLatest price for a symbol or symbols.\n\nNotes:\n- If the symbol is not sent, prices for all symbols will be returned in an array.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.symbolPriceTickerV2",
+          "description": "Symbol Price Ticker V2\nLatest price for a symbol or symbols.\n\nNotes:\n- If the symbol is not sent, prices for all symbols will be returned in an array.\n- The field `X-MBX-USED-WEIGHT-1M` in response header is not accurate from this endpoint, please ignore.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.takerBuySellVolume",
+          "description": "Taker Buy/Sell Volume\nTaker Buy/Sell Volume\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 50
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "symbol",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.testConnectivity",
+          "description": "Test Connectivity\nTest connectivity to the Rest API.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.ticker24hrPriceChangeStatistics",
+          "description": "24hr Ticker Price Change Statistics\n24 hour rolling window price change statistics.\n**Careful** when accessing this with no symbol.\n\nNotes:\n- If the symbol is not sent, tickers for all symbols will be returned in an array.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.topTraderLongShortRatioAccounts",
+          "description": "Top Trader Long/Short Account Ratio (MARKET_DATA)\nThe proportion of net long and net short accounts to total accounts of\nthe top 20% users with the highest margin balance. Each account is\ncounted once only.\n\nLong Account % = Accounts of top traders with net long positions / Total\naccounts of top traders with open positions\n\nShort Account % = Accounts of top traders with net short positions /\nTotal accounts of top traders with open positions\n\nLong/Short Ratio (Accounts) = Long Account % / Short Account %\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 50
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "symbol",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.topTraderLongShortRatioPositions",
+          "description": "Top Trader Long/Short Position Ratio (MARKET_DATA)\nThe proportion of net long and net short positions to total open\npositions of the top 20% users with the highest margin balance.\n\nLong Position % = Long positions of top traders / Total open positions\nof top traders\n\nShort Position % = Short positions of top traders / Total open positions\nof top traders\n\nLong/Short Ratio (Positions) = Long Position % / Short Position %\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 50
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "symbol",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.tradingSchedule",
+          "description": "Trading Schedule\nTrading session schedules for the underlying assets of TradFi Perps are provided for a one-week period forward and one-week period backward starting from the day prior to the query time, covering the U.S. equity market, Korean equity market, Hong Kong equity market, and the commodity market.\n\nSession types per market:\n- U.S. equity market: \"PRE_MARKET\", \"REGULAR\", \"AFTER_MARKET\", \"OVERNIGHT\", \"NO_TRADING\".\n- Commodity market: \"REGULAR\", \"NO_TRADING\".\n- Korean equity market: \"REGULAR\", \"NO_TRADING\".\n- Hong Kong equity market: \"REGULAR\", \"NO_TRADING\".",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.crossMarginCollateralRatio",
+          "description": "Cross margin collateral ratio (MARKET_DATA)\nCross margin collateral ratio",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getAllCrossMarginPairs",
+          "description": "Get All Cross Margin Pairs (MARKET_DATA)\nGet All Cross Margin Pairs",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBBTC"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getAllIsolatedMarginSymbol",
+          "description": "Get All Isolated Margin Symbol (MARKET_DATA)\nGet All Isolated Margin Symbol",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBBTC"
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getAllMarginAssets",
+          "description": "Get All Margin Assets (MARKET_DATA)\nGet All Margin Assets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "asset": {
+                "type": "string",
+                "example": "USDC"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getDelistSchedule",
+          "description": "Get Delist Schedule (MARKET_DATA)\nGet tokens or symbols delist schedule for cross margin and isolated margin",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getLimitPricePairs",
+          "description": "Get Limit Price Pairs (MARKET_DATA)\nQuery trading pairs with restriction on limit price range.\n\nIn margin trading, you can place orders with limit price. Limit price\nshould be within (-15%, 15%) of current index price for a list of margin\ntrading pairs. This rule only impacts limit sell orders with limit price\nthat is lower than current index price and limit buy orders with limit\nprice that is higher than current index price.\n\n- Buy order: Your order will be rejected with an error message\nnotification if the limit price is 15% above the index price.\n\n- Sell order: Your order will be rejected with an error message\nnotification if the limit price is 15% below the index price.\n\nPlease review the limit price order placing strategy, backtest and\ncalibrate the planned order size with the trading volume and order book\ndepth to prevent trading loss.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getListSchedule",
+          "description": "Get list Schedule (MARKET_DATA)\nGet the upcoming tokens or symbols listing schedule for Cross Margin and Isolated Margin.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getMarginAssetRiskBasedLiquidationRatio",
+          "description": "Get Margin Asset Risk-Based Liquidation Ratio (MARKET_DATA)\nGet Margin Asset Risk-Based Liquidation Ratio",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.getMarginRestrictedAssets",
+          "description": "Get Margin Restricted Assets (MARKET_DATA)\nGet the list of margin-restricted assets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.queryIsolatedMarginTierData",
+          "description": "Query Isolated Margin Tier Data (USER_DATA)\nGet isolated margin tier data collection with any tier as https://www.binance.com/en/margin-data",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "tier": {
+                "type": "integer",
+                "description": "All margin tier data will be returned if tier is omitted",
+                "format": "int64",
+                "example": 1
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.queryLiabilityCoinLeverageBracketInCrossMarginProMode",
+          "description": "Query Liability Coin Leverage Bracket in Cross Margin Pro Mode (MARKET_DATA)\nLiability Coin Leverage Bracket in Cross Margin Pro Mode",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.queryMarginAvailableInventory",
+          "description": "Query Margin Available Inventory (USER_DATA)\nMargin available Inventory query",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "MARGIN",
+                  "ISOLATED"
+                ],
+                "example": "MARGIN"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.queryMarginPriceindex",
+          "description": "Query Margin PriceIndex (MARKET_DATA)\nQuery Margin PriceIndex",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBBTC"
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}

@@ -1,1 +1,16 @@
-{"session_id":"01a07026-c5bb-7dc3-aaf1-5450f2d8b992","turn_id":"01a07026-c7cd-7d81-adb5-bb6b5e21be69","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T07-59-44-01a07026-c5bb-7dc3-aaf1-5450f2d8b992.jsonl","cwd":"/root/Oathline","hook_event_name":"PreToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_execute","tool_input":{"toolName":"spot.newOrder","arguments":{"symbol":"BNBUSDT","side":"SELL","type":"MARKET","quoteOrderQty":83.4}},"tool_use_id":"exec-1e989233-a831-4221-8b00-9beb6117c4d9"}
+{
+  "observedAt": "2026-09-05T06:01:18.976Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-1e989233-a831-4221-8b00-9beb6117c4d9",
+  "tool_input": {
+    "toolName": "spot.newOrder",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "side": "SELL",
+      "type": "MARKET",
+      "quoteOrderQty": 83.4
+    }
+  },
+  "tool_response": null
+}

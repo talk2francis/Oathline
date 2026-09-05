@@ -1,1 +1,240 @@
-{"session_id":"01a06f01-a2ac-7e72-a2f4-578a9268c6b2","turn_id":"01a06f01-a448-7861-a08e-8cc3759506ba","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T02-39-33-01a06f01-a2ac-7e72-a2f4-578a9268c6b2.jsonl","cwd":"/root/Oathline","hook_event_name":"PostToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"capital"},"tool_response":{"content":[{"type":"text","text":"{\"tools\":[{\"name\":\"wallet.allCoinsInformation\",\"description\":\"All Coins' Information (USER_DATA)\\nGet information of coins (available for deposit and withdraw) for user.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.depositAddress\",\"description\":\"Deposit Address(supporting network) (USER_DATA)\\nFetch deposit address with network.\\n\\nNotes:\\n- If `network` is not send, return with default network of the coin.\\n- You can get `network` and `isDefault` in `networkList` in the response of `Get /sapi/v1/capital/config/getall (HMAC SHA256)`.\\n- `amount` needs to be sent if using LIGHTNING network\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"coin\":{\"type\":\"string\",\"description\":\"`coin` refers to the parent network address format that the address is using\",\"example\":\"BTC\"},\"network\":{\"type\":\"string\"},\"amount\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"coin\"],\"additionalProperties\":false}},{\"name\":\"wallet.depositHistory\",\"description\":\"Deposit History (supporting network) (USER_DATA)\\nFetch deposit history.\\n\\nNotes:\\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 90 days.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"includeSource\":{\"type\":\"boolean\",\"description\":\"return `sourceAddress` field when set to `true`\",\"example\":false},\"coin\":{\"type\":\"string\",\"example\":\"BTC\"},\"status\":{\"type\":\"integer\",\"description\":\"0: pending, 6: credited but cannot withdraw, 7: Wrong Deposit, 8: Waiting User confirm, 1: success\",\"format\":\"int64\",\"enum\":[0,1,2,6,7,8]},\"startTime\":{\"type\":\"integer\",\"description\":\"Default: 90 days from current timestamp\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Default: present timestamp\",\"format\":\"int64\",\"example\":1641782889000},\"offset\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":0},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":1000},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000},\"txId\":{\"type\":\"string\",\"example\":\"1\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.fetchDepositAddressListWithNetwork\",\"description\":\"Fetch deposit address list with network (USER_DATA)\\nFetch deposit address list with network.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"coin\":{\"type\":\"string\",\"description\":\"Coin name\",\"example\":\"BTC\"},\"network\":{\"type\":\"string\",\"description\":\"If network is not send, return with default network of the coin. You can get network and isDefault in networkList in the response of `Get /sapi/v1/capital/config/getall`\"}},\"required\":[\"coin\"],\"additionalProperties\":false}},{\"name\":\"wallet.fetchWithdrawAddressList\",\"description\":\"Fetch withdraw address list (USER_DATA)\\nFetch withdraw address list\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.fetchWithdrawQuota\",\"description\":\"Fetch withdraw quota (USER_DATA)\\nFetch withdraw quota\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.withdrawHistory\",\"description\":\"Withdraw History (supporting network) (USER_DATA)\\nFetch withdraw history\\n\\nNotes:\\n- `network` may not be in the response for old withdraw.\\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\\n- If both `startTime` and `endTime`are sent, time between `startTime`and `endTime`must be less than 90 days.\\n- If `withdrawOrderId` is sent, time between `startTime` and `endTime` must be less than 7 days.\\n- If `withdrawOrderId` is sent, `startTime` and `endTime` are not sent, will return last 7 days records by default.\\n- Maximum support `idList` number is 45.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"coin\":{\"type\":\"string\",\"example\":\"BTC\"},\"withdrawOrderId\":{\"type\":\"string\",\"description\":\"client side id for withdrawal, if provided in POST `/sapi/v1/capital/withdraw/apply`, can be used here for\\nquery.\",\"example\":\"1\"},\"status\":{\"type\":\"integer\",\"description\":\"0(0:Email Sent, 2:Awaiting Approval 3:Rejected 4:Processing 6:Completed)\",\"format\":\"int64\",\"example\":0},\"offset\":{\"type\":\"integer\",\"description\":\"Default: 0\",\"format\":\"int64\",\"example\":0},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":1000},\"idList\":{\"type\":\"string\",\"description\":\"id list returned in the response of POST `/sapi/v1/capital/withdraw/apply`, separated by `,`\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Default: 90 days from current timestamp\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Default: present timestamp\",\"format\":\"int64\",\"example\":1641782889000},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"}],"structuredContent":{"tools":[{"name":"wallet.allCoinsInformation","description":"All Coins' Information (USER_DATA)\nGet information of coins (available for deposit and withdraw) for user.","inputSchema":{"type":"object","properties":{"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":[],"additionalProperties":false}},{"name":"wallet.depositAddress","description":"Deposit Address(supporting network) (USER_DATA)\nFetch deposit address with network.\n\nNotes:\n- If `network` is not send, return with default network of the coin.\n- You can get `network` and `isDefault` in `networkList` in the response of `Get /sapi/v1/capital/config/getall (HMAC SHA256)`.\n- `amount` needs to be sent if using LIGHTNING network","inputSchema":{"type":"object","properties":{"coin":{"type":"string","description":"`coin` refers to the parent network address format that the address is using","example":"BTC"},"network":{"type":"string"},"amount":{"type":"number","format":"float","example":1},"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":["coin"],"additionalProperties":false}},{"name":"wallet.depositHistory","description":"Deposit History (supporting network) (USER_DATA)\nFetch deposit history.\n\nNotes:\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 90 days.","inputSchema":{"type":"object","properties":{"includeSource":{"type":"boolean","description":"return `sourceAddress` field when set to `true`","example":false},"coin":{"type":"string","example":"BTC"},"status":{"type":"integer","description":"0: pending, 6: credited but cannot withdraw, 7: Wrong Deposit, 8: Waiting User confirm, 1: success","format":"int64","enum":[0,1,2,6,7,8]},"startTime":{"type":"integer","description":"Default: 90 days from current timestamp","format":"int64","example":1623319461670},"endTime":{"type":"integer","description":"Default: present timestamp","format":"int64","example":1641782889000},"offset":{"type":"integer","format":"int64","example":0},"limit":{"type":"integer","format":"int64","maximum":1000,"example":1000},"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000},"txId":{"type":"string","example":"1"}},"required":[],"additionalProperties":false}},{"name":"wallet.fetchDepositAddressListWithNetwork","description":"Fetch deposit address list with network (USER_DATA)\nFetch deposit address list with network.","inputSchema":{"type":"object","properties":{"coin":{"type":"string","description":"Coin name","example":"BTC"},"network":{"type":"string","description":"If network is not send, return with default network of the coin. You can get network and isDefault in networkList in the response of `Get /sapi/v1/capital/config/getall`"}},"required":["coin"],"additionalProperties":false}},{"name":"wallet.fetchWithdrawAddressList","description":"Fetch withdraw address list (USER_DATA)\nFetch withdraw address list","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"wallet.fetchWithdrawQuota","description":"Fetch withdraw quota (USER_DATA)\nFetch withdraw quota","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"wallet.withdrawHistory","description":"Withdraw History (supporting network) (USER_DATA)\nFetch withdraw history\n\nNotes:\n- `network` may not be in the response for old withdraw.\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\n- If both `startTime` and `endTime`are sent, time between `startTime`and `endTime`must be less than 90 days.\n- If `withdrawOrderId` is sent, time between `startTime` and `endTime` must be less than 7 days.\n- If `withdrawOrderId` is sent, `startTime` and `endTime` are not sent, will return last 7 days records by default.\n- Maximum support `idList` number is 45.","inputSchema":{"type":"object","properties":{"coin":{"type":"string","example":"BTC"},"withdrawOrderId":{"type":"string","description":"client side id for withdrawal, if provided in POST `/sapi/v1/capital/withdraw/apply`, can be used here for\nquery.","example":"1"},"status":{"type":"integer","description":"0(0:Email Sent, 2:Awaiting Approval 3:Rejected 4:Processing 6:Completed)","format":"int64","example":0},"offset":{"type":"integer","description":"Default: 0","format":"int64","example":0},"limit":{"type":"integer","format":"int64","maximum":1000,"example":1000},"idList":{"type":"string","description":"id list returned in the response of POST `/sapi/v1/capital/withdraw/apply`, separated by `,`"},"startTime":{"type":"integer","description":"Default: 90 days from current timestamp","format":"int64","example":1623319461670},"endTime":{"type":"integer","description":"Default: present timestamp","format":"int64","example":1641782889000},"recvWindow":{"type":"integer","format":"int64","maximum":60000,"example":5000}},"required":[],"additionalProperties":false}}],"nextStep":"Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."},"isError":false},"tool_use_id":"exec-155ce12f-1e74-4f7a-acf8-bfb49318c0a6"}
+{
+  "observedAt": "2026-09-05T00:40:37.684Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-155ce12f-1e74-4f7a-acf8-bfb49318c0a6",
+  "tool_input": {
+    "category": "capital"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"wallet.allCoinsInformation\",\"description\":\"All Coins' Information (USER_DATA)\\nGet information of coins (available for deposit and withdraw) for user.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.depositAddress\",\"description\":\"Deposit Address(supporting network) (USER_DATA)\\nFetch deposit address with network.\\n\\nNotes:\\n- If `network` is not send, return with default network of the coin.\\n- You can get `network` and `isDefault` in `networkList` in the response of `Get /sapi/v1/capital/config/getall (HMAC SHA256)`.\\n- `amount` needs to be sent if using LIGHTNING network\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"coin\":{\"type\":\"string\",\"description\":\"`coin` refers to the parent network address format that the address is using\",\"example\":\"BTC\"},\"network\":{\"type\":\"string\"},\"amount\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"coin\"],\"additionalProperties\":false}},{\"name\":\"wallet.depositHistory\",\"description\":\"Deposit History (supporting network) (USER_DATA)\\nFetch deposit history.\\n\\nNotes:\\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 90 days.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"includeSource\":{\"type\":\"boolean\",\"description\":\"return `sourceAddress` field when set to `true`\",\"example\":false},\"coin\":{\"type\":\"string\",\"example\":\"BTC\"},\"status\":{\"type\":\"integer\",\"description\":\"0: pending, 6: credited but cannot withdraw, 7: Wrong Deposit, 8: Waiting User confirm, 1: success\",\"format\":\"int64\",\"enum\":[0,1,2,6,7,8]},\"startTime\":{\"type\":\"integer\",\"description\":\"Default: 90 days from current timestamp\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Default: present timestamp\",\"format\":\"int64\",\"example\":1641782889000},\"offset\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":0},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":1000},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000},\"txId\":{\"type\":\"string\",\"example\":\"1\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.fetchDepositAddressListWithNetwork\",\"description\":\"Fetch deposit address list with network (USER_DATA)\\nFetch deposit address list with network.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"coin\":{\"type\":\"string\",\"description\":\"Coin name\",\"example\":\"BTC\"},\"network\":{\"type\":\"string\",\"description\":\"If network is not send, return with default network of the coin. You can get network and isDefault in networkList in the response of `Get /sapi/v1/capital/config/getall`\"}},\"required\":[\"coin\"],\"additionalProperties\":false}},{\"name\":\"wallet.fetchWithdrawAddressList\",\"description\":\"Fetch withdraw address list (USER_DATA)\\nFetch withdraw address list\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.fetchWithdrawQuota\",\"description\":\"Fetch withdraw quota (USER_DATA)\\nFetch withdraw quota\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"wallet.withdrawHistory\",\"description\":\"Withdraw History (supporting network) (USER_DATA)\\nFetch withdraw history\\n\\nNotes:\\n- `network` may not be in the response for old withdraw.\\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\\n- If both `startTime` and `endTime`are sent, time between `startTime`and `endTime`must be less than 90 days.\\n- If `withdrawOrderId` is sent, time between `startTime` and `endTime` must be less than 7 days.\\n- If `withdrawOrderId` is sent, `startTime` and `endTime` are not sent, will return last 7 days records by default.\\n- Maximum support `idList` number is 45.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"coin\":{\"type\":\"string\",\"example\":\"BTC\"},\"withdrawOrderId\":{\"type\":\"string\",\"description\":\"client side id for withdrawal, if provided in POST `/sapi/v1/capital/withdraw/apply`, can be used here for\\nquery.\",\"example\":\"1\"},\"status\":{\"type\":\"integer\",\"description\":\"0(0:Email Sent, 2:Awaiting Approval 3:Rejected 4:Processing 6:Completed)\",\"format\":\"int64\",\"example\":0},\"offset\":{\"type\":\"integer\",\"description\":\"Default: 0\",\"format\":\"int64\",\"example\":0},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":1000},\"idList\":{\"type\":\"string\",\"description\":\"id list returned in the response of POST `/sapi/v1/capital/withdraw/apply`, separated by `,`\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Default: 90 days from current timestamp\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Default: present timestamp\",\"format\":\"int64\",\"example\":1641782889000},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "wallet.allCoinsInformation",
+          "description": "All Coins' Information (USER_DATA)\nGet information of coins (available for deposit and withdraw) for user.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "wallet.depositAddress",
+          "description": "Deposit Address(supporting network) (USER_DATA)\nFetch deposit address with network.\n\nNotes:\n- If `network` is not send, return with default network of the coin.\n- You can get `network` and `isDefault` in `networkList` in the response of `Get /sapi/v1/capital/config/getall (HMAC SHA256)`.\n- `amount` needs to be sent if using LIGHTNING network",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "coin": {
+                "type": "string",
+                "description": "`coin` refers to the parent network address format that the address is using",
+                "example": "BTC"
+              },
+              "network": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [
+              "coin"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "wallet.depositHistory",
+          "description": "Deposit History (supporting network) (USER_DATA)\nFetch deposit history.\n\nNotes:\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 90 days.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "includeSource": {
+                "type": "boolean",
+                "description": "return `sourceAddress` field when set to `true`",
+                "example": false
+              },
+              "coin": {
+                "type": "string",
+                "example": "BTC"
+              },
+              "status": {
+                "type": "integer",
+                "description": "0: pending, 6: credited but cannot withdraw, 7: Wrong Deposit, 8: Waiting User confirm, 1: success",
+                "format": "int64",
+                "enum": [
+                  0,
+                  1,
+                  2,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Default: 90 days from current timestamp",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "Default: present timestamp",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "offset": {
+                "type": "integer",
+                "format": "int64",
+                "example": 0
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 1000
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              },
+              "txId": {
+                "type": "string",
+                "example": "1"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "wallet.fetchDepositAddressListWithNetwork",
+          "description": "Fetch deposit address list with network (USER_DATA)\nFetch deposit address list with network.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "coin": {
+                "type": "string",
+                "description": "Coin name",
+                "example": "BTC"
+              },
+              "network": {
+                "type": "string",
+                "description": "If network is not send, return with default network of the coin. You can get network and isDefault in networkList in the response of `Get /sapi/v1/capital/config/getall`"
+              }
+            },
+            "required": [
+              "coin"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "wallet.fetchWithdrawAddressList",
+          "description": "Fetch withdraw address list (USER_DATA)\nFetch withdraw address list",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "wallet.fetchWithdrawQuota",
+          "description": "Fetch withdraw quota (USER_DATA)\nFetch withdraw quota",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "wallet.withdrawHistory",
+          "description": "Withdraw History (supporting network) (USER_DATA)\nFetch withdraw history\n\nNotes:\n- `network` may not be in the response for old withdraw.\n- Please notice the default `startTime` and `endTime` to make sure that time interval is within 0-90 days.\n- If both `startTime` and `endTime`are sent, time between `startTime`and `endTime`must be less than 90 days.\n- If `withdrawOrderId` is sent, time between `startTime` and `endTime` must be less than 7 days.\n- If `withdrawOrderId` is sent, `startTime` and `endTime` are not sent, will return last 7 days records by default.\n- Maximum support `idList` number is 45.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "coin": {
+                "type": "string",
+                "example": "BTC"
+              },
+              "withdrawOrderId": {
+                "type": "string",
+                "description": "client side id for withdrawal, if provided in POST `/sapi/v1/capital/withdraw/apply`, can be used here for\nquery.",
+                "example": "1"
+              },
+              "status": {
+                "type": "integer",
+                "description": "0(0:Email Sent, 2:Awaiting Approval 3:Rejected 4:Processing 6:Completed)",
+                "format": "int64",
+                "example": 0
+              },
+              "offset": {
+                "type": "integer",
+                "description": "Default: 0",
+                "format": "int64",
+                "example": 0
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 1000
+              },
+              "idList": {
+                "type": "string",
+                "description": "id list returned in the response of POST `/sapi/v1/capital/withdraw/apply`, separated by `,`"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Default: 90 days from current timestamp",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "Default: present timestamp",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}

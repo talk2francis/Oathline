@@ -1,1 +1,57 @@
-{"session_id":"01a06ea4-e08f-7ae2-8960-bc6d821f3ea0","turn_id":"01a06ea4-e2dc-7b32-9459-4a00f89627ea","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T00-58-14-01a06ea4-e08f-7ae2-8960-bc6d821f3ea0.jsonl","cwd":"/root/Oathline","hook_event_name":"PostToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"ai-analysis"},"tool_response":{"content":[{"type":"text","text":"{\"tools\":[{\"name\":\"analysis.getTokenAiReport\",\"description\":\"Get Token AI Report\\nQuery the AI-generated report for a single token.\\n\\nReturns a structured report (report metadata, token metadata, and\\ncontent modules) for the given token. \\n\\nMinimal request: send only `token`. When `timestamp` is omitted the\\nlatest available report is returned; when `product` is omitted it\\ndefaults to `spot`. `expId` may be omitted.\\n\\nNotes:\\n- Single-token query only; batch is not supported.\\n- Not strictly real-time — suitable for research, summarization, Q&A,\\n  and attribution rather than live market data.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"token\":{\"type\":\"string\",\"description\":\"Token symbol to query. The only required field.\",\"example\":\"BTC\"},\"timestamp\":{\"type\":\"integer\",\"description\":\"Optional. Millisecond timestamp; returns the report closest to this\\ntime. Recommended to omit — when absent the latest report is returned.\",\"format\":\"int64\",\"example\":1751954400000},\"product\":{\"type\":\"string\",\"description\":\"Optional. Product domain of the report. Recommended to omit —\\ndefaults to `spot`. Currently `spot` is the documented value.\",\"example\":\"spot\"},\"expId\":{\"type\":\"string\",\"description\":\"Optional. Experiment id; may be omitted, empty string, or null.\",\"example\":\"\"}},\"required\":[\"token\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"}],"structuredContent":{"tools":[{"name":"analysis.getTokenAiReport","description":"Get Token AI Report\nQuery the AI-generated report for a single token.\n\nReturns a structured report (report metadata, token metadata, and\ncontent modules) for the given token. \n\nMinimal request: send only `token`. When `timestamp` is omitted the\nlatest available report is returned; when `product` is omitted it\ndefaults to `spot`. `expId` may be omitted.\n\nNotes:\n- Single-token query only; batch is not supported.\n- Not strictly real-time — suitable for research, summarization, Q&A,\n  and attribution rather than live market data.","inputSchema":{"type":"object","properties":{"token":{"type":"string","description":"Token symbol to query. The only required field.","example":"BTC"},"timestamp":{"type":"integer","description":"Optional. Millisecond timestamp; returns the report closest to this\ntime. Recommended to omit — when absent the latest report is returned.","format":"int64","example":1751954400000},"product":{"type":"string","description":"Optional. Product domain of the report. Recommended to omit —\ndefaults to `spot`. Currently `spot` is the documented value.","example":"spot"},"expId":{"type":"string","description":"Optional. Experiment id; may be omitted, empty string, or null.","example":""}},"required":["token"],"additionalProperties":false}}],"nextStep":"Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."},"isError":false},"tool_use_id":"exec-c321f323-f628-4463-b09b-a6e21992fa59"}
+{
+  "observedAt": "2026-09-04T22:59:25.794Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-c321f323-f628-4463-b09b-a6e21992fa59",
+  "tool_input": {
+    "category": "ai-analysis"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"analysis.getTokenAiReport\",\"description\":\"Get Token AI Report\\nQuery the AI-generated report for a single token.\\n\\nReturns a structured report (report metadata, token metadata, and\\ncontent modules) for the given token. \\n\\nMinimal request: send only `token`. When `timestamp` is omitted the\\nlatest available report is returned; when `product` is omitted it\\ndefaults to `spot`. `expId` may be omitted.\\n\\nNotes:\\n- Single-token query only; batch is not supported.\\n- Not strictly real-time — suitable for research, summarization, Q&A,\\n  and attribution rather than live market data.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"token\":{\"type\":\"string\",\"description\":\"Token symbol to query. The only required field.\",\"example\":\"BTC\"},\"timestamp\":{\"type\":\"integer\",\"description\":\"Optional. Millisecond timestamp; returns the report closest to this\\ntime. Recommended to omit — when absent the latest report is returned.\",\"format\":\"int64\",\"example\":1751954400000},\"product\":{\"type\":\"string\",\"description\":\"Optional. Product domain of the report. Recommended to omit —\\ndefaults to `spot`. Currently `spot` is the documented value.\",\"example\":\"spot\"},\"expId\":{\"type\":\"string\",\"description\":\"Optional. Experiment id; may be omitted, empty string, or null.\",\"example\":\"\"}},\"required\":[\"token\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "analysis.getTokenAiReport",
+          "description": "Get Token AI Report\nQuery the AI-generated report for a single token.\n\nReturns a structured report (report metadata, token metadata, and\ncontent modules) for the given token. \n\nMinimal request: send only `token`. When `timestamp` is omitted the\nlatest available report is returned; when `product` is omitted it\ndefaults to `spot`. `expId` may be omitted.\n\nNotes:\n- Single-token query only; batch is not supported.\n- Not strictly real-time — suitable for research, summarization, Q&A,\n  and attribution rather than live market data.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "Token symbol to query. The only required field.",
+                "example": "BTC"
+              },
+              "timestamp": {
+                "type": "integer",
+                "description": "Optional. Millisecond timestamp; returns the report closest to this\ntime. Recommended to omit — when absent the latest report is returned.",
+                "format": "int64",
+                "example": 1751954400000
+              },
+              "product": {
+                "type": "string",
+                "description": "Optional. Product domain of the report. Recommended to omit —\ndefaults to `spot`. Currently `spot` is the documented value.",
+                "example": "spot"
+              },
+              "expId": {
+                "type": "string",
+                "description": "Optional. Experiment id; may be omitted, empty string, or null.",
+                "example": ""
+              }
+            },
+            "required": [
+              "token"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}

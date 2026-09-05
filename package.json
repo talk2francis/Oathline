@@ -15,6 +15,7 @@
   "scripts": {
     "oathline": "node packages/cli/dist/index.js",
     "check:core-deps": "node scripts/check-core-runtime-deps.mjs",
+    "sanitize:observations": "node scripts/sanitize-observations.mjs",
     "generate:schemas": "node scripts/generate-schemas.mjs",
     "build": "pnpm check:core-deps && pnpm --recursive build",
     "test": "pnpm --recursive test"

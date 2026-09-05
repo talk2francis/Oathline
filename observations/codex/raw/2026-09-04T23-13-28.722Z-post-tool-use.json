@@ -1,1 +1,1091 @@
-{"session_id":"01a06eb2-622a-7f23-bfa5-7d0effd76c06","turn_id":"01a06eb2-63cd-7ad0-962a-d5a1ee12efbd","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T01-12-59-01a06eb2-622a-7f23-bfa5-7d0effd76c06.jsonl","cwd":"/root/Oathline","hook_event_name":"PostToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"trade","cursor":"c3BvdC5vcmRlckxpc3RPcG9jbw","limit":50},"tool_response":{"content":[{"type":"text","text":"{\"tools\":[{\"name\":\"spot.orderListOto\",\"description\":\"New Order list - OTO (TRADE)\\nPlace an OTO.\\n\\n- An OTO (One-Triggers-the-Other) is an order list comprised of 2 orders.\\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\\n- The second order is called the **pending order**. It can be any order type except for `MARKET` orders using parameter `quoteOrderQty`. The pending order is only placed on the order book when the working order gets **fully filled**.\\n- If either the working order or the pending order is cancelled individually, the other order in the order list will also be canceled or expired.\\n- When the order list is placed, if the working order gets **immediately fully filled**, the placement response will show the working order as `FILLED` but the pending order will still appear as `PENDING_NEW`. You need to query the status of the pending order again to see its updated status.\\n- OTOs add **2 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\\n\\nUnfilled Order Count: 2\\n\\nNotes:\\n**Data Source:** Matching Engine\\n\\n**Mandatory parameters based on `pendingType` or `workingType`**\\n\\nDepending on the `pendingType` or `workingType`, some optional parameters will become mandatory.\\n\\n|Type                                                  |Additional mandatory parameters|Additional information|\\n|----                                                  |----                           |------\\n|`workingType` = `LIMIT`                               |`workingTimeInForce`           |\\n|`pendingType` = `LIMIT`                                |`pendingPrice`, `pendingTimeInForce`          |\\n|`pendingType` = `STOP_LOSS` or `TAKE_PROFIT`           |`pendingStopPrice` and/or `pendingTrailingDelta`|\\n|`pendingType` = `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`|`pendingPrice`, `pendingStopPrice` and/or `pendingTrailingDelta`, `pendingTimeInForce`|\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"listClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.\",\"example\":\"yl2ERtcar1o25zcWtqVBTC\"},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"workingType\":{\"type\":\"string\",\"description\":\"Supported values: `LIMIT`, `LIMIT_MAKER`\",\"enum\":[\"LIMIT\",\"LIMIT_MAKER\"],\"example\":\"LIMIT\"},\"workingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"workingClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.\",\"example\":\"workingOrder1\"},\"workingPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"workingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the working order.\",\"format\":\"float\",\"example\":1},\"workingIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"workingTimeInForce\":{\"type\":\"string\",\"description\":\"Supported values: [Time In Force](/products/spot/enums#timeinforce)\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"workingStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"workingStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingType\":{\"type\":\"string\",\"description\":\"Supported values: [Order Types](/products/spot/enums#ordertypes). Note that `MARKET` orders using `quoteOrderQty` are not supported.\",\"enum\":[\"LIMIT\",\"MARKET\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"],\"example\":\"LIMIT\"},\"workingPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"workingPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"workingPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"pendingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"pendingClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the pending order. Automatically generated if not sent.\",\"example\":\"pendingOrder1\"},\"pendingPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"pendingStopPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"pendingTrailingDelta\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"pendingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the pending order.\",\"format\":\"float\",\"example\":1},\"pendingIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `pendingTimeInForce` is `GTC` or if `pendingType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"pendingTimeInForce\":{\"type\":\"string\",\"description\":\"Supported values: [Time In Force](/products/spot/enums#timeinforce)\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"pendingStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"pendingStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pendingPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"pendingPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"workingType\",\"workingSide\",\"workingPrice\",\"workingQuantity\",\"pendingType\",\"pendingSide\",\"pendingQuantity\"],\"additionalProperties\":false}},{\"name\":\"spot.orderListOtoco\",\"description\":\"New Order list - OTOCO (TRADE)\\nPlace an OTOCO.\\n\\n- An OTOCO (One-Triggers-One-Cancels-the-Other) is an order list comprised of 3 orders.\\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\\n  - The behavior of the working order is the same as the [OTO](#order-list-oto).\\n- OTOCO has 2 pending orders (pending above and pending below), forming an OCO pair. The pending orders are only placed on the order book when the working order gets **fully filled**.\\n  - The rules of the pending above and pending below follow the same rules as the [Order list OCO](#order-list-oco).\\n- OTOCOs add **3 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\\n\\nUnfilled Order Count: 3\\n\\nNotes:\\n**Data Source:** Matching Engine\\n\\n**Mandatory parameters based on `pendingAboveType`, `pendingBelowType` or `workingType`**\\n\\nDepending on the `pendingAboveType`/`pendingBelowType` or `workingType`, some optional parameters will become mandatory.\\n\\n|Type                                                       |Additional mandatory parameters|Additional information|\\n|----                                                       |----                           |------\\n|`workingType` = `LIMIT`                                    |`workingTimeInForce`           |\\n|`pendingAboveType`= `LIMIT_MAKER`                                |`pendingAbovePrice`     |\\n|`pendingAboveType` = `STOP_LOSS/TAKE_PROFIT`        |`pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`|\\n|`pendingAboveType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingAbovePrice`, `pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`, `pendingAboveTimeInForce`|\\n|`pendingBelowType`= `LIMIT_MAKER`                                |`pendingBelowPrice`          |\\n|`pendingBelowType= STOP_LOSS/TAKE_PROFIT`         |`pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`|\\n|`pendingBelowType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingBelowPrice`, `pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`, `pendingBelowTimeInForce`|\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"listClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.\",\"example\":\"RumwQpBaDctlUu5jyG5rs0\"},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"workingType\":{\"type\":\"string\",\"description\":\"Supported values: `LIMIT`, `LIMIT_MAKER`\",\"enum\":[\"LIMIT\",\"LIMIT_MAKER\"],\"example\":\"LIMIT\"},\"workingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"workingClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.\",\"example\":\"workingOrder1\"},\"workingPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"workingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the working order.\",\"format\":\"float\",\"example\":1},\"workingIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"workingTimeInForce\":{\"type\":\"string\",\"description\":\"Supported values: [Time In Force](/products/spot/enums#timeinforce)\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"workingStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"workingStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"workingPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"workingPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"workingPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"pendingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"pendingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the pending orders.\",\"format\":\"float\",\"example\":1},\"pendingAboveType\":{\"type\":\"string\",\"description\":\"Supported values: `STOP_LOSS_LIMIT`, `STOP_LOSS`, `LIMIT_MAKER`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`\",\"enum\":[\"STOP_LOSS_LIMIT\",\"STOP_LOSS\",\"LIMIT_MAKER\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\"],\"example\":\"STOP_LOSS_LIMIT\"},\"pendingAboveClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the pending above order. Automatically generated if not sent.\",\"example\":\"pendingAboveOrder1\"},\"pendingAbovePrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingAboveType` is `STOP_LOSS_LIMIT`, `LIMIT_MAKER`, or `TAKE_PROFIT_LIMIT` to specify the limit price.\",\"format\":\"float\",\"example\":1},\"pendingAboveStopPrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingAboveType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`.\",\"format\":\"float\",\"example\":1},\"pendingAboveTrailingDelta\":{\"type\":\"number\",\"description\":\"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)\",\"format\":\"float\",\"example\":1},\"pendingAboveIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `pendingAboveTimeInForce` is `GTC` or if `pendingAboveType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"pendingAboveTimeInForce\":{\"type\":\"string\",\"description\":\"Required if `pendingAboveType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"pendingAboveStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending above order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"pendingAboveStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending above order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingAbovePegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pendingAbovePegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"pendingAbovePegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"pendingBelowType\":{\"type\":\"string\",\"description\":\"Supported values: `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`\",\"enum\":[\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\"],\"example\":\"STOP_LOSS\"},\"pendingBelowClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the pending below order. Automatically generated if not sent.\",\"example\":\"pendingBelowOrder1\"},\"pendingBelowPrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT` to specify the limit price.\",\"format\":\"float\",\"example\":1},\"pendingBelowStopPrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingBelowType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`. Either `pendingBelowStopPrice` or `pendingBelowTrailingDelta` or both, must be specified.\",\"format\":\"float\",\"example\":1},\"pendingBelowTrailingDelta\":{\"type\":\"number\",\"description\":\"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)\",\"format\":\"float\",\"example\":1},\"pendingBelowIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `pendingBelowTimeInForce` is `GTC`, or if `pendingBelowType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"pendingBelowTimeInForce\":{\"type\":\"string\",\"description\":\"Required if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"pendingBelowStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending below order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"pendingBelowStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending below order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingBelowPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pendingBelowPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"pendingBelowPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"workingType\",\"workingSide\",\"workingPrice\",\"workingQuantity\",\"pendingSide\",\"pendingQuantity\",\"pendingAboveType\"],\"additionalProperties\":false}},{\"name\":\"spot.orderOco\",\"description\":\"New OCO - Deprecated (TRADE)\\nSend in a new OCO.\\n\\n- Price Restrictions:\\n  - `SELL`: Limit Price > Last Price > Stop Price\\n  - `BUY`: Limit Price < Last Price < Stop Price\\n- Quantity Restrictions:\\n  - Both legs must have the same quantity.\\n  - `ICEBERG` quantities however do not have to be the same\\n- `OCO` adds **2 orders** to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\\n\\nUnfilled Order Count: 2\\n\\nNotes:\\n**Data Source:** Matching Engine\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"listClientOrderId\":{\"type\":\"string\",\"description\":\"A unique Id for the entire orderList\",\"example\":\"JYVpp3F0f5CAG15DhtrqLp\"},\"side\":{\"type\":\"string\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"limitClientOrderId\":{\"type\":\"string\",\"description\":\"A unique Id for the limit order\",\"example\":\"limitOrder1\"},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"limitStrategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"limitStrategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"limitIcebergQty\":{\"type\":\"number\",\"description\":\"Used to make the `LIMIT_MAKER` leg an iceberg order.\",\"format\":\"float\",\"example\":1},\"trailingDelta\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"stopClientOrderId\":{\"type\":\"string\",\"description\":\"A unique Id for the stop loss/stop loss limit leg\",\"example\":\"stopOrder1\"},\"stopPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"stopStrategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"stopStrategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"stopLimitPrice\":{\"type\":\"number\",\"description\":\"If provided, `stopLimitTimeInForce` is required.\",\"format\":\"float\",\"example\":1},\"stopIcebergQty\":{\"type\":\"number\",\"description\":\"Used with `STOP_LOSS_LIMIT` leg to make an iceberg order.\",\"format\":\"float\",\"example\":1},\"stopLimitTimeInForce\":{\"type\":\"string\",\"description\":\"Valid values are `GTC`/`FOK`/`IOC`\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed values are dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"quantity\",\"price\",\"stopPrice\"],\"additionalProperties\":false}},{\"name\":\"spot.orderTest\",\"description\":\"Test new order (TRADE)\\nTest new order creation and signature/recvWindow long.\\n\\nCreates and validates a new order but does not send it into the matching\\nengine.\\n\\nNotes:\\n**Data Source:** Memory\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"computeCommissionRates\":{\"type\":\"boolean\",\"description\":\"Default: `false` <br> See [Commissions FAQ](/products/spot/faqs/commission_faq#test-order-diferences) to learn more.\",\"example\":false},\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"side\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#side) for supported values.\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"type\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#ordertypes) for supported values.\",\"enum\":[\"MARKET\",\"LIMIT\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"],\"example\":\"MARKET\"},\"timeInForce\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#timeinforce) for supported values.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"quoteOrderQty\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":400},\"newClientOrderId\":{\"type\":\"string\",\"description\":\"A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.\",\"example\":\"myOrder1\"},\"strategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"strategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"stopPrice\":{\"type\":\"number\",\"description\":\"Used with `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, and `TAKE_PROFIT_LIMIT` orders.\",\"format\":\"float\",\"example\":1},\"trailingDelta\":{\"type\":\"integer\",\"description\":\"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)\",\"format\":\"int64\",\"example\":1},\"icebergQty\":{\"type\":\"number\",\"description\":\"Used with `LIMIT`, `STOP_LOSS_LIMIT`, and `TAKE_PROFIT_LIMIT` to create an iceberg order.\",\"format\":\"float\",\"example\":1},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Set the response JSON. `ACK`, `RESULT`, or `FULL`; `MARKET` and `LIMIT` order types default to `FULL`, all other orders default to `ACK`.\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"pegPriceType\":{\"type\":\"string\",\"description\":\"`PRIMARY_PEG` or `MARKET_PEG`. See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pegOffsetValue\":{\"type\":\"integer\",\"description\":\"Price level for pegging (max: 100). See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"example\":1},\"pegOffsetType\":{\"type\":\"string\",\"description\":\"Only `PRICE_LEVEL` is supported. See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"type\"],\"additionalProperties\":false}},{\"name\":\"spot.sorOrder\",\"description\":\"New order using SOR (TRADE)\\nPlaces an order using smart order routing (SOR).\\n\\nThis adds 1 order to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\\n\\nRead [SOR FAQ](/products/spot/faqs/sor_faq) to learn more.\\n\\nUnfilled Order Count: 1\\n\\nNotes:\\n**Data Source:** Matching Engine\\n\\n**Note:** `POST /api/v3/sor/order` only supports `LIMIT` and `MARKET` orders. `quoteOrderQty` is not supported.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"side\":{\"type\":\"string\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"type\":{\"type\":\"string\",\"enum\":[\"MARKET\",\"LIMIT\"],\"example\":\"MARKET\"},\"timeInForce\":{\"type\":\"string\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":400},\"newClientOrderId\":{\"type\":\"string\",\"description\":\"A unique id among open orders. Automatically generated if not sent.<br/> Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.\",\"example\":\"myOrder1\"},\"strategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"strategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"icebergQty\":{\"type\":\"number\",\"description\":\"Used with `LIMIT` to create an iceberg order.\",\"format\":\"float\",\"example\":1},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. The possible supported values are: [STP Modes](/products/spot/enums#stpmodes).\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"type\",\"quantity\"],\"additionalProperties\":false}},{\"name\":\"spot.sorOrderTest\",\"description\":\"Test new order using SOR (TRADE)\\nTest new order creation and signature/recvWindow using smart order routing (SOR).\\nCreates and validates a new order but does not send it into the matching engine.\\n\\nNotes:\\n**Data Source:** Memory\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"computeCommissionRates\":{\"type\":\"boolean\",\"example\":false},\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"side\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#side) for supported values.\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"type\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#ordertypes) for supported values.\",\"enum\":[\"MARKET\",\"LIMIT\"],\"example\":\"MARKET\"},\"timeInForce\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#timeinforce) for supported values.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":400},\"newClientOrderId\":{\"type\":\"string\",\"description\":\"A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.\",\"example\":\"myOrder1\"},\"strategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"strategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"icebergQty\":{\"type\":\"number\",\"description\":\"Used with `LIMIT` to create an iceberg order.\",\"format\":\"float\",\"example\":1},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`.\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"type\",\"quantity\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"}],"structuredContent":{"tools":[{"name":"spot.orderListOto","description":"New Order list - OTO (TRADE)\nPlace an OTO.\n\n- An OTO (One-Triggers-the-Other) is an order list comprised of 2 orders.\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\n- The second order is called the **pending order**. It can be any order type except for `MARKET` orders using parameter `quoteOrderQty`. The pending order is only placed on the order book when the working order gets **fully filled**.\n- If either the working order or the pending order is cancelled individually, the other order in the order list will also be canceled or expired.\n- When the order list is placed, if the working order gets **immediately fully filled**, the placement response will show the working order as `FILLED` but the pending order will still appear as `PENDING_NEW`. You need to query the status of the pending order again to see its updated status.\n- OTOs add **2 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\n\nUnfilled Order Count: 2\n\nNotes:\n**Data Source:** Matching Engine\n\n**Mandatory parameters based on `pendingType` or `workingType`**\n\nDepending on the `pendingType` or `workingType`, some optional parameters will become mandatory.\n\n|Type                                                  |Additional mandatory parameters|Additional information|\n|----                                                  |----                           |------\n|`workingType` = `LIMIT`                               |`workingTimeInForce`           |\n|`pendingType` = `LIMIT`                                |`pendingPrice`, `pendingTimeInForce`          |\n|`pendingType` = `STOP_LOSS` or `TAKE_PROFIT`           |`pendingStopPrice` and/or `pendingTrailingDelta`|\n|`pendingType` = `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`|`pendingPrice`, `pendingStopPrice` and/or `pendingTrailingDelta`, `pendingTimeInForce`|","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBUSDT"},"listClientOrderId":{"type":"string","description":"Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.","example":"yl2ERtcar1o25zcWtqVBTC"},"newOrderRespType":{"type":"string","description":"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)","enum":["ACK","RESULT","FULL"],"example":"ACK"},"selfTradePreventionMode":{"type":"string","description":"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)","enum":["NONE","EXPIRE_TAKER","EXPIRE_MAKER","EXPIRE_BOTH","DECREMENT","TRANSFER"],"example":"NONE"},"workingType":{"type":"string","description":"Supported values: `LIMIT`, `LIMIT_MAKER`","enum":["LIMIT","LIMIT_MAKER"],"example":"LIMIT"},"workingSide":{"type":"string","description":"Supported values: [Order Side](/products/spot/enums#side)","enum":["BUY","SELL"],"example":"BUY"},"workingClientOrderId":{"type":"string","description":"Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.","example":"workingOrder1"},"workingPrice":{"type":"number","format":"float","example":1},"workingQuantity":{"type":"number","description":"Sets the quantity for the working order.","format":"float","example":1},"workingIcebergQty":{"type":"number","description":"This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.","format":"float","example":1},"workingTimeInForce":{"type":"string","description":"Supported values: [Time In Force](/products/spot/enums#timeinforce)","enum":["GTC","IOC","FOK"],"example":"GTC"},"workingStrategyId":{"type":"integer","description":"Arbitrary numeric value identifying the working order within an order strategy.","format":"int64","example":1},"workingStrategyType":{"type":"integer","description":"Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.","example":1},"pendingType":{"type":"string","description":"Supported values: [Order Types](/products/spot/enums#ordertypes). Note that `MARKET` orders using `quoteOrderQty` are not supported.","enum":["LIMIT","MARKET","STOP_LOSS","STOP_LOSS_LIMIT","TAKE_PROFIT","TAKE_PROFIT_LIMIT","LIMIT_MAKER"],"example":"LIMIT"},"workingPegPriceType":{"type":"string","description":"See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRIMARY_PEG","MARKET_PEG"],"example":"PRIMARY_PEG"},"workingPegOffsetType":{"type":"string","enum":["PRICE_LEVEL"],"example":"PRICE_LEVEL"},"workingPegOffsetValue":{"type":"integer","example":1},"pendingSide":{"type":"string","description":"Supported values: [Order Side](/products/spot/enums#side)","enum":["BUY","SELL"],"example":"BUY"},"pendingClientOrderId":{"type":"string","description":"Arbitrary unique ID among open orders for the pending order. Automatically generated if not sent.","example":"pendingOrder1"},"pendingPrice":{"type":"number","format":"float","example":1},"pendingStopPrice":{"type":"number","format":"float","example":1},"pendingTrailingDelta":{"type":"number","format":"float","example":1},"pendingQuantity":{"type":"number","description":"Sets the quantity for the pending order.","format":"float","example":1},"pendingIcebergQty":{"type":"number","description":"This can only be used if `pendingTimeInForce` is `GTC` or if `pendingType` is `LIMIT_MAKER`.","format":"float","example":1},"pendingTimeInForce":{"type":"string","description":"Supported values: [Time In Force](/products/spot/enums#timeinforce)","enum":["GTC","IOC","FOK"],"example":"GTC"},"pendingStrategyId":{"type":"integer","description":"Arbitrary numeric value identifying the pending order within an order strategy.","format":"int64","example":1},"pendingStrategyType":{"type":"integer","description":"Arbitrary numeric value identifying the pending order strategy. Values smaller than `1000000` are reserved and cannot be used.","example":1},"pendingPegPriceType":{"type":"string","description":"See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRIMARY_PEG","MARKET_PEG"],"example":"PRIMARY_PEG"},"pendingPegOffsetType":{"type":"string","enum":["PRICE_LEVEL"],"example":"PRICE_LEVEL"},"pendingPegOffsetValue":{"type":"integer","example":1},"recvWindow":{"type":"number","description":"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.","format":"float","example":5000}},"required":["symbol","workingType","workingSide","workingPrice","workingQuantity","pendingType","pendingSide","pendingQuantity"],"additionalProperties":false}},{"name":"spot.orderListOtoco","description":"New Order list - OTOCO (TRADE)\nPlace an OTOCO.\n\n- An OTOCO (One-Triggers-One-Cancels-the-Other) is an order list comprised of 3 orders.\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\n  - The behavior of the working order is the same as the [OTO](#order-list-oto).\n- OTOCO has 2 pending orders (pending above and pending below), forming an OCO pair. The pending orders are only placed on the order book when the working order gets **fully filled**.\n  - The rules of the pending above and pending below follow the same rules as the [Order list OCO](#order-list-oco).\n- OTOCOs add **3 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\n\nUnfilled Order Count: 3\n\nNotes:\n**Data Source:** Matching Engine\n\n**Mandatory parameters based on `pendingAboveType`, `pendingBelowType` or `workingType`**\n\nDepending on the `pendingAboveType`/`pendingBelowType` or `workingType`, some optional parameters will become mandatory.\n\n|Type                                                       |Additional mandatory parameters|Additional information|\n|----                                                       |----                           |------\n|`workingType` = `LIMIT`                                    |`workingTimeInForce`           |\n|`pendingAboveType`= `LIMIT_MAKER`                                |`pendingAbovePrice`     |\n|`pendingAboveType` = `STOP_LOSS/TAKE_PROFIT`        |`pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`|\n|`pendingAboveType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingAbovePrice`, `pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`, `pendingAboveTimeInForce`|\n|`pendingBelowType`= `LIMIT_MAKER`                                |`pendingBelowPrice`          |\n|`pendingBelowType= STOP_LOSS/TAKE_PROFIT`         |`pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`|\n|`pendingBelowType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingBelowPrice`, `pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`, `pendingBelowTimeInForce`|","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBUSDT"},"listClientOrderId":{"type":"string","description":"Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.","example":"RumwQpBaDctlUu5jyG5rs0"},"newOrderRespType":{"type":"string","description":"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)","enum":["ACK","RESULT","FULL"],"example":"ACK"},"selfTradePreventionMode":{"type":"string","description":"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)","enum":["NONE","EXPIRE_TAKER","EXPIRE_MAKER","EXPIRE_BOTH","DECREMENT","TRANSFER"],"example":"NONE"},"workingType":{"type":"string","description":"Supported values: `LIMIT`, `LIMIT_MAKER`","enum":["LIMIT","LIMIT_MAKER"],"example":"LIMIT"},"workingSide":{"type":"string","description":"Supported values: [Order Side](/products/spot/enums#side)","enum":["BUY","SELL"],"example":"BUY"},"workingClientOrderId":{"type":"string","description":"Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.","example":"workingOrder1"},"workingPrice":{"type":"number","format":"float","example":1},"workingQuantity":{"type":"number","description":"Sets the quantity for the working order.","format":"float","example":1},"workingIcebergQty":{"type":"number","description":"This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.","format":"float","example":1},"workingTimeInForce":{"type":"string","description":"Supported values: [Time In Force](/products/spot/enums#timeinforce)","enum":["GTC","IOC","FOK"],"example":"GTC"},"workingStrategyId":{"type":"integer","description":"Arbitrary numeric value identifying the working order within an order strategy.","format":"int64","example":1},"workingStrategyType":{"type":"integer","description":"Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.","example":1},"workingPegPriceType":{"type":"string","description":"See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRIMARY_PEG","MARKET_PEG"],"example":"PRIMARY_PEG"},"workingPegOffsetType":{"type":"string","enum":["PRICE_LEVEL"],"example":"PRICE_LEVEL"},"workingPegOffsetValue":{"type":"integer","example":1},"pendingSide":{"type":"string","description":"Supported values: [Order Side](/products/spot/enums#side)","enum":["BUY","SELL"],"example":"BUY"},"pendingQuantity":{"type":"number","description":"Sets the quantity for the pending orders.","format":"float","example":1},"pendingAboveType":{"type":"string","description":"Supported values: `STOP_LOSS_LIMIT`, `STOP_LOSS`, `LIMIT_MAKER`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`","enum":["STOP_LOSS_LIMIT","STOP_LOSS","LIMIT_MAKER","TAKE_PROFIT","TAKE_PROFIT_LIMIT"],"example":"STOP_LOSS_LIMIT"},"pendingAboveClientOrderId":{"type":"string","description":"Arbitrary unique ID among open orders for the pending above order. Automatically generated if not sent.","example":"pendingAboveOrder1"},"pendingAbovePrice":{"type":"number","description":"Can be used if `pendingAboveType` is `STOP_LOSS_LIMIT`, `LIMIT_MAKER`, or `TAKE_PROFIT_LIMIT` to specify the limit price.","format":"float","example":1},"pendingAboveStopPrice":{"type":"number","description":"Can be used if `pendingAboveType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`.","format":"float","example":1},"pendingAboveTrailingDelta":{"type":"number","description":"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)","format":"float","example":1},"pendingAboveIcebergQty":{"type":"number","description":"This can only be used if `pendingAboveTimeInForce` is `GTC` or if `pendingAboveType` is `LIMIT_MAKER`.","format":"float","example":1},"pendingAboveTimeInForce":{"type":"string","description":"Required if `pendingAboveType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.","enum":["GTC","IOC","FOK"],"example":"GTC"},"pendingAboveStrategyId":{"type":"integer","description":"Arbitrary numeric value identifying the pending above order within an order strategy.","format":"int64","example":1},"pendingAboveStrategyType":{"type":"integer","description":"Arbitrary numeric value identifying the pending above order strategy. Values smaller than `1000000` are reserved and cannot be used.","example":1},"pendingAbovePegPriceType":{"type":"string","description":"See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRIMARY_PEG","MARKET_PEG"],"example":"PRIMARY_PEG"},"pendingAbovePegOffsetType":{"type":"string","enum":["PRICE_LEVEL"],"example":"PRICE_LEVEL"},"pendingAbovePegOffsetValue":{"type":"integer","example":1},"pendingBelowType":{"type":"string","description":"Supported values: `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`","enum":["STOP_LOSS","STOP_LOSS_LIMIT","TAKE_PROFIT","TAKE_PROFIT_LIMIT"],"example":"STOP_LOSS"},"pendingBelowClientOrderId":{"type":"string","description":"Arbitrary unique ID among open orders for the pending below order. Automatically generated if not sent.","example":"pendingBelowOrder1"},"pendingBelowPrice":{"type":"number","description":"Can be used if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT` to specify the limit price.","format":"float","example":1},"pendingBelowStopPrice":{"type":"number","description":"Can be used if `pendingBelowType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`. Either `pendingBelowStopPrice` or `pendingBelowTrailingDelta` or both, must be specified.","format":"float","example":1},"pendingBelowTrailingDelta":{"type":"number","description":"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)","format":"float","example":1},"pendingBelowIcebergQty":{"type":"number","description":"This can only be used if `pendingBelowTimeInForce` is `GTC`, or if `pendingBelowType` is `LIMIT_MAKER`.","format":"float","example":1},"pendingBelowTimeInForce":{"type":"string","description":"Required if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.","enum":["GTC","IOC","FOK"],"example":"GTC"},"pendingBelowStrategyId":{"type":"integer","description":"Arbitrary numeric value identifying the pending below order within an order strategy.","format":"int64","example":1},"pendingBelowStrategyType":{"type":"integer","description":"Arbitrary numeric value identifying the pending below order strategy. Values smaller than `1000000` are reserved and cannot be used.","example":1},"pendingBelowPegPriceType":{"type":"string","description":"See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRIMARY_PEG","MARKET_PEG"],"example":"PRIMARY_PEG"},"pendingBelowPegOffsetType":{"type":"string","enum":["PRICE_LEVEL"],"example":"PRICE_LEVEL"},"pendingBelowPegOffsetValue":{"type":"integer","example":1},"recvWindow":{"type":"number","description":"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.","format":"float","example":5000}},"required":["symbol","workingType","workingSide","workingPrice","workingQuantity","pendingSide","pendingQuantity","pendingAboveType"],"additionalProperties":false}},{"name":"spot.orderOco","description":"New OCO - Deprecated (TRADE)\nSend in a new OCO.\n\n- Price Restrictions:\n  - `SELL`: Limit Price > Last Price > Stop Price\n  - `BUY`: Limit Price < Last Price < Stop Price\n- Quantity Restrictions:\n  - Both legs must have the same quantity.\n  - `ICEBERG` quantities however do not have to be the same\n- `OCO` adds **2 orders** to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\n\nUnfilled Order Count: 2\n\nNotes:\n**Data Source:** Matching Engine","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBUSDT"},"listClientOrderId":{"type":"string","description":"A unique Id for the entire orderList","example":"JYVpp3F0f5CAG15DhtrqLp"},"side":{"type":"string","enum":["BUY","SELL"],"example":"BUY"},"quantity":{"type":"number","format":"float","example":1},"limitClientOrderId":{"type":"string","description":"A unique Id for the limit order","example":"limitOrder1"},"price":{"type":"number","format":"float","example":1},"limitStrategyId":{"type":"integer","format":"int64","example":1},"limitStrategyType":{"type":"integer","description":"The value cannot be less than `1000000`.","example":1},"limitIcebergQty":{"type":"number","description":"Used to make the `LIMIT_MAKER` leg an iceberg order.","format":"float","example":1},"trailingDelta":{"type":"integer","format":"int64","example":1},"stopClientOrderId":{"type":"string","description":"A unique Id for the stop loss/stop loss limit leg","example":"stopOrder1"},"stopPrice":{"type":"number","format":"float","example":1},"stopStrategyId":{"type":"integer","format":"int64","example":1},"stopStrategyType":{"type":"integer","description":"The value cannot be less than `1000000`.","example":1},"stopLimitPrice":{"type":"number","description":"If provided, `stopLimitTimeInForce` is required.","format":"float","example":1},"stopIcebergQty":{"type":"number","description":"Used with `STOP_LOSS_LIMIT` leg to make an iceberg order.","format":"float","example":1},"stopLimitTimeInForce":{"type":"string","description":"Valid values are `GTC`/`FOK`/`IOC`","enum":["GTC","IOC","FOK"],"example":"GTC"},"newOrderRespType":{"type":"string","description":"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)","enum":["ACK","RESULT","FULL"],"example":"ACK"},"selfTradePreventionMode":{"type":"string","description":"The allowed values are dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)","enum":["NONE","EXPIRE_TAKER","EXPIRE_MAKER","EXPIRE_BOTH","DECREMENT","TRANSFER"],"example":"NONE"},"recvWindow":{"type":"number","description":"The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.","format":"float","example":5000}},"required":["symbol","side","quantity","price","stopPrice"],"additionalProperties":false}},{"name":"spot.orderTest","description":"Test new order (TRADE)\nTest new order creation and signature/recvWindow long.\n\nCreates and validates a new order but does not send it into the matching\nengine.\n\nNotes:\n**Data Source:** Memory","inputSchema":{"type":"object","properties":{"computeCommissionRates":{"type":"boolean","description":"Default: `false` <br> See [Commissions FAQ](/products/spot/faqs/commission_faq#test-order-diferences) to learn more.","example":false},"symbol":{"type":"string","example":"BNBUSDT"},"side":{"type":"string","description":"Please see [Enums](/products/spot/enums#side) for supported values.","enum":["BUY","SELL"],"example":"BUY"},"type":{"type":"string","description":"Please see [Enums](/products/spot/enums#ordertypes) for supported values.","enum":["MARKET","LIMIT","STOP_LOSS","STOP_LOSS_LIMIT","TAKE_PROFIT","TAKE_PROFIT_LIMIT","LIMIT_MAKER"],"example":"MARKET"},"timeInForce":{"type":"string","description":"Please see [Enums](/products/spot/enums#timeinforce) for supported values.","enum":["GTC","IOC","FOK"],"example":"GTC"},"quantity":{"type":"number","format":"float","example":1},"quoteOrderQty":{"type":"number","format":"float","example":1},"price":{"type":"number","format":"float","example":400},"newClientOrderId":{"type":"string","description":"A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.","example":"myOrder1"},"strategyId":{"type":"integer","format":"int64","example":1},"strategyType":{"type":"integer","description":"The value cannot be less than `1000000`.","example":1},"stopPrice":{"type":"number","description":"Used with `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, and `TAKE_PROFIT_LIMIT` orders.","format":"float","example":1},"trailingDelta":{"type":"integer","description":"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)","format":"int64","example":1},"icebergQty":{"type":"number","description":"Used with `LIMIT`, `STOP_LOSS_LIMIT`, and `TAKE_PROFIT_LIMIT` to create an iceberg order.","format":"float","example":1},"newOrderRespType":{"type":"string","description":"Set the response JSON. `ACK`, `RESULT`, or `FULL`; `MARKET` and `LIMIT` order types default to `FULL`, all other orders default to `ACK`.","enum":["ACK","RESULT","FULL"],"example":"ACK"},"selfTradePreventionMode":{"type":"string","description":"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)","enum":["NONE","EXPIRE_TAKER","EXPIRE_MAKER","EXPIRE_BOTH","DECREMENT","TRANSFER"],"example":"NONE"},"pegPriceType":{"type":"string","description":"`PRIMARY_PEG` or `MARKET_PEG`. See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRIMARY_PEG","MARKET_PEG"],"example":"PRIMARY_PEG"},"pegOffsetValue":{"type":"integer","description":"Price level for pegging (max: 100). See [Pegged Orders](/products/spot/faqs/pegged_orders)","example":1},"pegOffsetType":{"type":"string","description":"Only `PRICE_LEVEL` is supported. See [Pegged Orders](/products/spot/faqs/pegged_orders)","enum":["PRICE_LEVEL"],"example":"PRICE_LEVEL"},"recvWindow":{"type":"number","description":"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.","format":"float","example":5000}},"required":["symbol","side","type"],"additionalProperties":false}},{"name":"spot.sorOrder","description":"New order using SOR (TRADE)\nPlaces an order using smart order routing (SOR).\n\nThis adds 1 order to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\n\nRead [SOR FAQ](/products/spot/faqs/sor_faq) to learn more.\n\nUnfilled Order Count: 1\n\nNotes:\n**Data Source:** Matching Engine\n\n**Note:** `POST /api/v3/sor/order` only supports `LIMIT` and `MARKET` orders. `quoteOrderQty` is not supported.","inputSchema":{"type":"object","properties":{"symbol":{"type":"string","example":"BNBUSDT"},"side":{"type":"string","enum":["BUY","SELL"],"example":"BUY"},"type":{"type":"string","enum":["MARKET","LIMIT"],"example":"MARKET"},"timeInForce":{"type":"string","enum":["GTC","IOC","FOK"],"example":"GTC"},"quantity":{"type":"number","format":"float","example":1},"price":{"type":"number","format":"float","example":400},"newClientOrderId":{"type":"string","description":"A unique id among open orders. Automatically generated if not sent.<br/> Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.","example":"myOrder1"},"strategyId":{"type":"integer","format":"int64","example":1},"strategyType":{"type":"integer","description":"The value cannot be less than `1000000`.","example":1},"icebergQty":{"type":"number","description":"Used with `LIMIT` to create an iceberg order.","format":"float","example":1},"newOrderRespType":{"type":"string","description":"Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`","enum":["ACK","RESULT","FULL"],"example":"ACK"},"selfTradePreventionMode":{"type":"string","description":"The allowed enums is dependent on what is configured on the symbol. The possible supported values are: [STP Modes](/products/spot/enums#stpmodes).","enum":["NONE","EXPIRE_TAKER","EXPIRE_MAKER","EXPIRE_BOTH","DECREMENT","TRANSFER"],"example":"NONE"},"recvWindow":{"type":"number","description":"The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.","format":"float","example":5000}},"required":["symbol","side","type","quantity"],"additionalProperties":false}},{"name":"spot.sorOrderTest","description":"Test new order using SOR (TRADE)\nTest new order creation and signature/recvWindow using smart order routing (SOR).\nCreates and validates a new order but does not send it into the matching engine.\n\nNotes:\n**Data Source:** Memory","inputSchema":{"type":"object","properties":{"computeCommissionRates":{"type":"boolean","example":false},"symbol":{"type":"string","example":"BNBUSDT"},"side":{"type":"string","description":"Please see [Enums](/products/spot/enums#side) for supported values.","enum":["BUY","SELL"],"example":"BUY"},"type":{"type":"string","description":"Please see [Enums](/products/spot/enums#ordertypes) for supported values.","enum":["MARKET","LIMIT"],"example":"MARKET"},"timeInForce":{"type":"string","description":"Please see [Enums](/products/spot/enums#timeinforce) for supported values.","enum":["GTC","IOC","FOK"],"example":"GTC"},"quantity":{"type":"number","format":"float","example":1},"price":{"type":"number","format":"float","example":400},"newClientOrderId":{"type":"string","description":"A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.","example":"myOrder1"},"strategyId":{"type":"integer","format":"int64","example":1},"strategyType":{"type":"integer","description":"The value cannot be less than `1000000`.","example":1},"icebergQty":{"type":"number","description":"Used with `LIMIT` to create an iceberg order.","format":"float","example":1},"newOrderRespType":{"type":"string","description":"Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`.","enum":["ACK","RESULT","FULL"],"example":"ACK"},"selfTradePreventionMode":{"type":"string","description":"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)","enum":["NONE","EXPIRE_TAKER","EXPIRE_MAKER","EXPIRE_BOTH","DECREMENT","TRANSFER"],"example":"NONE"},"recvWindow":{"type":"number","description":"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.","format":"float","example":5000}},"required":["symbol","side","type","quantity"],"additionalProperties":false}}],"nextStep":"Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."},"isError":false},"tool_use_id":"exec-e37b8388-9ff9-4ff1-ba98-44e9361776f8"}
+{
+  "observedAt": "2026-09-04T23:13:28.722Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-e37b8388-9ff9-4ff1-ba98-44e9361776f8",
+  "tool_input": {
+    "category": "trade",
+    "cursor": "c3BvdC5vcmRlckxpc3RPcG9jbw",
+    "limit": 50
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"spot.orderListOto\",\"description\":\"New Order list - OTO (TRADE)\\nPlace an OTO.\\n\\n- An OTO (One-Triggers-the-Other) is an order list comprised of 2 orders.\\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\\n- The second order is called the **pending order**. It can be any order type except for `MARKET` orders using parameter `quoteOrderQty`. The pending order is only placed on the order book when the working order gets **fully filled**.\\n- If either the working order or the pending order is cancelled individually, the other order in the order list will also be canceled or expired.\\n- When the order list is placed, if the working order gets **immediately fully filled**, the placement response will show the working order as `FILLED` but the pending order will still appear as `PENDING_NEW`. You need to query the status of the pending order again to see its updated status.\\n- OTOs add **2 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\\n\\nUnfilled Order Count: 2\\n\\nNotes:\\n**Data Source:** Matching Engine\\n\\n**Mandatory parameters based on `pendingType` or `workingType`**\\n\\nDepending on the `pendingType` or `workingType`, some optional parameters will become mandatory.\\n\\n|Type                                                  |Additional mandatory parameters|Additional information|\\n|----                                                  |----                           |------\\n|`workingType` = `LIMIT`                               |`workingTimeInForce`           |\\n|`pendingType` = `LIMIT`                                |`pendingPrice`, `pendingTimeInForce`          |\\n|`pendingType` = `STOP_LOSS` or `TAKE_PROFIT`           |`pendingStopPrice` and/or `pendingTrailingDelta`|\\n|`pendingType` = `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`|`pendingPrice`, `pendingStopPrice` and/or `pendingTrailingDelta`, `pendingTimeInForce`|\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"listClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.\",\"example\":\"yl2ERtcar1o25zcWtqVBTC\"},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"workingType\":{\"type\":\"string\",\"description\":\"Supported values: `LIMIT`, `LIMIT_MAKER`\",\"enum\":[\"LIMIT\",\"LIMIT_MAKER\"],\"example\":\"LIMIT\"},\"workingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"workingClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.\",\"example\":\"workingOrder1\"},\"workingPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"workingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the working order.\",\"format\":\"float\",\"example\":1},\"workingIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"workingTimeInForce\":{\"type\":\"string\",\"description\":\"Supported values: [Time In Force](/products/spot/enums#timeinforce)\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"workingStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"workingStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingType\":{\"type\":\"string\",\"description\":\"Supported values: [Order Types](/products/spot/enums#ordertypes). Note that `MARKET` orders using `quoteOrderQty` are not supported.\",\"enum\":[\"LIMIT\",\"MARKET\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"],\"example\":\"LIMIT\"},\"workingPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"workingPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"workingPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"pendingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"pendingClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the pending order. Automatically generated if not sent.\",\"example\":\"pendingOrder1\"},\"pendingPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"pendingStopPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"pendingTrailingDelta\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"pendingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the pending order.\",\"format\":\"float\",\"example\":1},\"pendingIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `pendingTimeInForce` is `GTC` or if `pendingType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"pendingTimeInForce\":{\"type\":\"string\",\"description\":\"Supported values: [Time In Force](/products/spot/enums#timeinforce)\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"pendingStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"pendingStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pendingPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"pendingPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"workingType\",\"workingSide\",\"workingPrice\",\"workingQuantity\",\"pendingType\",\"pendingSide\",\"pendingQuantity\"],\"additionalProperties\":false}},{\"name\":\"spot.orderListOtoco\",\"description\":\"New Order list - OTOCO (TRADE)\\nPlace an OTOCO.\\n\\n- An OTOCO (One-Triggers-One-Cancels-the-Other) is an order list comprised of 3 orders.\\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\\n  - The behavior of the working order is the same as the [OTO](#order-list-oto).\\n- OTOCO has 2 pending orders (pending above and pending below), forming an OCO pair. The pending orders are only placed on the order book when the working order gets **fully filled**.\\n  - The rules of the pending above and pending below follow the same rules as the [Order list OCO](#order-list-oco).\\n- OTOCOs add **3 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\\n\\nUnfilled Order Count: 3\\n\\nNotes:\\n**Data Source:** Matching Engine\\n\\n**Mandatory parameters based on `pendingAboveType`, `pendingBelowType` or `workingType`**\\n\\nDepending on the `pendingAboveType`/`pendingBelowType` or `workingType`, some optional parameters will become mandatory.\\n\\n|Type                                                       |Additional mandatory parameters|Additional information|\\n|----                                                       |----                           |------\\n|`workingType` = `LIMIT`                                    |`workingTimeInForce`           |\\n|`pendingAboveType`= `LIMIT_MAKER`                                |`pendingAbovePrice`     |\\n|`pendingAboveType` = `STOP_LOSS/TAKE_PROFIT`        |`pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`|\\n|`pendingAboveType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingAbovePrice`, `pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`, `pendingAboveTimeInForce`|\\n|`pendingBelowType`= `LIMIT_MAKER`                                |`pendingBelowPrice`          |\\n|`pendingBelowType= STOP_LOSS/TAKE_PROFIT`         |`pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`|\\n|`pendingBelowType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingBelowPrice`, `pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`, `pendingBelowTimeInForce`|\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"listClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.\",\"example\":\"RumwQpBaDctlUu5jyG5rs0\"},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"workingType\":{\"type\":\"string\",\"description\":\"Supported values: `LIMIT`, `LIMIT_MAKER`\",\"enum\":[\"LIMIT\",\"LIMIT_MAKER\"],\"example\":\"LIMIT\"},\"workingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"workingClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.\",\"example\":\"workingOrder1\"},\"workingPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"workingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the working order.\",\"format\":\"float\",\"example\":1},\"workingIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"workingTimeInForce\":{\"type\":\"string\",\"description\":\"Supported values: [Time In Force](/products/spot/enums#timeinforce)\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"workingStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"workingStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"workingPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"workingPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"workingPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"pendingSide\":{\"type\":\"string\",\"description\":\"Supported values: [Order Side](/products/spot/enums#side)\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"pendingQuantity\":{\"type\":\"number\",\"description\":\"Sets the quantity for the pending orders.\",\"format\":\"float\",\"example\":1},\"pendingAboveType\":{\"type\":\"string\",\"description\":\"Supported values: `STOP_LOSS_LIMIT`, `STOP_LOSS`, `LIMIT_MAKER`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`\",\"enum\":[\"STOP_LOSS_LIMIT\",\"STOP_LOSS\",\"LIMIT_MAKER\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\"],\"example\":\"STOP_LOSS_LIMIT\"},\"pendingAboveClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the pending above order. Automatically generated if not sent.\",\"example\":\"pendingAboveOrder1\"},\"pendingAbovePrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingAboveType` is `STOP_LOSS_LIMIT`, `LIMIT_MAKER`, or `TAKE_PROFIT_LIMIT` to specify the limit price.\",\"format\":\"float\",\"example\":1},\"pendingAboveStopPrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingAboveType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`.\",\"format\":\"float\",\"example\":1},\"pendingAboveTrailingDelta\":{\"type\":\"number\",\"description\":\"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)\",\"format\":\"float\",\"example\":1},\"pendingAboveIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `pendingAboveTimeInForce` is `GTC` or if `pendingAboveType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"pendingAboveTimeInForce\":{\"type\":\"string\",\"description\":\"Required if `pendingAboveType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"pendingAboveStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending above order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"pendingAboveStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending above order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingAbovePegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pendingAbovePegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"pendingAbovePegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"pendingBelowType\":{\"type\":\"string\",\"description\":\"Supported values: `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`\",\"enum\":[\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\"],\"example\":\"STOP_LOSS\"},\"pendingBelowClientOrderId\":{\"type\":\"string\",\"description\":\"Arbitrary unique ID among open orders for the pending below order. Automatically generated if not sent.\",\"example\":\"pendingBelowOrder1\"},\"pendingBelowPrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT` to specify the limit price.\",\"format\":\"float\",\"example\":1},\"pendingBelowStopPrice\":{\"type\":\"number\",\"description\":\"Can be used if `pendingBelowType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`. Either `pendingBelowStopPrice` or `pendingBelowTrailingDelta` or both, must be specified.\",\"format\":\"float\",\"example\":1},\"pendingBelowTrailingDelta\":{\"type\":\"number\",\"description\":\"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)\",\"format\":\"float\",\"example\":1},\"pendingBelowIcebergQty\":{\"type\":\"number\",\"description\":\"This can only be used if `pendingBelowTimeInForce` is `GTC`, or if `pendingBelowType` is `LIMIT_MAKER`.\",\"format\":\"float\",\"example\":1},\"pendingBelowTimeInForce\":{\"type\":\"string\",\"description\":\"Required if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"pendingBelowStrategyId\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending below order within an order strategy.\",\"format\":\"int64\",\"example\":1},\"pendingBelowStrategyType\":{\"type\":\"integer\",\"description\":\"Arbitrary numeric value identifying the pending below order strategy. Values smaller than `1000000` are reserved and cannot be used.\",\"example\":1},\"pendingBelowPegPriceType\":{\"type\":\"string\",\"description\":\"See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pendingBelowPegOffsetType\":{\"type\":\"string\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"pendingBelowPegOffsetValue\":{\"type\":\"integer\",\"example\":1},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"workingType\",\"workingSide\",\"workingPrice\",\"workingQuantity\",\"pendingSide\",\"pendingQuantity\",\"pendingAboveType\"],\"additionalProperties\":false}},{\"name\":\"spot.orderOco\",\"description\":\"New OCO - Deprecated (TRADE)\\nSend in a new OCO.\\n\\n- Price Restrictions:\\n  - `SELL`: Limit Price > Last Price > Stop Price\\n  - `BUY`: Limit Price < Last Price < Stop Price\\n- Quantity Restrictions:\\n  - Both legs must have the same quantity.\\n  - `ICEBERG` quantities however do not have to be the same\\n- `OCO` adds **2 orders** to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\\n\\nUnfilled Order Count: 2\\n\\nNotes:\\n**Data Source:** Matching Engine\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"listClientOrderId\":{\"type\":\"string\",\"description\":\"A unique Id for the entire orderList\",\"example\":\"JYVpp3F0f5CAG15DhtrqLp\"},\"side\":{\"type\":\"string\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"limitClientOrderId\":{\"type\":\"string\",\"description\":\"A unique Id for the limit order\",\"example\":\"limitOrder1\"},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"limitStrategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"limitStrategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"limitIcebergQty\":{\"type\":\"number\",\"description\":\"Used to make the `LIMIT_MAKER` leg an iceberg order.\",\"format\":\"float\",\"example\":1},\"trailingDelta\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"stopClientOrderId\":{\"type\":\"string\",\"description\":\"A unique Id for the stop loss/stop loss limit leg\",\"example\":\"stopOrder1\"},\"stopPrice\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"stopStrategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"stopStrategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"stopLimitPrice\":{\"type\":\"number\",\"description\":\"If provided, `stopLimitTimeInForce` is required.\",\"format\":\"float\",\"example\":1},\"stopIcebergQty\":{\"type\":\"number\",\"description\":\"Used with `STOP_LOSS_LIMIT` leg to make an iceberg order.\",\"format\":\"float\",\"example\":1},\"stopLimitTimeInForce\":{\"type\":\"string\",\"description\":\"Valid values are `GTC`/`FOK`/`IOC`\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed values are dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"quantity\",\"price\",\"stopPrice\"],\"additionalProperties\":false}},{\"name\":\"spot.orderTest\",\"description\":\"Test new order (TRADE)\\nTest new order creation and signature/recvWindow long.\\n\\nCreates and validates a new order but does not send it into the matching\\nengine.\\n\\nNotes:\\n**Data Source:** Memory\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"computeCommissionRates\":{\"type\":\"boolean\",\"description\":\"Default: `false` <br> See [Commissions FAQ](/products/spot/faqs/commission_faq#test-order-diferences) to learn more.\",\"example\":false},\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"side\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#side) for supported values.\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"type\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#ordertypes) for supported values.\",\"enum\":[\"MARKET\",\"LIMIT\",\"STOP_LOSS\",\"STOP_LOSS_LIMIT\",\"TAKE_PROFIT\",\"TAKE_PROFIT_LIMIT\",\"LIMIT_MAKER\"],\"example\":\"MARKET\"},\"timeInForce\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#timeinforce) for supported values.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"quoteOrderQty\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":400},\"newClientOrderId\":{\"type\":\"string\",\"description\":\"A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.\",\"example\":\"myOrder1\"},\"strategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"strategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"stopPrice\":{\"type\":\"number\",\"description\":\"Used with `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, and `TAKE_PROFIT_LIMIT` orders.\",\"format\":\"float\",\"example\":1},\"trailingDelta\":{\"type\":\"integer\",\"description\":\"See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)\",\"format\":\"int64\",\"example\":1},\"icebergQty\":{\"type\":\"number\",\"description\":\"Used with `LIMIT`, `STOP_LOSS_LIMIT`, and `TAKE_PROFIT_LIMIT` to create an iceberg order.\",\"format\":\"float\",\"example\":1},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Set the response JSON. `ACK`, `RESULT`, or `FULL`; `MARKET` and `LIMIT` order types default to `FULL`, all other orders default to `ACK`.\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"pegPriceType\":{\"type\":\"string\",\"description\":\"`PRIMARY_PEG` or `MARKET_PEG`. See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRIMARY_PEG\",\"MARKET_PEG\"],\"example\":\"PRIMARY_PEG\"},\"pegOffsetValue\":{\"type\":\"integer\",\"description\":\"Price level for pegging (max: 100). See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"example\":1},\"pegOffsetType\":{\"type\":\"string\",\"description\":\"Only `PRICE_LEVEL` is supported. See [Pegged Orders](/products/spot/faqs/pegged_orders)\",\"enum\":[\"PRICE_LEVEL\"],\"example\":\"PRICE_LEVEL\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"type\"],\"additionalProperties\":false}},{\"name\":\"spot.sorOrder\",\"description\":\"New order using SOR (TRADE)\\nPlaces an order using smart order routing (SOR).\\n\\nThis adds 1 order to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\\n\\nRead [SOR FAQ](/products/spot/faqs/sor_faq) to learn more.\\n\\nUnfilled Order Count: 1\\n\\nNotes:\\n**Data Source:** Matching Engine\\n\\n**Note:** `POST /api/v3/sor/order` only supports `LIMIT` and `MARKET` orders. `quoteOrderQty` is not supported.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"side\":{\"type\":\"string\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"type\":{\"type\":\"string\",\"enum\":[\"MARKET\",\"LIMIT\"],\"example\":\"MARKET\"},\"timeInForce\":{\"type\":\"string\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":400},\"newClientOrderId\":{\"type\":\"string\",\"description\":\"A unique id among open orders. Automatically generated if not sent.<br/> Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.\",\"example\":\"myOrder1\"},\"strategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"strategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"icebergQty\":{\"type\":\"number\",\"description\":\"Used with `LIMIT` to create an iceberg order.\",\"format\":\"float\",\"example\":1},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. The possible supported values are: [STP Modes](/products/spot/enums#stpmodes).\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"type\",\"quantity\"],\"additionalProperties\":false}},{\"name\":\"spot.sorOrderTest\",\"description\":\"Test new order using SOR (TRADE)\\nTest new order creation and signature/recvWindow using smart order routing (SOR).\\nCreates and validates a new order but does not send it into the matching engine.\\n\\nNotes:\\n**Data Source:** Memory\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"computeCommissionRates\":{\"type\":\"boolean\",\"example\":false},\"symbol\":{\"type\":\"string\",\"example\":\"BNBUSDT\"},\"side\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#side) for supported values.\",\"enum\":[\"BUY\",\"SELL\"],\"example\":\"BUY\"},\"type\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#ordertypes) for supported values.\",\"enum\":[\"MARKET\",\"LIMIT\"],\"example\":\"MARKET\"},\"timeInForce\":{\"type\":\"string\",\"description\":\"Please see [Enums](/products/spot/enums#timeinforce) for supported values.\",\"enum\":[\"GTC\",\"IOC\",\"FOK\"],\"example\":\"GTC\"},\"quantity\":{\"type\":\"number\",\"format\":\"float\",\"example\":1},\"price\":{\"type\":\"number\",\"format\":\"float\",\"example\":400},\"newClientOrderId\":{\"type\":\"string\",\"description\":\"A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.\",\"example\":\"myOrder1\"},\"strategyId\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1},\"strategyType\":{\"type\":\"integer\",\"description\":\"The value cannot be less than `1000000`.\",\"example\":1},\"icebergQty\":{\"type\":\"number\",\"description\":\"Used with `LIMIT` to create an iceberg order.\",\"format\":\"float\",\"example\":1},\"newOrderRespType\":{\"type\":\"string\",\"description\":\"Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`.\",\"enum\":[\"ACK\",\"RESULT\",\"FULL\"],\"example\":\"ACK\"},\"selfTradePreventionMode\":{\"type\":\"string\",\"description\":\"The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)\",\"enum\":[\"NONE\",\"EXPIRE_TAKER\",\"EXPIRE_MAKER\",\"EXPIRE_BOTH\",\"DECREMENT\",\"TRANSFER\"],\"example\":\"NONE\"},\"recvWindow\":{\"type\":\"number\",\"description\":\"The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.\",\"format\":\"float\",\"example\":5000}},\"required\":[\"symbol\",\"side\",\"type\",\"quantity\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "spot.orderListOto",
+          "description": "New Order list - OTO (TRADE)\nPlace an OTO.\n\n- An OTO (One-Triggers-the-Other) is an order list comprised of 2 orders.\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\n- The second order is called the **pending order**. It can be any order type except for `MARKET` orders using parameter `quoteOrderQty`. The pending order is only placed on the order book when the working order gets **fully filled**.\n- If either the working order or the pending order is cancelled individually, the other order in the order list will also be canceled or expired.\n- When the order list is placed, if the working order gets **immediately fully filled**, the placement response will show the working order as `FILLED` but the pending order will still appear as `PENDING_NEW`. You need to query the status of the pending order again to see its updated status.\n- OTOs add **2 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\n\nUnfilled Order Count: 2\n\nNotes:\n**Data Source:** Matching Engine\n\n**Mandatory parameters based on `pendingType` or `workingType`**\n\nDepending on the `pendingType` or `workingType`, some optional parameters will become mandatory.\n\n|Type                                                  |Additional mandatory parameters|Additional information|\n|----                                                  |----                           |------\n|`workingType` = `LIMIT`                               |`workingTimeInForce`           |\n|`pendingType` = `LIMIT`                                |`pendingPrice`, `pendingTimeInForce`          |\n|`pendingType` = `STOP_LOSS` or `TAKE_PROFIT`           |`pendingStopPrice` and/or `pendingTrailingDelta`|\n|`pendingType` = `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`|`pendingPrice`, `pendingStopPrice` and/or `pendingTrailingDelta`, `pendingTimeInForce`|",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBUSDT"
+              },
+              "listClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.",
+                "example": "yl2ERtcar1o25zcWtqVBTC"
+              },
+              "newOrderRespType": {
+                "type": "string",
+                "description": "Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)",
+                "enum": [
+                  "ACK",
+                  "RESULT",
+                  "FULL"
+                ],
+                "example": "ACK"
+              },
+              "selfTradePreventionMode": {
+                "type": "string",
+                "description": "The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)",
+                "enum": [
+                  "NONE",
+                  "EXPIRE_TAKER",
+                  "EXPIRE_MAKER",
+                  "EXPIRE_BOTH",
+                  "DECREMENT",
+                  "TRANSFER"
+                ],
+                "example": "NONE"
+              },
+              "workingType": {
+                "type": "string",
+                "description": "Supported values: `LIMIT`, `LIMIT_MAKER`",
+                "enum": [
+                  "LIMIT",
+                  "LIMIT_MAKER"
+                ],
+                "example": "LIMIT"
+              },
+              "workingSide": {
+                "type": "string",
+                "description": "Supported values: [Order Side](/products/spot/enums#side)",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "workingClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.",
+                "example": "workingOrder1"
+              },
+              "workingPrice": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "workingQuantity": {
+                "type": "number",
+                "description": "Sets the quantity for the working order.",
+                "format": "float",
+                "example": 1
+              },
+              "workingIcebergQty": {
+                "type": "number",
+                "description": "This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.",
+                "format": "float",
+                "example": 1
+              },
+              "workingTimeInForce": {
+                "type": "string",
+                "description": "Supported values: [Time In Force](/products/spot/enums#timeinforce)",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "workingStrategyId": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the working order within an order strategy.",
+                "format": "int64",
+                "example": 1
+              },
+              "workingStrategyType": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.",
+                "example": 1
+              },
+              "pendingType": {
+                "type": "string",
+                "description": "Supported values: [Order Types](/products/spot/enums#ordertypes). Note that `MARKET` orders using `quoteOrderQty` are not supported.",
+                "enum": [
+                  "LIMIT",
+                  "MARKET",
+                  "STOP_LOSS",
+                  "STOP_LOSS_LIMIT",
+                  "TAKE_PROFIT",
+                  "TAKE_PROFIT_LIMIT",
+                  "LIMIT_MAKER"
+                ],
+                "example": "LIMIT"
+              },
+              "workingPegPriceType": {
+                "type": "string",
+                "description": "See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRIMARY_PEG",
+                  "MARKET_PEG"
+                ],
+                "example": "PRIMARY_PEG"
+              },
+              "workingPegOffsetType": {
+                "type": "string",
+                "enum": [
+                  "PRICE_LEVEL"
+                ],
+                "example": "PRICE_LEVEL"
+              },
+              "workingPegOffsetValue": {
+                "type": "integer",
+                "example": 1
+              },
+              "pendingSide": {
+                "type": "string",
+                "description": "Supported values: [Order Side](/products/spot/enums#side)",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "pendingClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open orders for the pending order. Automatically generated if not sent.",
+                "example": "pendingOrder1"
+              },
+              "pendingPrice": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "pendingStopPrice": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "pendingTrailingDelta": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "pendingQuantity": {
+                "type": "number",
+                "description": "Sets the quantity for the pending order.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingIcebergQty": {
+                "type": "number",
+                "description": "This can only be used if `pendingTimeInForce` is `GTC` or if `pendingType` is `LIMIT_MAKER`.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingTimeInForce": {
+                "type": "string",
+                "description": "Supported values: [Time In Force](/products/spot/enums#timeinforce)",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "pendingStrategyId": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the pending order within an order strategy.",
+                "format": "int64",
+                "example": 1
+              },
+              "pendingStrategyType": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the pending order strategy. Values smaller than `1000000` are reserved and cannot be used.",
+                "example": 1
+              },
+              "pendingPegPriceType": {
+                "type": "string",
+                "description": "See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRIMARY_PEG",
+                  "MARKET_PEG"
+                ],
+                "example": "PRIMARY_PEG"
+              },
+              "pendingPegOffsetType": {
+                "type": "string",
+                "enum": [
+                  "PRICE_LEVEL"
+                ],
+                "example": "PRICE_LEVEL"
+              },
+              "pendingPegOffsetValue": {
+                "type": "integer",
+                "example": 1
+              },
+              "recvWindow": {
+                "type": "number",
+                "description": "The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.",
+                "format": "float",
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol",
+              "workingType",
+              "workingSide",
+              "workingPrice",
+              "workingQuantity",
+              "pendingType",
+              "pendingSide",
+              "pendingQuantity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "spot.orderListOtoco",
+          "description": "New Order list - OTOCO (TRADE)\nPlace an OTOCO.\n\n- An OTOCO (One-Triggers-One-Cancels-the-Other) is an order list comprised of 3 orders.\n- The first order is called the **working order** and must be `LIMIT` or `LIMIT_MAKER`. Initially, only the working order goes on the order book.\n  - The behavior of the working order is the same as the [OTO](#order-list-oto).\n- OTOCO has 2 pending orders (pending above and pending below), forming an OCO pair. The pending orders are only placed on the order book when the working order gets **fully filled**.\n  - The rules of the pending above and pending below follow the same rules as the [Order list OCO](#order-list-oco).\n- OTOCOs add **3 orders** to the `EXCHANGE_MAX_NUM_ORDERS` filter and `MAX_NUM_ORDERS` filter.\n\nUnfilled Order Count: 3\n\nNotes:\n**Data Source:** Matching Engine\n\n**Mandatory parameters based on `pendingAboveType`, `pendingBelowType` or `workingType`**\n\nDepending on the `pendingAboveType`/`pendingBelowType` or `workingType`, some optional parameters will become mandatory.\n\n|Type                                                       |Additional mandatory parameters|Additional information|\n|----                                                       |----                           |------\n|`workingType` = `LIMIT`                                    |`workingTimeInForce`           |\n|`pendingAboveType`= `LIMIT_MAKER`                                |`pendingAbovePrice`     |\n|`pendingAboveType` = `STOP_LOSS/TAKE_PROFIT`        |`pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`|\n|`pendingAboveType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingAbovePrice`, `pendingAboveStopPrice` and/or `pendingAboveTrailingDelta`, `pendingAboveTimeInForce`|\n|`pendingBelowType`= `LIMIT_MAKER`                                |`pendingBelowPrice`          |\n|`pendingBelowType= STOP_LOSS/TAKE_PROFIT`         |`pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`|\n|`pendingBelowType=STOP_LOSS_LIMIT/TAKE_PROFIT_LIMIT` |`pendingBelowPrice`, `pendingBelowStopPrice` and/or `pendingBelowTrailingDelta`, `pendingBelowTimeInForce`|",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBUSDT"
+              },
+              "listClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open order lists. Automatically generated if not sent. A new order list with the same `listClientOrderId` is accepted only when the previous one is filled or completely expired. `listClientOrderId` is distinct from the `workingClientOrderId` and the `pendingClientOrderId`.",
+                "example": "RumwQpBaDctlUu5jyG5rs0"
+              },
+              "newOrderRespType": {
+                "type": "string",
+                "description": "Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)",
+                "enum": [
+                  "ACK",
+                  "RESULT",
+                  "FULL"
+                ],
+                "example": "ACK"
+              },
+              "selfTradePreventionMode": {
+                "type": "string",
+                "description": "The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)",
+                "enum": [
+                  "NONE",
+                  "EXPIRE_TAKER",
+                  "EXPIRE_MAKER",
+                  "EXPIRE_BOTH",
+                  "DECREMENT",
+                  "TRANSFER"
+                ],
+                "example": "NONE"
+              },
+              "workingType": {
+                "type": "string",
+                "description": "Supported values: `LIMIT`, `LIMIT_MAKER`",
+                "enum": [
+                  "LIMIT",
+                  "LIMIT_MAKER"
+                ],
+                "example": "LIMIT"
+              },
+              "workingSide": {
+                "type": "string",
+                "description": "Supported values: [Order Side](/products/spot/enums#side)",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "workingClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open orders for the working order. Automatically generated if not sent.",
+                "example": "workingOrder1"
+              },
+              "workingPrice": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "workingQuantity": {
+                "type": "number",
+                "description": "Sets the quantity for the working order.",
+                "format": "float",
+                "example": 1
+              },
+              "workingIcebergQty": {
+                "type": "number",
+                "description": "This can only be used if `workingTimeInForce` is `GTC`, or if `workingType` is `LIMIT_MAKER`.",
+                "format": "float",
+                "example": 1
+              },
+              "workingTimeInForce": {
+                "type": "string",
+                "description": "Supported values: [Time In Force](/products/spot/enums#timeinforce)",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "workingStrategyId": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the working order within an order strategy.",
+                "format": "int64",
+                "example": 1
+              },
+              "workingStrategyType": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the working order strategy. Values smaller than `1000000` are reserved and cannot be used.",
+                "example": 1
+              },
+              "workingPegPriceType": {
+                "type": "string",
+                "description": "See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRIMARY_PEG",
+                  "MARKET_PEG"
+                ],
+                "example": "PRIMARY_PEG"
+              },
+              "workingPegOffsetType": {
+                "type": "string",
+                "enum": [
+                  "PRICE_LEVEL"
+                ],
+                "example": "PRICE_LEVEL"
+              },
+              "workingPegOffsetValue": {
+                "type": "integer",
+                "example": 1
+              },
+              "pendingSide": {
+                "type": "string",
+                "description": "Supported values: [Order Side](/products/spot/enums#side)",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "pendingQuantity": {
+                "type": "number",
+                "description": "Sets the quantity for the pending orders.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingAboveType": {
+                "type": "string",
+                "description": "Supported values: `STOP_LOSS_LIMIT`, `STOP_LOSS`, `LIMIT_MAKER`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`",
+                "enum": [
+                  "STOP_LOSS_LIMIT",
+                  "STOP_LOSS",
+                  "LIMIT_MAKER",
+                  "TAKE_PROFIT",
+                  "TAKE_PROFIT_LIMIT"
+                ],
+                "example": "STOP_LOSS_LIMIT"
+              },
+              "pendingAboveClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open orders for the pending above order. Automatically generated if not sent.",
+                "example": "pendingAboveOrder1"
+              },
+              "pendingAbovePrice": {
+                "type": "number",
+                "description": "Can be used if `pendingAboveType` is `STOP_LOSS_LIMIT`, `LIMIT_MAKER`, or `TAKE_PROFIT_LIMIT` to specify the limit price.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingAboveStopPrice": {
+                "type": "number",
+                "description": "Can be used if `pendingAboveType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingAboveTrailingDelta": {
+                "type": "number",
+                "description": "See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)",
+                "format": "float",
+                "example": 1
+              },
+              "pendingAboveIcebergQty": {
+                "type": "number",
+                "description": "This can only be used if `pendingAboveTimeInForce` is `GTC` or if `pendingAboveType` is `LIMIT_MAKER`.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingAboveTimeInForce": {
+                "type": "string",
+                "description": "Required if `pendingAboveType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "pendingAboveStrategyId": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the pending above order within an order strategy.",
+                "format": "int64",
+                "example": 1
+              },
+              "pendingAboveStrategyType": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the pending above order strategy. Values smaller than `1000000` are reserved and cannot be used.",
+                "example": 1
+              },
+              "pendingAbovePegPriceType": {
+                "type": "string",
+                "description": "See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRIMARY_PEG",
+                  "MARKET_PEG"
+                ],
+                "example": "PRIMARY_PEG"
+              },
+              "pendingAbovePegOffsetType": {
+                "type": "string",
+                "enum": [
+                  "PRICE_LEVEL"
+                ],
+                "example": "PRICE_LEVEL"
+              },
+              "pendingAbovePegOffsetValue": {
+                "type": "integer",
+                "example": 1
+              },
+              "pendingBelowType": {
+                "type": "string",
+                "description": "Supported values: `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`",
+                "enum": [
+                  "STOP_LOSS",
+                  "STOP_LOSS_LIMIT",
+                  "TAKE_PROFIT",
+                  "TAKE_PROFIT_LIMIT"
+                ],
+                "example": "STOP_LOSS"
+              },
+              "pendingBelowClientOrderId": {
+                "type": "string",
+                "description": "Arbitrary unique ID among open orders for the pending below order. Automatically generated if not sent.",
+                "example": "pendingBelowOrder1"
+              },
+              "pendingBelowPrice": {
+                "type": "number",
+                "description": "Can be used if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT` to specify the limit price.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingBelowStopPrice": {
+                "type": "number",
+                "description": "Can be used if `pendingBelowType` is `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, `TAKE_PROFIT_LIMIT`. Either `pendingBelowStopPrice` or `pendingBelowTrailingDelta` or both, must be specified.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingBelowTrailingDelta": {
+                "type": "number",
+                "description": "See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)",
+                "format": "float",
+                "example": 1
+              },
+              "pendingBelowIcebergQty": {
+                "type": "number",
+                "description": "This can only be used if `pendingBelowTimeInForce` is `GTC`, or if `pendingBelowType` is `LIMIT_MAKER`.",
+                "format": "float",
+                "example": 1
+              },
+              "pendingBelowTimeInForce": {
+                "type": "string",
+                "description": "Required if `pendingBelowType` is `STOP_LOSS_LIMIT` or `TAKE_PROFIT_LIMIT`.",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "pendingBelowStrategyId": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the pending below order within an order strategy.",
+                "format": "int64",
+                "example": 1
+              },
+              "pendingBelowStrategyType": {
+                "type": "integer",
+                "description": "Arbitrary numeric value identifying the pending below order strategy. Values smaller than `1000000` are reserved and cannot be used.",
+                "example": 1
+              },
+              "pendingBelowPegPriceType": {
+                "type": "string",
+                "description": "See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRIMARY_PEG",
+                  "MARKET_PEG"
+                ],
+                "example": "PRIMARY_PEG"
+              },
+              "pendingBelowPegOffsetType": {
+                "type": "string",
+                "enum": [
+                  "PRICE_LEVEL"
+                ],
+                "example": "PRICE_LEVEL"
+              },
+              "pendingBelowPegOffsetValue": {
+                "type": "integer",
+                "example": 1
+              },
+              "recvWindow": {
+                "type": "number",
+                "description": "The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.",
+                "format": "float",
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol",
+              "workingType",
+              "workingSide",
+              "workingPrice",
+              "workingQuantity",
+              "pendingSide",
+              "pendingQuantity",
+              "pendingAboveType"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "spot.orderOco",
+          "description": "New OCO - Deprecated (TRADE)\nSend in a new OCO.\n\n- Price Restrictions:\n  - `SELL`: Limit Price > Last Price > Stop Price\n  - `BUY`: Limit Price < Last Price < Stop Price\n- Quantity Restrictions:\n  - Both legs must have the same quantity.\n  - `ICEBERG` quantities however do not have to be the same\n- `OCO` adds **2 orders** to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\n\nUnfilled Order Count: 2\n\nNotes:\n**Data Source:** Matching Engine",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBUSDT"
+              },
+              "listClientOrderId": {
+                "type": "string",
+                "description": "A unique Id for the entire orderList",
+                "example": "JYVpp3F0f5CAG15DhtrqLp"
+              },
+              "side": {
+                "type": "string",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "quantity": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "limitClientOrderId": {
+                "type": "string",
+                "description": "A unique Id for the limit order",
+                "example": "limitOrder1"
+              },
+              "price": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "limitStrategyId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "limitStrategyType": {
+                "type": "integer",
+                "description": "The value cannot be less than `1000000`.",
+                "example": 1
+              },
+              "limitIcebergQty": {
+                "type": "number",
+                "description": "Used to make the `LIMIT_MAKER` leg an iceberg order.",
+                "format": "float",
+                "example": 1
+              },
+              "trailingDelta": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "stopClientOrderId": {
+                "type": "string",
+                "description": "A unique Id for the stop loss/stop loss limit leg",
+                "example": "stopOrder1"
+              },
+              "stopPrice": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "stopStrategyId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "stopStrategyType": {
+                "type": "integer",
+                "description": "The value cannot be less than `1000000`.",
+                "example": 1
+              },
+              "stopLimitPrice": {
+                "type": "number",
+                "description": "If provided, `stopLimitTimeInForce` is required.",
+                "format": "float",
+                "example": 1
+              },
+              "stopIcebergQty": {
+                "type": "number",
+                "description": "Used with `STOP_LOSS_LIMIT` leg to make an iceberg order.",
+                "format": "float",
+                "example": 1
+              },
+              "stopLimitTimeInForce": {
+                "type": "string",
+                "description": "Valid values are `GTC`/`FOK`/`IOC`",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "newOrderRespType": {
+                "type": "string",
+                "description": "Format of the JSON response. Supported values: [Order Response Type](/products/spot/enums#orderresponsetype)",
+                "enum": [
+                  "ACK",
+                  "RESULT",
+                  "FULL"
+                ],
+                "example": "ACK"
+              },
+              "selfTradePreventionMode": {
+                "type": "string",
+                "description": "The allowed values are dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)",
+                "enum": [
+                  "NONE",
+                  "EXPIRE_TAKER",
+                  "EXPIRE_MAKER",
+                  "EXPIRE_BOTH",
+                  "DECREMENT",
+                  "TRANSFER"
+                ],
+                "example": "NONE"
+              },
+              "recvWindow": {
+                "type": "number",
+                "description": "The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.",
+                "format": "float",
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol",
+              "side",
+              "quantity",
+              "price",
+              "stopPrice"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "spot.orderTest",
+          "description": "Test new order (TRADE)\nTest new order creation and signature/recvWindow long.\n\nCreates and validates a new order but does not send it into the matching\nengine.\n\nNotes:\n**Data Source:** Memory",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "computeCommissionRates": {
+                "type": "boolean",
+                "description": "Default: `false` <br> See [Commissions FAQ](/products/spot/faqs/commission_faq#test-order-diferences) to learn more.",
+                "example": false
+              },
+              "symbol": {
+                "type": "string",
+                "example": "BNBUSDT"
+              },
+              "side": {
+                "type": "string",
+                "description": "Please see [Enums](/products/spot/enums#side) for supported values.",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "type": {
+                "type": "string",
+                "description": "Please see [Enums](/products/spot/enums#ordertypes) for supported values.",
+                "enum": [
+                  "MARKET",
+                  "LIMIT",
+                  "STOP_LOSS",
+                  "STOP_LOSS_LIMIT",
+                  "TAKE_PROFIT",
+                  "TAKE_PROFIT_LIMIT",
+                  "LIMIT_MAKER"
+                ],
+                "example": "MARKET"
+              },
+              "timeInForce": {
+                "type": "string",
+                "description": "Please see [Enums](/products/spot/enums#timeinforce) for supported values.",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "quantity": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "quoteOrderQty": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "price": {
+                "type": "number",
+                "format": "float",
+                "example": 400
+              },
+              "newClientOrderId": {
+                "type": "string",
+                "description": "A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.",
+                "example": "myOrder1"
+              },
+              "strategyId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "strategyType": {
+                "type": "integer",
+                "description": "The value cannot be less than `1000000`.",
+                "example": 1
+              },
+              "stopPrice": {
+                "type": "number",
+                "description": "Used with `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, and `TAKE_PROFIT_LIMIT` orders.",
+                "format": "float",
+                "example": 1
+              },
+              "trailingDelta": {
+                "type": "integer",
+                "description": "See [Trailing Stop order FAQ](/products/spot/faqs/trailing-stop-faq)",
+                "format": "int64",
+                "example": 1
+              },
+              "icebergQty": {
+                "type": "number",
+                "description": "Used with `LIMIT`, `STOP_LOSS_LIMIT`, and `TAKE_PROFIT_LIMIT` to create an iceberg order.",
+                "format": "float",
+                "example": 1
+              },
+              "newOrderRespType": {
+                "type": "string",
+                "description": "Set the response JSON. `ACK`, `RESULT`, or `FULL`; `MARKET` and `LIMIT` order types default to `FULL`, all other orders default to `ACK`.",
+                "enum": [
+                  "ACK",
+                  "RESULT",
+                  "FULL"
+                ],
+                "example": "ACK"
+              },
+              "selfTradePreventionMode": {
+                "type": "string",
+                "description": "The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)",
+                "enum": [
+                  "NONE",
+                  "EXPIRE_TAKER",
+                  "EXPIRE_MAKER",
+                  "EXPIRE_BOTH",
+                  "DECREMENT",
+                  "TRANSFER"
+                ],
+                "example": "NONE"
+              },
+              "pegPriceType": {
+                "type": "string",
+                "description": "`PRIMARY_PEG` or `MARKET_PEG`. See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRIMARY_PEG",
+                  "MARKET_PEG"
+                ],
+                "example": "PRIMARY_PEG"
+              },
+              "pegOffsetValue": {
+                "type": "integer",
+                "description": "Price level for pegging (max: 100). See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "example": 1
+              },
+              "pegOffsetType": {
+                "type": "string",
+                "description": "Only `PRICE_LEVEL` is supported. See [Pegged Orders](/products/spot/faqs/pegged_orders)",
+                "enum": [
+                  "PRICE_LEVEL"
+                ],
+                "example": "PRICE_LEVEL"
+              },
+              "recvWindow": {
+                "type": "number",
+                "description": "The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.",
+                "format": "float",
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol",
+              "side",
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "spot.sorOrder",
+          "description": "New order using SOR (TRADE)\nPlaces an order using smart order routing (SOR).\n\nThis adds 1 order to the `EXCHANGE_MAX_ORDERS` filter and the `MAX_NUM_ORDERS` filter.\n\nRead [SOR FAQ](/products/spot/faqs/sor_faq) to learn more.\n\nUnfilled Order Count: 1\n\nNotes:\n**Data Source:** Matching Engine\n\n**Note:** `POST /api/v3/sor/order` only supports `LIMIT` and `MARKET` orders. `quoteOrderQty` is not supported.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BNBUSDT"
+              },
+              "side": {
+                "type": "string",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "MARKET",
+                  "LIMIT"
+                ],
+                "example": "MARKET"
+              },
+              "timeInForce": {
+                "type": "string",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "quantity": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "price": {
+                "type": "number",
+                "format": "float",
+                "example": 400
+              },
+              "newClientOrderId": {
+                "type": "string",
+                "description": "A unique id among open orders. Automatically generated if not sent.<br/> Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.",
+                "example": "myOrder1"
+              },
+              "strategyId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "strategyType": {
+                "type": "integer",
+                "description": "The value cannot be less than `1000000`.",
+                "example": 1
+              },
+              "icebergQty": {
+                "type": "number",
+                "description": "Used with `LIMIT` to create an iceberg order.",
+                "format": "float",
+                "example": 1
+              },
+              "newOrderRespType": {
+                "type": "string",
+                "description": "Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`",
+                "enum": [
+                  "ACK",
+                  "RESULT",
+                  "FULL"
+                ],
+                "example": "ACK"
+              },
+              "selfTradePreventionMode": {
+                "type": "string",
+                "description": "The allowed enums is dependent on what is configured on the symbol. The possible supported values are: [STP Modes](/products/spot/enums#stpmodes).",
+                "enum": [
+                  "NONE",
+                  "EXPIRE_TAKER",
+                  "EXPIRE_MAKER",
+                  "EXPIRE_BOTH",
+                  "DECREMENT",
+                  "TRANSFER"
+                ],
+                "example": "NONE"
+              },
+              "recvWindow": {
+                "type": "number",
+                "description": "The value cannot be greater than `60000`. <br> Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.",
+                "format": "float",
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol",
+              "side",
+              "type",
+              "quantity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "spot.sorOrderTest",
+          "description": "Test new order using SOR (TRADE)\nTest new order creation and signature/recvWindow using smart order routing (SOR).\nCreates and validates a new order but does not send it into the matching engine.\n\nNotes:\n**Data Source:** Memory",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "computeCommissionRates": {
+                "type": "boolean",
+                "example": false
+              },
+              "symbol": {
+                "type": "string",
+                "example": "BNBUSDT"
+              },
+              "side": {
+                "type": "string",
+                "description": "Please see [Enums](/products/spot/enums#side) for supported values.",
+                "enum": [
+                  "BUY",
+                  "SELL"
+                ],
+                "example": "BUY"
+              },
+              "type": {
+                "type": "string",
+                "description": "Please see [Enums](/products/spot/enums#ordertypes) for supported values.",
+                "enum": [
+                  "MARKET",
+                  "LIMIT"
+                ],
+                "example": "MARKET"
+              },
+              "timeInForce": {
+                "type": "string",
+                "description": "Please see [Enums](/products/spot/enums#timeinforce) for supported values.",
+                "enum": [
+                  "GTC",
+                  "IOC",
+                  "FOK"
+                ],
+                "example": "GTC"
+              },
+              "quantity": {
+                "type": "number",
+                "format": "float",
+                "example": 1
+              },
+              "price": {
+                "type": "number",
+                "format": "float",
+                "example": 400
+              },
+              "newClientOrderId": {
+                "type": "string",
+                "description": "A unique id among open orders. Automatically generated if not sent. Orders with the same `newClientOrderID` can be accepted only when the previous one is filled, otherwise the order will be rejected.",
+                "example": "myOrder1"
+              },
+              "strategyId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "strategyType": {
+                "type": "integer",
+                "description": "The value cannot be less than `1000000`.",
+                "example": 1
+              },
+              "icebergQty": {
+                "type": "number",
+                "description": "Used with `LIMIT` to create an iceberg order.",
+                "format": "float",
+                "example": 1
+              },
+              "newOrderRespType": {
+                "type": "string",
+                "description": "Set the response JSON. `ACK`, `RESULT`, or `FULL`. Default to `FULL`.",
+                "enum": [
+                  "ACK",
+                  "RESULT",
+                  "FULL"
+                ],
+                "example": "ACK"
+              },
+              "selfTradePreventionMode": {
+                "type": "string",
+                "description": "The allowed enums is dependent on what is configured on the symbol. Supported values: [STP Modes](/products/spot/enums#stpmodes)",
+                "enum": [
+                  "NONE",
+                  "EXPIRE_TAKER",
+                  "EXPIRE_MAKER",
+                  "EXPIRE_BOTH",
+                  "DECREMENT",
+                  "TRANSFER"
+                ],
+                "example": "NONE"
+              },
+              "recvWindow": {
+                "type": "number",
+                "description": "The value cannot be greater than `60000`. Supports up to three decimal places of precision (e.g., 6000.346) so that microseconds may be specified.",
+                "format": "float",
+                "example": 5000
+              }
+            },
+            "required": [
+              "symbol",
+              "side",
+              "type",
+              "quantity"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}

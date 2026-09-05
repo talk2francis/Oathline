@@ -1,1 +1,14 @@
-{"session_id":"01a07029-c172-7153-87b7-a0ce03221a99","turn_id":"01a07029-c37b-7d20-8964-4a7f698b15de","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T08-02-59-01a07029-c172-7153-87b7-a0ce03221a99.jsonl","cwd":"/root/Oathline","hook_event_name":"PreToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_execute","tool_input":{"toolName":"spot.allOrders","arguments":{"symbol":"BNBUSDT","limit":20}},"tool_use_id":"exec-fee98eeb-e2ac-424b-a0f7-18fc1d0f2e97"}
+{
+  "observedAt": "2026-09-05T06:03:44.740Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-fee98eeb-e2ac-424b-a0f7-18fc1d0f2e97",
+  "tool_input": {
+    "toolName": "spot.allOrders",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "limit": 20
+    }
+  },
+  "tool_response": null
+}

@@ -1,1 +1,10 @@
-{"session_id":"01a06f01-a2ac-7e72-a2f4-578a9268c6b2","turn_id":"01a06f01-a448-7861-a08e-8cc3759506ba","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T02-39-33-01a06f01-a2ac-7e72-a2f4-578a9268c6b2.jsonl","cwd":"/root/Oathline","hook_event_name":"PreToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"transfer"},"tool_use_id":"exec-b1eef386-f3c9-4a47-b772-0c1580471e2a"}
+{
+  "observedAt": "2026-09-05T00:41:06.589Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-b1eef386-f3c9-4a47-b772-0c1580471e2a",
+  "tool_input": {
+    "category": "transfer"
+  },
+  "tool_response": null
+}

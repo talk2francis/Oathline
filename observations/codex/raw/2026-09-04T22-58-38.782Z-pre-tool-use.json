@@ -1,1 +1,10 @@
-{"session_id":"01a06ea4-e08f-7ae2-8960-bc6d821f3ea0","turn_id":"01a06ea4-e2dc-7b32-9459-4a00f89627ea","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T00-58-14-01a06ea4-e08f-7ae2-8960-bc6d821f3ea0.jsonl","cwd":"/root/Oathline","hook_event_name":"PreToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"market"},"tool_use_id":"exec-1112bd3b-6b89-4488-bc6c-5569eaf55ea6"}
+{
+  "observedAt": "2026-09-04T22:58:38.782Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-1112bd3b-6b89-4488-bc6c-5569eaf55ea6",
+  "tool_input": {
+    "category": "market"
+  },
+  "tool_response": null
+}

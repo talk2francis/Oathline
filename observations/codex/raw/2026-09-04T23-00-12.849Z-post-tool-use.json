@@ -1,1 +1,83 @@
-{"session_id":"01a06ea4-e08f-7ae2-8960-bc6d821f3ea0","turn_id":"01a06ea4-e2dc-7b32-9459-4a00f89627ea","transcript_path":"/root/.codex/sessions/2026/09/05/rollout-2026-09-05T00-58-14-01a06ea4-e08f-7ae2-8960-bc6d821f3ea0.jsonl","cwd":"/root/Oathline","hook_event_name":"PostToolUse","model":"gpt-5.6-sol","permission_mode":"default","tool_name":"mcp__binance_agentic__tool_search","tool_input":{"category":"user-data-streams"},"tool_response":{"content":[{"type":"text","text":"{\"tools\":[{\"name\":\"futures_coin.closeUserDataStream\",\"description\":\"Close User Data Stream (USER_STREAM)\\nClose out a user data stream.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.keepaliveUserDataStream\",\"description\":\"Keepalive User Data Stream (USER_STREAM)\\nKeepalive a user data stream to prevent a time out. User data streams\\nwill close after 60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.startUserDataStream\",\"description\":\"Start User Data Stream (USER_STREAM)\\nStart a new user data stream. The stream will close after 60 minutes\\nunless a keepalive is sent. If the account has an active `listenKey`,\\nthat `listenKey` will be returned and its validity will be extended for\\n60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.closeUserDataStream\",\"description\":\"Close User Data Stream (USER_STREAM)\\nClose out a user data stream.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.keepaliveUserDataStream\",\"description\":\"Keepalive User Data Stream (USER_STREAM)\\nKeepalive a user data stream to prevent a time out. User data streams\\nwill close after 60 minutes. It's recommended to send a ping about every\\n60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.startUserDataStream\",\"description\":\"Start User Data Stream (USER_STREAM)\\nStart a new user data stream. The stream will close after 60 minutes\\nunless a keepalive is sent. If the account has an active `listenKey`,\\nthat `listenKey` will be returned and its validity will be extended for\\n60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"}],"structuredContent":{"tools":[{"name":"futures_coin.closeUserDataStream","description":"Close User Data Stream (USER_STREAM)\nClose out a user data stream.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"futures_coin.keepaliveUserDataStream","description":"Keepalive User Data Stream (USER_STREAM)\nKeepalive a user data stream to prevent a time out. User data streams\nwill close after 60 minutes.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"futures_coin.startUserDataStream","description":"Start User Data Stream (USER_STREAM)\nStart a new user data stream. The stream will close after 60 minutes\nunless a keepalive is sent. If the account has an active `listenKey`,\nthat `listenKey` will be returned and its validity will be extended for\n60 minutes.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"futures_usds.closeUserDataStream","description":"Close User Data Stream (USER_STREAM)\nClose out a user data stream.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"futures_usds.keepaliveUserDataStream","description":"Keepalive User Data Stream (USER_STREAM)\nKeepalive a user data stream to prevent a time out. User data streams\nwill close after 60 minutes. It's recommended to send a ping about every\n60 minutes.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}},{"name":"futures_usds.startUserDataStream","description":"Start User Data Stream (USER_STREAM)\nStart a new user data stream. The stream will close after 60 minutes\nunless a keepalive is sent. If the account has an active `listenKey`,\nthat `listenKey` will be returned and its validity will be extended for\n60 minutes.","inputSchema":{"type":"object","properties":{},"required":[],"additionalProperties":false}}],"nextStep":"Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."},"isError":false},"tool_use_id":"exec-63df708d-a8e4-40cb-82de-c690c5db796e"}
+{
+  "observedAt": "2026-09-04T23:00:12.849Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-63df708d-a8e4-40cb-82de-c690c5db796e",
+  "tool_input": {
+    "category": "user-data-streams"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"futures_coin.closeUserDataStream\",\"description\":\"Close User Data Stream (USER_STREAM)\\nClose out a user data stream.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.keepaliveUserDataStream\",\"description\":\"Keepalive User Data Stream (USER_STREAM)\\nKeepalive a user data stream to prevent a time out. User data streams\\nwill close after 60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.startUserDataStream\",\"description\":\"Start User Data Stream (USER_STREAM)\\nStart a new user data stream. The stream will close after 60 minutes\\nunless a keepalive is sent. If the account has an active `listenKey`,\\nthat `listenKey` will be returned and its validity will be extended for\\n60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.closeUserDataStream\",\"description\":\"Close User Data Stream (USER_STREAM)\\nClose out a user data stream.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.keepaliveUserDataStream\",\"description\":\"Keepalive User Data Stream (USER_STREAM)\\nKeepalive a user data stream to prevent a time out. User data streams\\nwill close after 60 minutes. It's recommended to send a ping about every\\n60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.startUserDataStream\",\"description\":\"Start User Data Stream (USER_STREAM)\\nStart a new user data stream. The stream will close after 60 minutes\\nunless a keepalive is sent. If the account has an active `listenKey`,\\nthat `listenKey` will be returned and its validity will be extended for\\n60 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "futures_coin.closeUserDataStream",
+          "description": "Close User Data Stream (USER_STREAM)\nClose out a user data stream.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.keepaliveUserDataStream",
+          "description": "Keepalive User Data Stream (USER_STREAM)\nKeepalive a user data stream to prevent a time out. User data streams\nwill close after 60 minutes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.startUserDataStream",
+          "description": "Start User Data Stream (USER_STREAM)\nStart a new user data stream. The stream will close after 60 minutes\nunless a keepalive is sent. If the account has an active `listenKey`,\nthat `listenKey` will be returned and its validity will be extended for\n60 minutes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.closeUserDataStream",
+          "description": "Close User Data Stream (USER_STREAM)\nClose out a user data stream.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.keepaliveUserDataStream",
+          "description": "Keepalive User Data Stream (USER_STREAM)\nKeepalive a user data stream to prevent a time out. User data streams\nwill close after 60 minutes. It's recommended to send a ping about every\n60 minutes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.startUserDataStream",
+          "description": "Start User Data Stream (USER_STREAM)\nStart a new user data stream. The stream will close after 60 minutes\nunless a keepalive is sent. If the account has an active `listenKey`,\nthat `listenKey` will be returned and its validity will be extended for\n60 minutes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}
