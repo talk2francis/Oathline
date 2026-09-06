@@ -4,8 +4,8 @@ Observed: 2026-09-06
 
 ## Preview deployment
 
-- URL: `https://oathline-f3ylt4rh9-franlinozzs-projects.vercel.app`
-- Vercel deployment: `dpl_5gxMqZtx1W6FwJJiagQ5QwDWNKH9`
+- URL: `https://oathline-8wj7fijn2-franlinozzs-projects.vercel.app`
+- Vercel deployment: `dpl_AsuX8tAxkdhdpjgoKKLcsP8sS6kq`
 - Target: preview (`null`), not production
 - State: `READY`
 - Protection: Vercel authentication is enabled
