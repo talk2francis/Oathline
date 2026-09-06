@@ -6,7 +6,7 @@
   "tool_input": {
     "toolName": "spot.getAccount",
     "arguments": {
-      "omitZeroBalances": "[REDACTED]"
+      "omitZeroBalances": false
     }
   },
   "tool_response": null

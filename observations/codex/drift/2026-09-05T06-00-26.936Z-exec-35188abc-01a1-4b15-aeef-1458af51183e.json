@@ -8,14 +8,14 @@
     "tool_input": {
       "toolName": "spot.getAccount",
       "arguments": {
-        "omitZeroBalances": "[REDACTED]"
+        "omitZeroBalances": false
       }
     },
     "tool_response": {
       "content": [
         {
           "type": "text",
-          "text": "{\"makerCommission\":10,\"takerCommission\":10,\"buyerCommission\":0,\"sellerCommission\":0,\"commissionRates\":{\"maker\":\"0.00100000\",\"taker\":\"0.00100000\",\"buyer\":\"0.00000000\",\"seller\":\"0.00000000\"},\"canTrade\":true,\"canWithdraw\":true,\"canDeposit\":true,\"brokered\":false,\"requireSelfTradePrevention\":false,\"preventSor\":false,\"updateTime\":1788587610333,\"accountType\":\"SPOT\",\"balances\":[{\"asset\":\"[REDACTED]\",\"free\":\"[REDACTED]\",\"locked\":\"[REDACTED]\"},{\"asset\":\"[REDACTED]\",\"free\":\"[REDACTED]\",\"locked\":\"[REDACTED]\"}],\"permissions\":[\"TRD_GRP_068\"],\"uid\":\"[REDACTED]\"}"
+          "text": "{\"makerCommission\":10,\"takerCommission\":10,\"buyerCommission\":0,\"sellerCommission\":0,\"commissionRates\":{\"maker\":\"0.00100000\",\"taker\":\"0.00100000\",\"buyer\":\"0.00000000\",\"seller\":\"0.00000000\"},\"canTrade\":true,\"canWithdraw\":true,\"canDeposit\":true,\"brokered\":false,\"requireSelfTradePrevention\":false,\"preventSor\":false,\"updateTime\":1788587610333,\"accountType\":\"SPOT\",\"balances\":[{\"asset\":\"[REDACTED]\",\"free\":\"[REDACTED]\",\"locked\":\"[REDACTED]\"},{\"asset\":\"[REDACTED]\",\"free\":\"[REDACTED]\",\"locked\":\"[REDACTED]\"}],\"permissions\":[\"TRD_GRP_068\"],\"uid\":0}"
         }
       ],
       "structuredContent": {
@@ -52,7 +52,7 @@
         "permissions": [
           "TRD_GRP_068"
         ],
-        "uid": "[REDACTED]"
+        "uid": 0
       },
       "isError": false
     },

@@ -14549,8 +14549,7 @@
         "type": "object",
         "properties": {
           "email": {
-            "type": "string",
-            "example": "abc@test.com"
+            "type": "string"
           },
           "startTime": {
             "type": "integer",

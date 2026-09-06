@@ -14,7 +14,7 @@ const fakePayload = {
   permission_mode: "private-mode",
   tool_name: "mcp__binance_agentic__tool_execute",
   tool_use_id: "tool-public-shape",
-  tool_input: { toolName: "wallet.queryUserWalletBalance", arguments: { quoteAsset: "USDT", email: "person@example.test", phone: "+1-555-0100", userId: "user-fake", account_id: "account-fake" } },
+  tool_input: { toolName: "wallet.queryUserWalletBalance", arguments: { quoteAsset: "USDT", email: "person@example.test", phone: "+1-555-0100", userId: "user-fake", uid: 1234, account_id: "account-fake", omitZeroBalances: false } },
   tool_response: { content: [{ type: "text", text: JSON.stringify([{ walletName: "Spot", balance: "40", balances: { USDT: "40", BNB: "0.2" }, equity: "40", authorization: "Bearer token-fake", access_token: "access-fake", refresh_token: "refresh-fake" }]) }], structuredContent: { schema: { properties: { balance: { type: "string" } } } } },
 };
 
@@ -31,6 +31,8 @@ describe("observation sanitization", () => {
     for (const secret of ["person@example.test", "+1-555-0100", "user-fake", "account-fake", "token-fake", "access-fake", "refresh-fake", '"balance":"40"', '"equity":"40"', '"USDT":"40"', '"BNB":"0.2"']) expect(serialized).not.toContain(secret);
     expect(serialized).toContain('"balance":{"type":"string"}');
     expect(serialized).toContain("wallet.queryUserWalletBalance");
+    expect(safe).toHaveProperty("tool_input.arguments.uid", 0);
+    expect(safe).toHaveProperty("tool_input.arguments.omitZeroBalances", false);
   });
 
   it("runs the actual raw logger into an isolated directory", async () => {
@@ -40,5 +42,31 @@ describe("observation sanitization", () => {
     const output = await readFile(path.join(directory, files[0] ?? "missing"), "utf8");
     expect(output).toContain("tool-public-shape");
     for (const secret of ["session-fake", "turn-fake", "/private/transcript.jsonl", "/private/workspace", "person@example.test", "token-fake", "access-fake", "refresh-fake"]) expect(output).not.toContain(secret);
+  });
+
+  it("preserves JSON Schema contracts while omitting sensitive examples", () => {
+    const safe = sanitizeObservation({
+      inputSchema: {
+        type: "object",
+        properties: {
+          permissionMode: { type: "string", enum: ["TRADE", "READ"], example: "READ" },
+          omitZeroBalances: { type: "boolean", example: false },
+          uid: { type: "number", example: 12345678 },
+          email: { type: "string", example: "person@example.test" },
+        },
+      },
+    });
+
+    expect(safe).toEqual({
+      inputSchema: {
+        type: "object",
+        properties: {
+          permissionMode: { type: "string", enum: ["TRADE", "READ"], example: "READ" },
+          omitZeroBalances: { type: "boolean" },
+          uid: { type: "number" },
+          email: { type: "string" },
+        },
+      },
+    });
   });
 });
