@@ -1,0 +1,40 @@
+{
+  "capturedAt": "2026-09-06T07:11:18.546Z",
+  "toolName": "spot.myTrades",
+  "toolUseId": "01a0758e-0a02-7513-b725-61e99fe24c0b-item_3",
+  "input": {
+    "symbol": "BNBUSDT"
+  },
+  "response": [
+    {
+      "symbol": "BNBUSDT",
+      "id": 1576743096,
+      "orderId": 12534006821,
+      "orderListId": -1,
+      "price": "722.48000000",
+      "qty": "0.00500000",
+      "quoteQty": "3.61240000",
+      "commission": "0.00000375",
+      "commissionAsset": "BNB",
+      "time": 1788587610333,
+      "isBuyer": true,
+      "isMaker": false,
+      "isBestMatch": true
+    },
+    {
+      "symbol": "BNBUSDT",
+      "id": 1576743097,
+      "orderId": 12534006821,
+      "orderListId": -1,
+      "price": "722.48000000",
+      "qty": "0.00400000",
+      "quoteQty": "2.88992000",
+      "commission": "0.00000300",
+      "commissionAsset": "BNB",
+      "time": 1788587610333,
+      "isBuyer": true,
+      "isMaker": false,
+      "isBestMatch": true
+    }
+  ]
+}

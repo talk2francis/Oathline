@@ -1,0 +1,32 @@
+{
+  "capturedAt": "2026-09-06T07:11:18.310Z",
+  "toolName": "spot.allOrders",
+  "toolUseId": "01a0758e-0a02-7513-b725-61e99fe24c0b-item_2",
+  "input": {
+    "symbol": "BNBUSDT"
+  },
+  "response": [
+    {
+      "symbol": "BNBUSDT",
+      "orderId": 12534006821,
+      "orderListId": -1,
+      "clientOrderId": "cCxKmA5EIoo911TqGvZG7f",
+      "price": "0.00000000",
+      "origQty": "0.00900000",
+      "executedQty": "0.00900000",
+      "cummulativeQuoteQty": "6.50232000",
+      "status": "FILLED",
+      "timeInForce": "GTC",
+      "type": "MARKET",
+      "side": "BUY",
+      "stopPrice": "0.00000000",
+      "icebergQty": "0.00000000",
+      "time": 1788587610333,
+      "updateTime": 1788587610333,
+      "isWorking": true,
+      "workingTime": 1788587610333,
+      "origQuoteOrderQty": "7.00000000",
+      "selfTradePreventionMode": "EXPIRE_MAKER"
+    }
+  ]
+}
