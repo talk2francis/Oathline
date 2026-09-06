@@ -1,0 +1,59 @@
+{
+  "observedAt": "2026-09-04T23:00:08.532Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-5dfe1272-35f9-45f1-9713-5267ea6b097c",
+  "tool_input": {
+    "category": "user-data-stream"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"margin.closeUserDataStream\",\"description\":\"Close User Data Stream (USER_STREAM)\\nClose out a user data stream.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"margin.keepaliveUserDataStream\",\"description\":\"Keepalive User Data Stream (USER_STREAM)\\nKeepalive a user data stream to prevent a time out.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"listenKey\":{\"type\":\"string\"}},\"required\":[\"listenKey\"],\"additionalProperties\":false}},{\"name\":\"margin.startUserDataStream\",\"description\":\"Start User Data Stream (USER_STREAM)\\nStart a new user data stream.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "margin.closeUserDataStream",
+          "description": "Close User Data Stream (USER_STREAM)\nClose out a user data stream.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.keepaliveUserDataStream",
+          "description": "Keepalive User Data Stream (USER_STREAM)\nKeepalive a user data stream to prevent a time out.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "listenKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "listenKey"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "margin.startUserDataStream",
+          "description": "Start User Data Stream (USER_STREAM)\nStart a new user data stream.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}

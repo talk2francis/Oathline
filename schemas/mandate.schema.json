@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "expires_at": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "expires_at",
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "symbols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Side"
+          }
+        },
+        "order_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "MARKET",
+              "LIMIT"
+            ]
+          }
+        }
+      },
+      "required": [
+        "products",
+        "symbols",
+        "sides",
+        "order_types"
+      ],
+      "additionalProperties": false
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "max_order_usdt": {
+          "$ref": "#/definitions/DecimalString"
+        },
+        "max_daily_gross_usdt": {
+          "$ref": "#/definitions/DecimalString"
+        },
+        "max_position_usdt": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/DecimalString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "max_order_usdt",
+        "max_daily_gross_usdt",
+        "max_position_usdt"
+      ],
+      "additionalProperties": false
+    },
+    "rate": {
+      "type": "object",
+      "properties": {
+        "max_orders_per_day": {
+          "type": "number"
+        },
+        "cooldown_seconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "max_orders_per_day",
+        "cooldown_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "risk": {
+      "type": "object",
+      "properties": {
+        "max_session_drawdown_pct": {
+          "$ref": "#/definitions/DecimalString"
+        }
+      },
+      "required": [
+        "max_session_drawdown_pct"
+      ],
+      "additionalProperties": false
+    },
+    "market": {
+      "type": "object",
+      "properties": {
+        "max_spread_bps": {
+          "$ref": "#/definitions/DecimalString"
+        }
+      },
+      "required": [
+        "max_spread_bps"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "max_age_seconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "max_age_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "escalation": {
+      "type": "object",
+      "properties": {
+        "stale_state": {
+          "type": "string",
+          "const": "ASK"
+        },
+        "unknown_tool": {
+          "type": "string",
+          "const": "ASK"
+        },
+        "hard_violation": {
+          "type": "string",
+          "enum": [
+            "DENY",
+            "ASK"
+          ]
+        }
+      },
+      "required": [
+        "stale_state",
+        "unknown_tool",
+        "hard_violation"
+      ],
+      "additionalProperties": false
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "algo": {
+              "type": "string",
+              "const": "ed25519"
+            },
+            "pubkey": {
+              "type": "string"
+            },
+            "sig": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "algo",
+            "pubkey",
+            "sig"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "meta",
+    "scope",
+    "budget",
+    "rate",
+    "risk",
+    "market",
+    "state",
+    "escalation",
+    "signature"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "Product": {
+      "type": "string",
+      "enum": [
+        "SPOT",
+        "MARGIN",
+        "FUTURES",
+        "CONVERT",
+        "TRANSFER",
+        "UNKNOWN"
+      ]
+    },
+    "Side": {
+      "type": "string",
+      "enum": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    "DecimalString": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,1753 @@
+{
+  "observedAt": "2026-09-04T22:59:30.412Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-0381338b-f951-4154-a2b0-3c37e9a617b4",
+  "tool_input": {
+    "category": "market-data"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"convert.listAllConvertPairs\",\"description\":\"List All Convert Pairs\\nQuery for all convertible token pairs and the tokens’ respective\\nupper/lower limits\\n\\nNotes:\\n- User needs to supply either or both input parameters.\\n- If only one of `fromAsset` and `toAsset` is provided, only partial token pairs are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"fromAsset\":{\"type\":\"string\",\"description\":\"User spends coin\",\"example\":\"BTC\"},\"toAsset\":{\"type\":\"string\",\"description\":\"User receives coin\",\"example\":\"USDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"convert.queryOrderQuantityPrecisionPerAsset\",\"description\":\"Query order quantity precision per asset (USER_DATA)\\nQuery for supported asset’s precision information\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"recvWindow\":{\"type\":\"integer\",\"description\":\"Request validity window in milliseconds\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.basis\",\"description\":\"Basis\\nQuery basis\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"description\":\"Pair.\"},\"contractType\":{\"type\":\"string\",\"description\":\"Contract type.\",\"enum\":[\"PERPETUAL\",\"CURRENT_QUARTER\",\"NEXT_QUARTER\"],\"example\":\"PERPETUAL\"},\"period\":{\"type\":\"string\",\"description\":\"Period interval.\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"pair\",\"contractType\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.checkServerTime\",\"description\":\"Check Server time\\nTest connectivity to the Rest API and get the current server time.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.compressedAggregateTradesList\",\"description\":\"Compressed/Aggregate Trades List\\nGet compressed, aggregate trades. Market trades that fill in 100ms with\\nthe same price and the same taking side will have the quantity\\naggregated.\\n\\nNotes:\\n- support querying futures trade histories that are not older than 24 hours\\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 1 hour.\\n- If `fromId`, `startTime`, and `endTime` are not sent, the most recent aggregate trades will be returned.\\n- Only market trades will be aggregated and returned, which means the insurance fund trades and ADL trades won't be aggregated.\\n- Sending both `startTime`/`endTime` and `fromId` might cause response timeout, please send either `fromId` or `startTime`/`endTime`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\"},\"fromId\":{\"type\":\"integer\",\"description\":\"ID to get aggregate trades from INCLUSIVE.\",\"format\":\"int64\",\"example\":1},\"startTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get aggregate trades from INCLUSIVE.\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get aggregate trades until INCLUSIVE.\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1000,\"example\":30}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.continuousContractKlineCandlestickData\",\"description\":\"Continuous Contract Kline/Candlestick Data\\nKline/candlestick bars for a specific contract type. Klines are uniquely identified by their open time.\\n\\nNotes:\\n- The difference between `startTime` and `endTime` can only be up to 200 days\\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both CM and UM pair values.\",\"example\":\"BTCUSD\"},\"contractType\":{\"type\":\"string\",\"enum\":[\"PERPETUAL\",\"CURRENT_QUARTER\",\"NEXT_QUARTER\"],\"example\":\"PERPETUAL\"},\"interval\":{\"type\":\"string\",\"description\":\"Interval\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1500,\"example\":30}},\"required\":[\"pair\",\"contractType\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.exchangeInformation\",\"description\":\"Exchange Information\\nCurrent exchange trading rules and symbol information\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.getFundingRateHistoryOfPerpetualFutures\",\"description\":\"Get Funding Rate History of Perpetual Futures\\nGet Funding Rate History of Perpetual Futures\\n\\nNotes:\\n- empty array will be returned for delivery symbols.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get funding rate from INCLUSIVE.\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get funding rate until INCLUSIVE.\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1000,\"example\":30}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.getFundingRateInfo\",\"description\":\"Get Funding Rate Info\\nQuery funding rate info for symbols that had FundingRateCap/FundingRateFloor/fundingIntervalHours adjustment\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.indexPriceAndMarkPrice\",\"description\":\"Index Price and Mark Price\\nQuery index price and mark price\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSD_PERP\"},\"pair\":{\"type\":\"string\",\"example\":\"BTCUSD\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.indexPriceKlineCandlestickData\",\"description\":\"Index Price Kline/Candlestick Data\\nKline/candlestick bars for the index price of a pair. Klines are uniquely identified by their open time.\\n\\nNotes:\\n- The difference between `startTime` and `endTime` can only be up to 200 days\\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both CM and UM pair values.\",\"example\":\"BTCUSD\"},\"interval\":{\"type\":\"string\",\"description\":\"Interval\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1500,\"example\":30}},\"required\":[\"pair\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.klineCandlestickData\",\"description\":\"Kline/Candlestick Data\\nKline/candlestick bars for a symbol. Klines are uniquely identified by their open time.\\n\\nNotes:\\n- The difference between `startTime` and `endTime` can only be up to 200 days\\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both CM and UM symbols.\",\"example\":\"BTCUSD\"},\"interval\":{\"type\":\"string\",\"description\":\"Interval\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1500,\"example\":30}},\"required\":[\"symbol\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.longShortRatio\",\"description\":\"Long/Short Ratio\\nQuery symbol Long/Short Ratio\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"description\":\"BTCUSD\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"pair\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.markPriceKlineCandlestickData\",\"description\":\"Mark Price Kline/Candlestick Data\\nKline/candlestick bars for the mark price of a symbol. Klines are uniquely identified by their open time.\\n\\nNotes:\\n- The difference between `startTime` and `endTime` can only be up to 200 days\\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both CM and UM symbols.\",\"example\":\"BTCUSD\"},\"interval\":{\"type\":\"string\",\"description\":\"Interval\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1500,\"example\":30}},\"required\":[\"symbol\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.oldTradesLookup\",\"description\":\"Old Trades Lookup (MARKET_DATA)\\nGet older market historical trades.\\n\\nNotes:\\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\\n- Only supports data from within the last one month\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"fromId\":{\"type\":\"integer\",\"description\":\"TradeId to fetch from. Default gets most recent trades.\",\"format\":\"int64\",\"example\":595103}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.openInterest\",\"description\":\"Open Interest\\nGet present open interest of a specific symbol.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD_200626\"}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.openInterestStatistics\",\"description\":\"Open Interest Statistics\\nQuery open interest stats\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"example\":\"BTCUSD\"},\"contractType\":{\"type\":\"string\",\"enum\":[\"ALL\",\"PERPETUAL\",\"CURRENT_QUARTER\",\"NEXT_QUARTER\"],\"example\":\"PERPETUAL\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"pair\",\"contractType\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.orderBook\",\"description\":\"Order Book\\nQuery orderbook on specific symbol\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD_PERP\"},\"limit\":{\"type\":\"integer\",\"description\":\"Valid limits:[5, 10, 20, 50, 100, 500, 1000].\",\"format\":\"int64\",\"maximum\":1000,\"example\":500}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.premiumIndexKlineData\",\"description\":\"Premium index Kline Data\\nPremium index kline bars of a symbol. Klines are uniquely identified by their open time.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent klines are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both CM and UM symbols.\",\"example\":\"BTCUSD\"},\"interval\":{\"type\":\"string\",\"description\":\"Interval\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1500,\"example\":30}},\"required\":[\"symbol\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.queryIndexPriceConstituents\",\"description\":\"Query Index Price Constituents\\nQuery index price constituents\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD\"}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.recentTradesList\",\"description\":\"Recent Trades List\\nGet recent market trades\\n\\nNotes:\\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":1000,\"example\":30}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.symbolOrderBookTicker\",\"description\":\"Symbol Order Book Ticker\\nBest price/qty on the order book for a symbol or symbols.\\n\\nNotes:\\n- Symbol and pair cannot be sent together\\n- If a pair is sent,tickers for all symbols of the pair will be returned\\n- If either a pair or symbol is sent, tickers for all symbols of all pairs will be returned\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD_200626\"},\"pair\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.symbolPriceTicker\",\"description\":\"Symbol Price Ticker\\nLatest price for a symbol or symbols.\\n\\nNotes:\\n- Symbol and pair cannot be sent together\\n- If a pair is sent,tickers for all symbols of the pair will be returned\\n- If either a pair or symbol is sent, tickers for all symbols of all pairs will be returned\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD_200626\"},\"pair\":{\"type\":\"string\",\"description\":\"Pair\",\"example\":\"BTCUSD\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.takerBuySellVolume\",\"description\":\"Taker Buy/Sell Volume\\nTaker Buy Volume: the total volume of buy orders filled by takers within\\nthe period.\\n\\nTaker Sell Volume: the total volume of sell orders filled by takers\\nwithin the period.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"example\":\"BTCUSD\"},\"contractType\":{\"type\":\"string\",\"enum\":[\"ALL\",\"PERPETUAL\",\"CURRENT_QUARTER\",\"NEXT_QUARTER\"],\"example\":\"PERPETUAL\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"pair\",\"contractType\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.testConnectivity\",\"description\":\"Test Connectivity\\nTest connectivity to the Rest API.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.ticker24hrPriceChangeStatistics\",\"description\":\"24hr Ticker Price Change Statistics\\n24 hour rolling window price change statistics.\\n\\nNotes:\\n- Symbol and pair cannot be sent together\\n- If a pair is sent,tickers for all symbols of the pair will be returned\\n- If either a pair or symbol is sent, tickers for all symbols of all pairs will be returned\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSD_200925\"},\"pair\":{\"type\":\"string\",\"description\":\"Pair\",\"example\":\"BTCUSD\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_coin.topTraderLongShortRatioAccounts\",\"description\":\"Top Trader Long/Short Account Ratio\\nThe proportion of net long and net short accounts to total accounts of\\nthe top 20% users with the highest margin balance. Each account is\\ncounted once only.\\n\\nLong Account % = Accounts of top traders with net long positions / Total\\naccounts of top traders with open positions\\n\\nShort Account % = Accounts of top traders with net short positions /\\nTotal accounts of top traders with open positions\\n\\nLong/Short Ratio (Accounts) = Long Account % / Short Account %\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_coin.topTraderLongShortRatioPositions\",\"description\":\"Top Trader Long/Short Position Ratio\\nThe proportion of net long and net short positions to total open\\npositions of the top 20% users with the highest margin balance.\\n\\nLong Position % = Long positions of top traders / Total open positions\\nof top traders\\n\\nShort Position % = Short positions of top traders / Total open positions\\nof top traders\\n\\nLong/Short Ratio (Positions) = Long Position % / Short Position %\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"example\":\"BTCUSD\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"description\":\"Maximum number of records to return.\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"pair\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.adlRisk\",\"description\":\"ADL Risk\\nQuery the symbol-level ADL risk rating.\\n\\nThe ADL risk rating measures the likelihood of ADL during liquidation,\\nand the rating takes into account the insurance fund balance, position\\nconcentration on the symbol, order book depth, price volatility, average\\nleverage, unrealized PnL, and margin utilization at the symbol level.\\n\\nThe rating can be high, medium and low, and is updated every 30 minutes.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.assetIndex\",\"description\":\"Multi-Assets Mode Asset Index\\nAsset index price.\\n\\n> **CM-UM Integration (Effective 2026-06-30):** Renamed from *Multi-Assets Mode Asset Index*. The response now additionally pushes COIN-M settlement-asset price index entries (e.g., `BTCUSD`, `ETHUSD`, `BNBUSD`). The endpoint path `/fapi/v1/assetIndex` is unchanged.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Asset pair\",\"example\":\"ADAUSD\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.basis\",\"description\":\"Basis\\nQuery future basis\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"contractType\":{\"type\":\"string\",\"enum\":[\"PERPETUAL\",\"CURRENT_QUARTER\",\"NEXT_QUARTER\"],\"example\":\"PERPETUAL\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":30},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"pair\",\"contractType\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.checkServerTime\",\"description\":\"Check Server Time\\nTest connectivity to the Rest API and get the current server time.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.compositeIndexSymbolInformation\",\"description\":\"Composite Index Symbol Information\\nQuery composite index symbol information\\n\\nNotes:\\n- Only for composite index symbols\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"DEFIUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.compressedAggregateTradesList\",\"description\":\"Compressed/Aggregate Trades List\\nGet compressed, aggregate market trades. Market trades that fill in\\n100ms with the same price and the same taking side will have the\\nquantity aggregated.\\n\\nRetail Price Improvement(RPI) orders are aggregated and without special\\ntags to be distinguished.\\n\\nNotes:\\n- support querying futures trade histories that are not older than 24 hours\\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 1 hour.\\n- If `fromId`, `startTime`, and `endTime` are not sent, the most recent aggregate trades will be returned.\\n- Only market trades will be aggregated and returned, which means the insurance fund trades and ADL trades won't be aggregated.\\n- Sending both `startTime`/`endTime` and `fromId` might cause response timeout, please send either `fromId` or `startTime`/`endTime`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"Symbol\",\"example\":\"BTCUSDT\"},\"fromId\":{\"type\":\"integer\",\"description\":\"ID to get aggregate trades from INCLUSIVE.\",\"format\":\"int64\",\"example\":1},\"startTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get aggregate trades from INCLUSIVE.\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get aggregate trades until INCLUSIVE.\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":50}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.continuousContractKlineCandlestickData\",\"description\":\"Continuous Contract Kline/Candlestick Data\\nKline/candlestick bars for a specific contract type.\\nKlines are uniquely identified by their open time.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent klines are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both UM and CM pair values.\",\"example\":\"BTCUSDT\"},\"contractType\":{\"type\":\"string\",\"description\":\"Futurestype\",\"enum\":[\"PERPETUAL\",\"CURRENT_QUARTER\",\"NEXT_QUARTER\",\"TRADIFI_PERPETUAL\"],\"example\":\"PERPETUAL\"},\"interval\":{\"type\":\"string\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1500,\"example\":50}},\"required\":[\"pair\",\"contractType\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.exchangeInformation\",\"description\":\"Exchange Information\\nCurrent exchange trading rules and symbol information\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.getFundingRateHistory\",\"description\":\"Get Funding Rate History\\nGet Funding Rate History\\n\\nNotes:\\n- If `startTime` and `endTime` are not sent, the most recent 200 records are returned.\\n- If the number of data between `startTime` and `endTime` is larger than `limit`, return as `startTime` + `limit`.\\n- In ascending order.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get funding rate from INCLUSIVE.\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"Timestamp in ms to get funding rate until INCLUSIVE.\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1000,\"example\":50}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.getFundingRateInfo\",\"description\":\"Get Funding Rate Info\\nQuery funding rate info for symbols that had FundingRateCap/FundingRateFloor / fundingIntervalHours adjustment\\n\\nshare 500/5min/IP rate limit with `GET /fapi/v1/fundingRate`\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.indexPriceKlineCandlestickData\",\"description\":\"Index Price Kline/Candlestick Data\\nKline/candlestick bars for the index price of a pair.\\nKlines are uniquely identified by their open time.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent klines are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both UM and CM pair values.\",\"example\":\"BTCUSDT\"},\"interval\":{\"type\":\"string\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1500,\"example\":50}},\"required\":[\"pair\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.klineCandlestickData\",\"description\":\"Kline/Candlestick Data\\nKline/candlestick bars for a symbol.\\nKlines are uniquely identified by their open time.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent klines are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both UM and CM symbols.\",\"example\":\"BTCUSDT\"},\"interval\":{\"type\":\"string\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1500,\"example\":50}},\"required\":[\"symbol\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.longShortRatio\",\"description\":\"Long/Short Ratio\\nQuery symbol Long/Short Ratio\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 30 days is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.markPrice\",\"description\":\"Mark Price\\nMark Price and Funding Rate\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.markPriceKlineCandlestickData\",\"description\":\"Mark Price Kline/Candlestick Data\\nKline/candlestick bars for the mark price of a symbol.\\nKlines are uniquely identified by their open time.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent klines are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both UM and CM symbols.\",\"example\":\"BTCUSDT\"},\"interval\":{\"type\":\"string\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1500,\"example\":50}},\"required\":[\"symbol\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.oldTradesLookup\",\"description\":\"Old Trades Lookup (MARKET_DATA)\\nGet older market historical trades.\\n\\nNotes:\\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\\n- Only supports data from within the last one month\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"fromId\":{\"type\":\"integer\",\"description\":\"TradeId to fetch from. Default gets most recent trades.\",\"format\":\"int64\",\"example\":1}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.openInterest\",\"description\":\"Open Interest\\nGet present open interest of a specific symbol.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.openInterestStatistics\",\"description\":\"Open Interest Statistics\\nOpen Interest Statistics\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent data is returned.\\n- Only the data of the latest 1 month is available.\\n- IP rate limit 1000 requests/5min\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"period\":{\"type\":\"string\",\"enum\":[\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"12h\",\"1d\"],\"example\":\"PERIOD_5m\"},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":500,\"example\":50},\"startTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"format\":\"int64\",\"example\":1641782889000}},\"required\":[\"symbol\",\"period\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.orderBook\",\"description\":\"Order Book\\nQuery symbol orderbook\\n\\nRetail Price Improvement(RPI) orders are not visible and excluded in the\\nresponse message.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"},\"limit\":{\"type\":\"integer\",\"description\":\"Valid limits:[5, 10, 20, 50, 100, 500, 1000]\",\"format\":\"int64\",\"maximum\":1000,\"example\":50}},\"required\":[\"symbol\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.premiumIndexKlineData\",\"description\":\"Premium index Kline Data\\nPremium index kline bars of a symbol. Klines are uniquely identified by their open time.\\n\\nNotes:\\n- If startTime and endTime are not sent, the most recent klines are returned.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"description\":\"After CM migration, accepts both UM and CM symbols.\",\"example\":\"BTCUSDT\"},\"interval\":{\"type\":\"string\",\"enum\":[\"1m\",\"3m\",\"5m\",\"15m\",\"30m\",\"1h\",\"2h\",\"4h\",\"6h\",\"8h\",\"12h\",\"1d\",\"3d\",\"1w\",\"1M\"],\"example\":\"INTERVAL_1m\"},\"startTime\":{\"type\":\"integer\",\"description\":\"Start time\",\"format\":\"int64\",\"example\":1623319461670},\"endTime\":{\"type\":\"integer\",\"description\":\"End time\",\"format\":\"int64\",\"example\":1641782889000},\"limit\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":1500,\"example\":50}},\"required\":[\"symbol\",\"interval\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.quarterlyContractSettlementPrice\",\"description\":\"Quarterly Contract Settlement Price\\nLatest price for a symbol or symbols.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pair\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[\"pair\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.queryIndexPriceConstituents\",\"description\":\"Query Index Price Constituents\\nQuery index price constituents\\n\\n**Note**:\\nPrices from constituents of TradFi perps will be hiden and displayed as -1.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"symbol\":{\"type\":\"string\",\"example\":\"BTCUSDT\"}},\"required\":[\"symbol\"],\"additionalProperties\":false}}],\"nextCursor\":\"ZnV0dXJlc191c2RzLnF1ZXJ5SW5kZXhQcmljZUNvbnN0aXR1ZW50cw\",\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments. More tools available - pass `nextCursor` back as `cursor` to fetch the next page.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "convert.listAllConvertPairs",
+          "description": "List All Convert Pairs\nQuery for all convertible token pairs and the tokens’ respective\nupper/lower limits\n\nNotes:\n- User needs to supply either or both input parameters.\n- If only one of `fromAsset` and `toAsset` is provided, only partial token pairs are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fromAsset": {
+                "type": "string",
+                "description": "User spends coin",
+                "example": "BTC"
+              },
+              "toAsset": {
+                "type": "string",
+                "description": "User receives coin",
+                "example": "USDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "convert.queryOrderQuantityPrecisionPerAsset",
+          "description": "Query order quantity precision per asset (USER_DATA)\nQuery for supported asset’s precision information",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "recvWindow": {
+                "type": "integer",
+                "description": "Request validity window in milliseconds",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.basis",
+          "description": "Basis\nQuery basis\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "description": "Pair."
+              },
+              "contractType": {
+                "type": "string",
+                "description": "Contract type.",
+                "enum": [
+                  "PERPETUAL",
+                  "CURRENT_QUARTER",
+                  "NEXT_QUARTER"
+                ],
+                "example": "PERPETUAL"
+              },
+              "period": {
+                "type": "string",
+                "description": "Period interval.",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "pair",
+              "contractType",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.checkServerTime",
+          "description": "Check Server time\nTest connectivity to the Rest API and get the current server time.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.compressedAggregateTradesList",
+          "description": "Compressed/Aggregate Trades List\nGet compressed, aggregate trades. Market trades that fill in 100ms with\nthe same price and the same taking side will have the quantity\naggregated.\n\nNotes:\n- support querying futures trade histories that are not older than 24 hours\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 1 hour.\n- If `fromId`, `startTime`, and `endTime` are not sent, the most recent aggregate trades will be returned.\n- Only market trades will be aggregated and returned, which means the insurance fund trades and ADL trades won't be aggregated.\n- Sending both `startTime`/`endTime` and `fromId` might cause response timeout, please send either `fromId` or `startTime`/`endTime`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol"
+              },
+              "fromId": {
+                "type": "integer",
+                "description": "ID to get aggregate trades from INCLUSIVE.",
+                "format": "int64",
+                "example": 1
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get aggregate trades from INCLUSIVE.",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get aggregate trades until INCLUSIVE.",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 30
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.continuousContractKlineCandlestickData",
+          "description": "Continuous Contract Kline/Candlestick Data\nKline/candlestick bars for a specific contract type. Klines are uniquely identified by their open time.\n\nNotes:\n- The difference between `startTime` and `endTime` can only be up to 200 days\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "description": "After CM migration, accepts both CM and UM pair values.",
+                "example": "BTCUSD"
+              },
+              "contractType": {
+                "type": "string",
+                "enum": [
+                  "PERPETUAL",
+                  "CURRENT_QUARTER",
+                  "NEXT_QUARTER"
+                ],
+                "example": "PERPETUAL"
+              },
+              "interval": {
+                "type": "string",
+                "description": "Interval",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 30
+              }
+            },
+            "required": [
+              "pair",
+              "contractType",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.exchangeInformation",
+          "description": "Exchange Information\nCurrent exchange trading rules and symbol information",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.getFundingRateHistoryOfPerpetualFutures",
+          "description": "Get Funding Rate History of Perpetual Futures\nGet Funding Rate History of Perpetual Futures\n\nNotes:\n- empty array will be returned for delivery symbols.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get funding rate from INCLUSIVE.",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get funding rate until INCLUSIVE.",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 30
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.getFundingRateInfo",
+          "description": "Get Funding Rate Info\nQuery funding rate info for symbols that had FundingRateCap/FundingRateFloor/fundingIntervalHours adjustment",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.indexPriceAndMarkPrice",
+          "description": "Index Price and Mark Price\nQuery index price and mark price",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSD_PERP"
+              },
+              "pair": {
+                "type": "string",
+                "example": "BTCUSD"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.indexPriceKlineCandlestickData",
+          "description": "Index Price Kline/Candlestick Data\nKline/candlestick bars for the index price of a pair. Klines are uniquely identified by their open time.\n\nNotes:\n- The difference between `startTime` and `endTime` can only be up to 200 days\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "description": "After CM migration, accepts both CM and UM pair values.",
+                "example": "BTCUSD"
+              },
+              "interval": {
+                "type": "string",
+                "description": "Interval",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 30
+              }
+            },
+            "required": [
+              "pair",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.klineCandlestickData",
+          "description": "Kline/Candlestick Data\nKline/candlestick bars for a symbol. Klines are uniquely identified by their open time.\n\nNotes:\n- The difference between `startTime` and `endTime` can only be up to 200 days\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "After CM migration, accepts both CM and UM symbols.",
+                "example": "BTCUSD"
+              },
+              "interval": {
+                "type": "string",
+                "description": "Interval",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 30
+              }
+            },
+            "required": [
+              "symbol",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.longShortRatio",
+          "description": "Long/Short Ratio\nQuery symbol Long/Short Ratio\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "description": "BTCUSD"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "pair",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.markPriceKlineCandlestickData",
+          "description": "Mark Price Kline/Candlestick Data\nKline/candlestick bars for the mark price of a symbol. Klines are uniquely identified by their open time.\n\nNotes:\n- The difference between `startTime` and `endTime` can only be up to 200 days\n- Between `startTime` and `endTime`, the most recent `limit` data from `endTime` will be returned:\n  - If `startTime` and `endTime` are not sent, current timestamp will be set as `endTime`, and the most recent data will be returned.\n  - If `startTime` is sent only, the timestamp of 200 days after `startTime` will be set as `endTime`(up to the current time)\n  - If `endTime` is sent only, the timestamp of 200 days before `endTime` will be set as `startTime`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "After CM migration, accepts both CM and UM symbols.",
+                "example": "BTCUSD"
+              },
+              "interval": {
+                "type": "string",
+                "description": "Interval",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 30
+              }
+            },
+            "required": [
+              "symbol",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.oldTradesLookup",
+          "description": "Old Trades Lookup (MARKET_DATA)\nGet older market historical trades.\n\nNotes:\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\n- Only supports data from within the last one month",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "fromId": {
+                "type": "integer",
+                "description": "TradeId to fetch from. Default gets most recent trades.",
+                "format": "int64",
+                "example": 595103
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.openInterest",
+          "description": "Open Interest\nGet present open interest of a specific symbol.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD_200626"
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.openInterestStatistics",
+          "description": "Open Interest Statistics\nQuery open interest stats\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "example": "BTCUSD"
+              },
+              "contractType": {
+                "type": "string",
+                "enum": [
+                  "ALL",
+                  "PERPETUAL",
+                  "CURRENT_QUARTER",
+                  "NEXT_QUARTER"
+                ],
+                "example": "PERPETUAL"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "pair",
+              "contractType",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.orderBook",
+          "description": "Order Book\nQuery orderbook on specific symbol",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD_PERP"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Valid limits:[5, 10, 20, 50, 100, 500, 1000].",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 500
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.premiumIndexKlineData",
+          "description": "Premium index Kline Data\nPremium index kline bars of a symbol. Klines are uniquely identified by their open time.\n\nNotes:\n- If startTime and endTime are not sent, the most recent klines are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "After CM migration, accepts both CM and UM symbols.",
+                "example": "BTCUSD"
+              },
+              "interval": {
+                "type": "string",
+                "description": "Interval",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 30
+              }
+            },
+            "required": [
+              "symbol",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.queryIndexPriceConstituents",
+          "description": "Query Index Price Constituents\nQuery index price constituents",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD"
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.recentTradesList",
+          "description": "Recent Trades List\nGet recent market trades\n\nNotes:\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 30
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.symbolOrderBookTicker",
+          "description": "Symbol Order Book Ticker\nBest price/qty on the order book for a symbol or symbols.\n\nNotes:\n- Symbol and pair cannot be sent together\n- If a pair is sent,tickers for all symbols of the pair will be returned\n- If either a pair or symbol is sent, tickers for all symbols of all pairs will be returned",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD_200626"
+              },
+              "pair": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.symbolPriceTicker",
+          "description": "Symbol Price Ticker\nLatest price for a symbol or symbols.\n\nNotes:\n- Symbol and pair cannot be sent together\n- If a pair is sent,tickers for all symbols of the pair will be returned\n- If either a pair or symbol is sent, tickers for all symbols of all pairs will be returned",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD_200626"
+              },
+              "pair": {
+                "type": "string",
+                "description": "Pair",
+                "example": "BTCUSD"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.takerBuySellVolume",
+          "description": "Taker Buy/Sell Volume\nTaker Buy Volume: the total volume of buy orders filled by takers within\nthe period.\n\nTaker Sell Volume: the total volume of sell orders filled by takers\nwithin the period.\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "example": "BTCUSD"
+              },
+              "contractType": {
+                "type": "string",
+                "enum": [
+                  "ALL",
+                  "PERPETUAL",
+                  "CURRENT_QUARTER",
+                  "NEXT_QUARTER"
+                ],
+                "example": "PERPETUAL"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "pair",
+              "contractType",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.testConnectivity",
+          "description": "Test Connectivity\nTest connectivity to the Rest API.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.ticker24hrPriceChangeStatistics",
+          "description": "24hr Ticker Price Change Statistics\n24 hour rolling window price change statistics.\n\nNotes:\n- Symbol and pair cannot be sent together\n- If a pair is sent,tickers for all symbols of the pair will be returned\n- If either a pair or symbol is sent, tickers for all symbols of all pairs will be returned",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSD_200925"
+              },
+              "pair": {
+                "type": "string",
+                "description": "Pair",
+                "example": "BTCUSD"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.topTraderLongShortRatioAccounts",
+          "description": "Top Trader Long/Short Account Ratio\nThe proportion of net long and net short accounts to total accounts of\nthe top 20% users with the highest margin balance. Each account is\ncounted once only.\n\nLong Account % = Accounts of top traders with net long positions / Total\naccounts of top traders with open positions\n\nShort Account % = Accounts of top traders with net short positions /\nTotal accounts of top traders with open positions\n\nLong/Short Ratio (Accounts) = Long Account % / Short Account %\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "symbol",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_coin.topTraderLongShortRatioPositions",
+          "description": "Top Trader Long/Short Position Ratio\nThe proportion of net long and net short positions to total open\npositions of the top 20% users with the highest margin balance.\n\nLong Position % = Long positions of top traders / Total open positions\nof top traders\n\nShort Position % = Short positions of top traders / Total open positions\nof top traders\n\nLong/Short Ratio (Positions) = Long Position % / Short Position %\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "example": "BTCUSD"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Maximum number of records to return.",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "pair",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.adlRisk",
+          "description": "ADL Risk\nQuery the symbol-level ADL risk rating.\n\nThe ADL risk rating measures the likelihood of ADL during liquidation,\nand the rating takes into account the insurance fund balance, position\nconcentration on the symbol, order book depth, price volatility, average\nleverage, unrealized PnL, and margin utilization at the symbol level.\n\nThe rating can be high, medium and low, and is updated every 30 minutes.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.assetIndex",
+          "description": "Multi-Assets Mode Asset Index\nAsset index price.\n\n> **CM-UM Integration (Effective 2026-06-30):** Renamed from *Multi-Assets Mode Asset Index*. The response now additionally pushes COIN-M settlement-asset price index entries (e.g., `BTCUSD`, `ETHUSD`, `BNBUSD`). The endpoint path `/fapi/v1/assetIndex` is unchanged.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Asset pair",
+                "example": "ADAUSD"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.basis",
+          "description": "Basis\nQuery future basis\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "contractType": {
+                "type": "string",
+                "enum": [
+                  "PERPETUAL",
+                  "CURRENT_QUARTER",
+                  "NEXT_QUARTER"
+                ],
+                "example": "PERPETUAL"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 30
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "pair",
+              "contractType",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.checkServerTime",
+          "description": "Check Server Time\nTest connectivity to the Rest API and get the current server time.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.compositeIndexSymbolInformation",
+          "description": "Composite Index Symbol Information\nQuery composite index symbol information\n\nNotes:\n- Only for composite index symbols",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "DEFIUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.compressedAggregateTradesList",
+          "description": "Compressed/Aggregate Trades List\nGet compressed, aggregate market trades. Market trades that fill in\n100ms with the same price and the same taking side will have the\nquantity aggregated.\n\nRetail Price Improvement(RPI) orders are aggregated and without special\ntags to be distinguished.\n\nNotes:\n- support querying futures trade histories that are not older than 24 hours\n- If both `startTime` and `endTime` are sent, time between `startTime` and `endTime` must be less than 1 hour.\n- If `fromId`, `startTime`, and `endTime` are not sent, the most recent aggregate trades will be returned.\n- Only market trades will be aggregated and returned, which means the insurance fund trades and ADL trades won't be aggregated.\n- Sending both `startTime`/`endTime` and `fromId` might cause response timeout, please send either `fromId` or `startTime`/`endTime`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "Symbol",
+                "example": "BTCUSDT"
+              },
+              "fromId": {
+                "type": "integer",
+                "description": "ID to get aggregate trades from INCLUSIVE.",
+                "format": "int64",
+                "example": 1
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get aggregate trades from INCLUSIVE.",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get aggregate trades until INCLUSIVE.",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 50
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.continuousContractKlineCandlestickData",
+          "description": "Continuous Contract Kline/Candlestick Data\nKline/candlestick bars for a specific contract type.\nKlines are uniquely identified by their open time.\n\nNotes:\n- If startTime and endTime are not sent, the most recent klines are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "description": "After CM migration, accepts both UM and CM pair values.",
+                "example": "BTCUSDT"
+              },
+              "contractType": {
+                "type": "string",
+                "description": "Futurestype",
+                "enum": [
+                  "PERPETUAL",
+                  "CURRENT_QUARTER",
+                  "NEXT_QUARTER",
+                  "TRADIFI_PERPETUAL"
+                ],
+                "example": "PERPETUAL"
+              },
+              "interval": {
+                "type": "string",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 50
+              }
+            },
+            "required": [
+              "pair",
+              "contractType",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.exchangeInformation",
+          "description": "Exchange Information\nCurrent exchange trading rules and symbol information",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.getFundingRateHistory",
+          "description": "Get Funding Rate History\nGet Funding Rate History\n\nNotes:\n- If `startTime` and `endTime` are not sent, the most recent 200 records are returned.\n- If the number of data between `startTime` and `endTime` is larger than `limit`, return as `startTime` + `limit`.\n- In ascending order.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get funding rate from INCLUSIVE.",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "Timestamp in ms to get funding rate until INCLUSIVE.",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 50
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.getFundingRateInfo",
+          "description": "Get Funding Rate Info\nQuery funding rate info for symbols that had FundingRateCap/FundingRateFloor / fundingIntervalHours adjustment\n\nshare 500/5min/IP rate limit with `GET /fapi/v1/fundingRate`",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.indexPriceKlineCandlestickData",
+          "description": "Index Price Kline/Candlestick Data\nKline/candlestick bars for the index price of a pair.\nKlines are uniquely identified by their open time.\n\nNotes:\n- If startTime and endTime are not sent, the most recent klines are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "description": "After CM migration, accepts both UM and CM pair values.",
+                "example": "BTCUSDT"
+              },
+              "interval": {
+                "type": "string",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 50
+              }
+            },
+            "required": [
+              "pair",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.klineCandlestickData",
+          "description": "Kline/Candlestick Data\nKline/candlestick bars for a symbol.\nKlines are uniquely identified by their open time.\n\nNotes:\n- If startTime and endTime are not sent, the most recent klines are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "After CM migration, accepts both UM and CM symbols.",
+                "example": "BTCUSDT"
+              },
+              "interval": {
+                "type": "string",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 50
+              }
+            },
+            "required": [
+              "symbol",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.longShortRatio",
+          "description": "Long/Short Ratio\nQuery symbol Long/Short Ratio\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 30 days is available.\n- IP rate limit 1000 requests/5min",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 50
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "symbol",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.markPrice",
+          "description": "Mark Price\nMark Price and Funding Rate",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.markPriceKlineCandlestickData",
+          "description": "Mark Price Kline/Candlestick Data\nKline/candlestick bars for the mark price of a symbol.\nKlines are uniquely identified by their open time.\n\nNotes:\n- If startTime and endTime are not sent, the most recent klines are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "After CM migration, accepts both UM and CM symbols.",
+                "example": "BTCUSDT"
+              },
+              "interval": {
+                "type": "string",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 50
+              }
+            },
+            "required": [
+              "symbol",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.oldTradesLookup",
+          "description": "Old Trades Lookup (MARKET_DATA)\nGet older market historical trades.\n\nNotes:\n- Market trades means trades filled in the order book. Only market trades will be returned, which means the insurance fund trades and ADL trades won't be returned.\n- Only supports data from within the last one month",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 50
+              },
+              "fromId": {
+                "type": "integer",
+                "description": "TradeId to fetch from. Default gets most recent trades.",
+                "format": "int64",
+                "example": 1
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.openInterest",
+          "description": "Open Interest\nGet present open interest of a specific symbol.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.openInterestStatistics",
+          "description": "Open Interest Statistics\nOpen Interest Statistics\n\nNotes:\n- If startTime and endTime are not sent, the most recent data is returned.\n- Only the data of the latest 1 month is available.\n- IP rate limit 1000 requests/5min",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "12h",
+                  "1d"
+                ],
+                "example": "PERIOD_5m"
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 500,
+                "example": 50
+              },
+              "startTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1641782889000
+              }
+            },
+            "required": [
+              "symbol",
+              "period"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.orderBook",
+          "description": "Order Book\nQuery symbol orderbook\n\nRetail Price Improvement(RPI) orders are not visible and excluded in the\nresponse message.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Valid limits:[5, 10, 20, 50, 100, 500, 1000]",
+                "format": "int64",
+                "maximum": 1000,
+                "example": 50
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.premiumIndexKlineData",
+          "description": "Premium index Kline Data\nPremium index kline bars of a symbol. Klines are uniquely identified by their open time.\n\nNotes:\n- If startTime and endTime are not sent, the most recent klines are returned.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "description": "After CM migration, accepts both UM and CM symbols.",
+                "example": "BTCUSDT"
+              },
+              "interval": {
+                "type": "string",
+                "enum": [
+                  "1m",
+                  "3m",
+                  "5m",
+                  "15m",
+                  "30m",
+                  "1h",
+                  "2h",
+                  "4h",
+                  "6h",
+                  "8h",
+                  "12h",
+                  "1d",
+                  "3d",
+                  "1w",
+                  "1M"
+                ],
+                "example": "INTERVAL_1m"
+              },
+              "startTime": {
+                "type": "integer",
+                "description": "Start time",
+                "format": "int64",
+                "example": 1623319461670
+              },
+              "endTime": {
+                "type": "integer",
+                "description": "End time",
+                "format": "int64",
+                "example": 1641782889000
+              },
+              "limit": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 1500,
+                "example": 50
+              }
+            },
+            "required": [
+              "symbol",
+              "interval"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.quarterlyContractSettlementPrice",
+          "description": "Quarterly Contract Settlement Price\nLatest price for a symbol or symbols.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pair": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [
+              "pair"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.queryIndexPriceConstituents",
+          "description": "Query Index Price Constituents\nQuery index price constituents\n\n**Note**:\nPrices from constituents of TradFi perps will be hiden and displayed as -1.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string",
+                "example": "BTCUSDT"
+              }
+            },
+            "required": [
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextCursor": "ZnV0dXJlc191c2RzLnF1ZXJ5SW5kZXhQcmljZUNvbnN0aXR1ZW50cw",
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments. More tools available - pass `nextCursor` back as `cursor` to fetch the next page."
+    },
+    "isError": false
+  }
+}

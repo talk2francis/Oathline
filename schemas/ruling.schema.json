@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "outcome": {
+      "$ref": "#/definitions/Outcome"
+    },
+    "mandateHash": {
+      "type": "string"
+    },
+    "snapshotHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "proposalHash": {
+      "type": "string"
+    },
+    "clauses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Clause"
+      }
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "ENFORCED",
+        "ADVISORY"
+      ]
+    },
+    "client": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "outcome",
+    "mandateHash",
+    "snapshotHash",
+    "proposalHash",
+    "clauses",
+    "mode",
+    "client",
+    "ts"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "Outcome": {
+      "type": "string",
+      "enum": [
+        "INSIDE_MANDATE",
+        "NEEDS_APPROVAL",
+        "OUTSIDE_MANDATE"
+      ]
+    },
+    "Clause": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "tier": {
+          "type": "string",
+          "enum": [
+            "STATIC",
+            "LEDGER",
+            "SNAPSHOT"
+          ]
+        },
+        "result": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNEVALUABLE"
+          ]
+        },
+        "computed": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "permitted": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tier",
+        "result",
+        "computed",
+        "permitted",
+        "text"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

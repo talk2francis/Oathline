@@ -1,0 +1,69 @@
+I'll dig into this properly. First, let me check our Marque work to lock onto your direction, then research Agent OS exhaustively.
+
+I've got everything I need. Before the documents, here's the honest strategic read — including two places where I'm going to push back on your brief.
+
+Three things the research changed:
+
+Track A is not what you think it is. The survey's last field — "provide a step-by-step guide on how other users can replicate your agent" — tells you Binance isn't buying a product. They're seeding a recipe library for a platform that launched 15 days ago. The winning entry is one other people install, not one they admire.
+Binance's own VP handed us the wedge. Jeff Li, on the record to TechCrunch: "We really cannot see the reasoning of what the user's action is." And: Binance does not impose a separate cap on how much an AI agent can trade or lose, so the amount transferred into the subaccount effectively serves as the limit. The TechCrunch headline is literally "keeping them in check is largely up to users." Agent OS shipped a permissions layer and no policy layer. That hole is in the client — exactly where this hackathon asks people to build.
+You already have a serious competitor in the adjacent space. eikarna/binance-agent-mcp is submitted, has a policy engine, EIP-712 signing, and runs multi-model cross-review like you do. But it has a fatal flaw I'll exploit: it doesn't use Agent OS at all. It's a rival MCP server on raw BINANCE_API_KEY/SECRET — the exact thing Agent OS was built to eliminate — running in testnet dry-run with a simulated TUI. An entry that bypasses the product the hackathon is promoting is beatable by one that composes with it.
+
+Let me write this up properly.
+
+Ambit — the mandate layer for Binance Agent OS. Four documents, same shape as the Marque pack.
+
+The thesis in one line: Agent OS shipped a permissions layer and no policy layer, Binance's own VP said on the record they can't see the agent's reasoning, and the only place that gap can be closed is the client — which is exactly where this hackathon asks people to build.
+
+The 30 seconds that win it: the video opens by building the agent everyone else built, feeds it a news article with one hidden instruction, and holds on the confirmation prompt while the agent proposes liquidating the whole sub-account. It looks completely routine. Then the same run with Ambit on, and a cream verdict card on black listing three failed clauses with the arithmetic shown.
+
+Three places I exercised the 50%:
+
+I did not take the least-crowded category. Track A is one ranked pool — 1st/2nd/3rd plus 50 runners-up — with no per-theme allocation anywhere in the announcement, survey, or T&Cs. Hiding in an empty theme buys nothing on the scoreboard, and a theme that disagrees with your description is what an AI pre-filter is built to catch. Filed under Trading Workflows, and beat the crowd by contrast instead. Override path and its cost are in §0.1.
+Everything is tiered around Marque. T0 is ~6 hours and is a complete winnable submission by itself. Total is ~11 hours across four days. Marque is a $40k pool; this is a $2k top prize. If Marque wobbles, you stop at whatever tier is green.
+Gate Zero, before any code. Nigeria's status against Binance's prohibited list is genuinely ambiguous, and if you can't create an Agentic sub-account the whole Track A premise is dead for you. That's a 20-minute check that could save you eleven hours.
+
+On your competitor: eikarna/binance-agent-mcp is already submitted, has a policy engine and EIP-712 signing, and runs the same multi-model review methodology you do. It's serious work. But it's built on legacy BINANCE_API_KEY/SECRET — it doesn't touch Agent OS at all, which is a strange thing to reward in a hackathon promoting Agent OS. §9.1 has the full read.
+
+The thing most likely to break this isn't strategy, it's empirical: whether ambit probe can enumerate the live endpoint, and whether Claude Code actually honours an MCP deny (there are open reports it drops them). Both are checked in P1 and P3, both have honest fallbacks, and the whole architecture is already built as prevention where possible, detection always rather than assuming the block holds. Come back with either result and I'll rework around the finding.
+
+Ambit master plan
+Document·MD 
+Ambit build prompts
+Document·MD 
+Agents
+Document·MD 
+Ambit submission pack
+Document·MD 
+
+.......
+.......
+
+
+Master plan survived. Note the clock: 3 days 3.5 hours left, not the 4d13h in the plan — I'll compress the schedule accordingly.
+
+All four ready. Ambit files removed so nothing stale gets pasted into a coding agent.
+
+What I accepted from the review, and why it matters:
+
+The hook architecture correction was the important one. My P3 told the PreToolUse hook to fetch account state via the Binance read tools. A command hook talks over stdin/stdout only — it cannot initiate a tool call. That would have failed silently on Saturday night. The PostToolUse state observer is strictly better: Binance's own replies get overheard and hashed, the model never supplies the balance, and every observation is timestamped — which is what makes state.max_age_seconds enforceable at all.
+
+That clause produces the nicest property in the build. Stale snapshot → escalate → the agent's natural fix is to check the balance → that read fires PostToolUse → snapshot refreshes → escalation clears. The control repairs its own precondition through the normal agent loop. No polling, no daemon, no special integration. Capture it cleanly in P3; it's the moment a technical reviewer decides this was designed rather than assembled.
+
+I also cut both quotes that pitched against Binance, and the "every write requires confirmation" claim — TechCrunch is clear that autonomy is configurable, so we observe our connection and record what it actually does rather than assert either way.
+
+On CHARTER: I searched and could not confirm it exists. I've designed against it regardless. What I did find is worse — Nidhicodes/Mandate, lovelaced/mandate ("put the AI on a leash you can prove"), Ccheh/mandate, NomadDigita/Covenant, plus a live token project selling "scoped signed capabilities and an append-only hash-chained audit log." Signed mandate + spend caps + hash-chained receipts is a genre now, not an idea.
+
+Every one of them becomes the execution path and self-attests its own log. §3 of the master plan is built on the opposite choice: Oathline holds no credential, leaves Binance exactly where it is, and checks itself against a source it does not control. Reconciliation is the one thing in this build that cannot be bolted on in four days, because it needs the observer, the receipt schema, the venue read path and a join key all working together. If P7 and P4 ever compete for hours, ship reconciliation and link to the repo.
+
+Timing: it's 20:30 UTC on the 4th, so you have 3d 3.5h, not the 4d13h in the plan header. The build prompts are already compressed for that — ~12 hours of Oathline across four days, T0 submittable by Sunday evening, freeze Monday, submit 20:00 UTC Tuesday.
+
+Two things tonight, twenty minutes total: scroll the Account Type column until you can read Agentic virtual sub, and get the OAuth connection returning a live BNBUSDT quote. Then P1 — and note that P1 writes no policy logic at all. It only logs raw hook payloads, because whether tool_response carries parseable balances determines how hard P3 is. Send me PAYLOADS.md when it lands and I'll tell you before Saturday if the state model needs reworking.
+
+Oathline master plan
+Document·MD 
+Oathline build prompts
+Document·MD 
+Agents
+Document·MD 
+Oathline submission pack
+Document·MD 

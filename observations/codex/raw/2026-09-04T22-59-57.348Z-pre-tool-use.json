@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-09-04T22:59:57.348Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-06489287-b8f4-4320-81f0-ec4bcc893dd0",
+  "tool_input": {
+    "category": "travel-rule"
+  },
+  "tool_response": null
+}

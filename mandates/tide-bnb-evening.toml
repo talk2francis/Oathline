@@ -1,0 +1,38 @@
+# Conservative reference mandate. Run `oathline arm` to sign a fresh copy.
+[meta]
+name       = "tide-bnb-evening"
+expires_at = "2026-09-08T22:00:00Z"
+timezone   = "Africa/Lagos"
+
+[scope]
+products    = ["SPOT"]
+symbols     = ["BNBUSDT"]
+sides       = ["BUY", "SELL"]
+order_types = ["MARKET", "LIMIT"]
+
+[budget]
+max_order_usdt       = "15"
+max_daily_gross_usdt = "40"
+
+[rate]
+max_orders_per_day = 3
+cooldown_seconds   = 300
+
+[risk]
+max_session_drawdown_pct = "2"
+
+[market]
+max_spread_bps = 20
+
+[state]
+max_age_seconds = 30
+
+[escalation]
+stale_state    = "ASK"
+unknown_tool   = "ASK"
+hard_violation = "DENY"
+
+[signature]
+algo   = "ed25519"
+pubkey = ""
+sig    = ""

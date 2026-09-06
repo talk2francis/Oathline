@@ -1,0 +1,15 @@
+{
+  "observedAt": "2026-09-05T05:50:00.000Z",
+  "executions": [
+    {
+      "simulation": "SIMULATED",
+      "symbol": "BNBUSDT",
+      "orderId": "simulated-orphan-001",
+      "side": "BUY",
+      "status": "FILLED",
+      "executedQty": "0.01",
+      "cummulativeQuoteQty": "7.20",
+      "time": "2026-09-05T05:49:30.000Z"
+    }
+  ]
+}

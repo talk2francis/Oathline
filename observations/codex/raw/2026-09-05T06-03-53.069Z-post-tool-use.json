@@ -1,0 +1,22 @@
+{
+  "observedAt": "2026-09-05T06:03:53.069Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-24b5a6ac-abee-4547-9069-8133a4987087",
+  "tool_input": {
+    "toolName": "spot.myTrades",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "limit": 20
+    }
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "[{\"symbol\":\"BNBUSDT\",\"id\":1576743096,\"orderId\":12534006821,\"orderListId\":-1,\"price\":\"722.48000000\",\"qty\":\"0.00500000\",\"quoteQty\":\"3.61240000\",\"commission\":\"0.00000375\",\"commissionAsset\":\"BNB\",\"time\":1788587610333,\"isBuyer\":true,\"isMaker\":false,\"isBestMatch\":true},{\"symbol\":\"BNBUSDT\",\"id\":1576743097,\"orderId\":12534006821,\"orderListId\":-1,\"price\":\"722.48000000\",\"qty\":\"0.00400000\",\"quoteQty\":\"2.88992000\",\"commission\":\"0.00000300\",\"commissionAsset\":\"BNB\",\"time\":1788587610333,\"isBuyer\":true,\"isMaker\":false,\"isBestMatch\":true}]"
+      }
+    ],
+    "isError": false
+  }
+}

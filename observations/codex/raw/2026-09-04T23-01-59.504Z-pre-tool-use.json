@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-09-04T23:01:59.504Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-6dec00d7-b2da-4bdf-9c00-7f3a6984ec68",
+  "tool_input": {
+    "toolName": "spot.depth",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "limit": 5
+    }
+  },
+  "tool_response": null
+}

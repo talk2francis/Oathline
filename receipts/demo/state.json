@@ -1,0 +1,34 @@
+{
+  "snapshotVersion": "1.0",
+  "source": "binance-agent-os",
+  "client": "codex",
+  "clientVersion": "0.153.3",
+  "capturedAt": "2026-09-05T06:03:53.112Z",
+  "toolUseIds": [
+    "exec-fec176d7-7aa0-48d7-a376-52ca2f9f3ae6",
+    "exec-1ea78473-4ddf-49ac-993e-6c56e706f4fb",
+    "exec-9d4cbc92-27fc-47e8-ae1d-3cccd5a926f0",
+    "exec-f8aa6db8-1746-43d4-a7d2-f02081bc16f6",
+    "exec-14724700-8537-4c66-858e-113c9954509f",
+    "exec-a77ba047-5d7b-4a97-ab11-b4aec3509f86",
+    "exec-d17d5cbe-5af4-42ee-bfd3-4965838a0a02",
+    "exec-47a372d5-af65-4a4f-be84-4818c91c94c3",
+    "exec-1b1ad1bc-a6dd-42b0-b143-65e42a85b480",
+    "exec-24b5a6ac-abee-4547-9069-8133a4987087"
+  ],
+  "account": {
+    "equityUsdt": "40",
+    "balances": null,
+    "positions": null
+  },
+  "market": {
+    "BNBUSDT": {
+      "bid": "722.23",
+      "ask": "722.24",
+      "referencePrice": "722.24",
+      "spreadBps": "0.13845908880073"
+    }
+  },
+  "sessionOpenEquityUsdt": "40",
+  "hash": "sha256:3cbf468c83607ad5609fdeedbe6073ddbe48e0d00d39351b39b77dbb7aa13490"
+}

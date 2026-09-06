@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Public Ed25519 test vector used only for deterministic local fixtures"
+regexes = ['''^MC4CAQAwBQYDK2VwBCIEIGnOuJmuuDOF4DZ44gxXfHznoforG8kuU6Y8l761gufN$''']

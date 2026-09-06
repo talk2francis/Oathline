@@ -1,0 +1,16 @@
+{
+  "observedAt": "2026-09-05T00:49:52.283Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-4f5d2695-b92c-442c-af3b-784bcc09626b",
+  "tool_input": {
+    "toolName": "spot.newOrder",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "side": "BUY",
+      "type": "MARKET",
+      "quoteOrderQty": "83.40"
+    }
+  },
+  "tool_response": null
+}

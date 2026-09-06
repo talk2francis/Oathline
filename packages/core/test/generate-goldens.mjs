@@ -1,0 +1,13 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { rule, signMandate, snapshotHash } from "../dist/index.js";
+
+const publicKey = "MCowBQYDK2VwAyEAIXa16kZ85xna8WpHPAFrbzqRYth8UmCNQgiLA13Kkmo=";
+const privateKey = "MC4CAQAwBQYDK2VwBCIEIGnOuJmuuDOF4DZ44gxXfHznoforG8kuU6Y8l761gufN";
+const rawMandate = { meta:{name:"tide-bnb-evening",expires_at:"2026-09-08T22:00:00Z",timezone:"Africa/Lagos"},scope:{products:["SPOT"],symbols:["BNBUSDT"],sides:["BUY","SELL"],order_types:["MARKET","LIMIT"]},budget:{max_order_usdt:"15",max_daily_gross_usdt:"40",max_position_usdt:null},rate:{max_orders_per_day:3,cooldown_seconds:300},risk:{max_session_drawdown_pct:"2"},market:{max_spread_bps:"20"},state:{max_age_seconds:30},escalation:{stale_state:"ASK",unknown_tool:"ASK",hard_violation:"DENY"},signature:null };
+const mandate = signMandate(rawMandate, privateKey, publicKey);
+const ledger = (extra={}) => ({ordersToday:2,grossToday:"10",lastOrderAt:null,sessionOpenEquityUsdt:"441",evaluatedAt:"2026-09-06T14:22:08.112Z",mode:"ADVISORY",client:"Codex",...extra});
+const snapshot = (extra={}) => { const body={snapshotVersion:"1.0",source:"binance-agent-os",client:"codex",clientVersion:"0.153.3",capturedAt:extra.capturedAt??"2026-09-06T14:22:05.412Z",toolUseIds:["toolu_read"],account:{equityUsdt:"438.20",balances:{USDT:"121.40",BNB:"0.61"},positions:{}},market:{BNBUSDT:{bid:"684.10",ask:"684.31",referencePrice:"684.20",spreadBps:"3.1"}},sessionOpenEquityUsdt:"441"}; return {...body,hash:snapshotHash(body)}; };
+const proposal = (extra={}) => { const notional=extra.notionalUsdt===undefined?"10":extra.notionalUsdt; return {raw:extra.raw??{toolName:"spot.newOrder",arguments:{symbol:"BNBUSDT",side:"SELL",type:"MARKET",quoteOrderQty:notional}},toolName:"spot.newOrder",product:"SPOT",symbol:"BNBUSDT",side:"SELL",orderType:"MARKET",quantity:null,price:null,notionalUsdt:notional,confidence:"EXACT",...extra}; };
+const cases={"01-inside.json":rule(mandate,snapshot(),ledger(),proposal()),"02-max-order.json":rule(mandate,snapshot(),ledger({grossToday:"52.10"}),proposal({notionalUsdt:"83.40"})),"03-daily-gross.json":rule(mandate,snapshot(),ledger({grossToday:"35"}),proposal()),"04-product-denied.json":rule(mandate,snapshot(),ledger(),proposal({product:"MARGIN"})),"05-stale.json":rule(mandate,snapshot({capturedAt:"2026-09-06T14:20:33.912Z"}),ledger({grossToday:"52.10"}),proposal({notionalUsdt:"83.40"})),"06-unknown.json":rule(mandate,snapshot(),ledger(),proposal({toolName:"unknown.order",confidence:"UNKNOWN"}))};
+await mkdir(new URL("golden/", import.meta.url),{recursive:true});
+for(const [name,value] of Object.entries(cases)) await writeFile(new URL(`golden/${name}`,import.meta.url),`${JSON.stringify(value,null,2)}\n`);

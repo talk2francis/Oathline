@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-09-05T00:40:29.859Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-436f7bb9-af21-4053-8919-ec321ec7d61c",
+  "tool_input": {
+    "category": "asset-management"
+  },
+  "tool_response": null
+}

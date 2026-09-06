@@ -1,0 +1,50 @@
+{
+  "description": "Oathline Binance Agent OS observer, gate, and evidence runtime",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/packages/runtime-codex/dist/hook.js\" session-start",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^mcp__binance[-_]agentic__.*$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/packages/runtime-codex/src/raw-logger.mjs\" pre-tool-use",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/packages/runtime-codex/dist/hook.js\" pre-tool-use",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "^mcp__binance[-_]agentic__.*$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/packages/runtime-codex/src/raw-logger.mjs\" post-tool-use",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/packages/runtime-codex/dist/hook.js\" post-tool-use",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

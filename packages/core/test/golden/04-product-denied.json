@@ -1,0 +1,127 @@
+{
+  "outcome": "OUTSIDE_MANDATE",
+  "mandateHash": "sha256:2f8dba2c30aaf8c4abf564e9cdd0408b608e9379cf6bc52290a4797abd187e2b",
+  "snapshotHash": "sha256:012a33513749b926965f8d723aa904e0abd87dc9b196290e0064274e23715ace",
+  "proposalHash": "sha256:1dc55674ceed169b3a1da2a451f58f0702498b23e21bfa6addde386de9350b97",
+  "clauses": [
+    {
+      "id": "scope.products",
+      "tier": "STATIC",
+      "result": "FAIL",
+      "computed": {
+        "actual": "MARGIN"
+      },
+      "permitted": "SPOT",
+      "text": "MARGIN is not in [SPOT]"
+    },
+    {
+      "id": "scope.symbols",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "BNBUSDT"
+      },
+      "permitted": "BNBUSDT",
+      "text": "BNBUSDT is in [BNBUSDT]"
+    },
+    {
+      "id": "scope.sides",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "SELL"
+      },
+      "permitted": "BUY,SELL",
+      "text": "SELL is in [BUY, SELL]"
+    },
+    {
+      "id": "scope.order_types",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "actual": "MARKET"
+      },
+      "permitted": "MARKET,LIMIT",
+      "text": "MARKET is in [MARKET, LIMIT]"
+    },
+    {
+      "id": "budget.max_order_usdt",
+      "tier": "STATIC",
+      "result": "PASS",
+      "computed": {
+        "proposed": "10"
+      },
+      "permitted": "15",
+      "text": "10.00 USDT is within the 15.00 USDT permitted per order"
+    },
+    {
+      "id": "budget.max_daily_gross_usdt",
+      "tier": "LEDGER",
+      "result": "PASS",
+      "computed": {
+        "grossToday": "10",
+        "proposed": "10",
+        "total": "20"
+      },
+      "permitted": "40",
+      "text": "10.00 + 10.00 = 20.00 USDT is within the 40.00 USDT permitted today"
+    },
+    {
+      "id": "rate.max_orders_per_day",
+      "tier": "LEDGER",
+      "result": "PASS",
+      "computed": {
+        "ordersToday": "2",
+        "proposedCount": "3"
+      },
+      "permitted": "3",
+      "text": "2 of 3 orders used; this order would use 3"
+    },
+    {
+      "id": "rate.cooldown_seconds",
+      "tier": "LEDGER",
+      "result": "PASS",
+      "computed": {
+        "lastOrderAt": "none"
+      },
+      "permitted": "300",
+      "text": "no prior successful order is recorded; 300s cooldown is available"
+    },
+    {
+      "id": "risk.max_session_drawdown_pct",
+      "tier": "SNAPSHOT",
+      "result": "PASS",
+      "computed": {
+        "sessionOpenEquityUsdt": "441",
+        "equityUsdt": "438.20",
+        "lossUsdt": "2.8",
+        "drawdownPct": "0.6349206349206349"
+      },
+      "permitted": "2",
+      "text": "441.00 - 438.20 = 2.80 USDT; 0.63% is within the 2.00% permitted session drawdown"
+    },
+    {
+      "id": "state.max_age_seconds",
+      "tier": "SNAPSHOT",
+      "result": "PASS",
+      "computed": {
+        "ageSeconds": "2.7"
+      },
+      "permitted": "30",
+      "text": "snapshot is 2.7s old, within the 30s permitted"
+    },
+    {
+      "id": "market.max_spread_bps",
+      "tier": "SNAPSHOT",
+      "result": "PASS",
+      "computed": {
+        "spreadBps": "3.1"
+      },
+      "permitted": "20",
+      "text": "3.1 bps is within the 20.0 bps permitted"
+    }
+  ],
+  "mode": "ADVISORY",
+  "client": "Codex",
+  "ts": "2026-09-06T14:22:08.112Z"
+}

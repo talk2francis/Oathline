@@ -1,0 +1,13 @@
+{
+  "observedAt": "2026-09-05T06:00:22.862Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-35188abc-01a1-4b15-aeef-1458af51183e",
+  "tool_input": {
+    "toolName": "spot.getAccount",
+    "arguments": {
+      "omitZeroBalances": false
+    }
+  },
+  "tool_response": null
+}

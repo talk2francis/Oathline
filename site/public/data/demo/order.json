@@ -1,0 +1,29 @@
+{
+  "evidence": "REAL",
+  "symbol": "BNBUSDT",
+  "orderId": 12534006821,
+  "transactTime": 1788587610333,
+  "origQuoteOrderQty": "7.00000000",
+  "origQty": "0.00900000",
+  "executedQty": "0.00900000",
+  "cummulativeQuoteQty": "6.50232000",
+  "status": "FILLED",
+  "type": "MARKET",
+  "side": "BUY",
+  "fills": [
+    {
+      "price": "722.48000000",
+      "qty": "0.00500000",
+      "commission": "0.00000375",
+      "commissionAsset": "BNB",
+      "tradeId": 1576743096
+    },
+    {
+      "price": "722.48000000",
+      "qty": "0.00400000",
+      "commission": "0.00000300",
+      "commissionAsset": "BNB",
+      "tradeId": 1576743097
+    }
+  ]
+}

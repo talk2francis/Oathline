@@ -1,0 +1,10 @@
+{
+  "capturedAt": "2026-09-05T05:46:12.480Z",
+  "toolName": "spot.myTrades",
+  "toolUseId": "exec-a77ba047-5d7b-4a97-ab11-b4aec3509f86",
+  "input": {
+    "symbol": "BNBUSDT",
+    "limit": 20
+  },
+  "response": []
+}

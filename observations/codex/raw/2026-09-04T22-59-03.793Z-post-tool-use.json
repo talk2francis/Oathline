@@ -1,0 +1,46 @@
+{
+  "observedAt": "2026-09-04T22:59:03.793Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-12a537c6-5cc8-4c7a-9240-5e1caa175db4",
+  "tool_input": {
+    "category": "portfolio-margin-endpoints"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"futures_usds.classicPortfolioMarginAccountInformation\",\"description\":\"Classic Portfolio Margin Account Information (USER_DATA)\\nGet Classic Portfolio Margin current account information.\\n\\nNotes:\\n- maxWithdrawAmount is for asset transfer out to the spot wallet.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"asset\":{\"type\":\"string\",\"example\":\"BTC\"},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"asset\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "futures_usds.classicPortfolioMarginAccountInformation",
+          "description": "Classic Portfolio Margin Account Information (USER_DATA)\nGet Classic Portfolio Margin current account information.\n\nNotes:\n- maxWithdrawAmount is for asset transfer out to the spot wallet.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "asset": {
+                "type": "string",
+                "example": "BTC"
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [
+              "asset"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}

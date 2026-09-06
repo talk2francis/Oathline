@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-09-04T23:02:13.399Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-69a8cecc-3306-4e5c-b1b9-068b3a8caf13",
+  "tool_input": {
+    "toolName": "spot.myTrades",
+    "arguments": {
+      "symbol": "BNBUSDT",
+      "limit": 20
+    }
+  },
+  "tool_response": null
+}

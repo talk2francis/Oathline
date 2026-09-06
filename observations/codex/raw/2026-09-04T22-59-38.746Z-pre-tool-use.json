@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-09-04T22:59:38.746Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-f427ce4c-844c-4b17-b7a9-2688d0fa65f6",
+  "tool_input": {
+    "category": "general"
+  },
+  "tool_response": null
+}

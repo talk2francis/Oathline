@@ -1,0 +1,15 @@
+RECONCILIATION            2026-09-05
+
+  Binance executions              1
+  Oathline authorisations         1
+
+  MATCHED                         1
+  ORPHAN                          0     execution with no prior authorisation
+  DIVERGED                        0     execution differs from what was authorised
+
+  MATCHED    order 12534006821 · BNBUSDT · BUY · join order_id
+             Execution corresponds to a prior INSIDE_MANDATE authorisation.
+
+  chain                     VALID  ·  36 entries  ·  0 broken links
+
+Coverage: Binance history observed from 2026-09-05T05:53:30.333Z to 2026-09-05T05:53:30.333Z. Receipts outside this window were not reconciled.

@@ -1,0 +1,13 @@
+{
+  "observedAt": "2026-09-05T05:53:19.240Z",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-1b1ad1bc-a6dd-42b0-b143-65e42a85b480",
+  "tool_input": {
+    "toolName": "wallet.queryUserWalletBalance",
+    "arguments": {
+      "quoteAsset": "USDT"
+    }
+  },
+  "tool_response": null
+}

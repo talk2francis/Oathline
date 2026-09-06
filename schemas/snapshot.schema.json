@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "snapshotVersion": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "source": {
+      "type": "string",
+      "const": "binance-agent-os"
+    },
+    "client": {
+      "type": "string"
+    },
+    "clientVersion": {
+      "type": "string"
+    },
+    "capturedAt": {
+      "type": "string"
+    },
+    "toolUseIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "account": {
+      "type": "object",
+      "properties": {
+        "equityUsdt": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/DecimalString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "balances": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/DecimalString"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "positions": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": {}
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "equityUsdt",
+        "balances",
+        "positions"
+      ],
+      "additionalProperties": false
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "bid": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ask": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "referencePrice": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "spreadBps": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "bid",
+          "ask",
+          "referencePrice",
+          "spreadBps"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sessionOpenEquityUsdt": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/DecimalString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hash": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "snapshotVersion",
+    "source",
+    "client",
+    "clientVersion",
+    "capturedAt",
+    "toolUseIds",
+    "account",
+    "market",
+    "sessionOpenEquityUsdt",
+    "hash"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "DecimalString": {
+      "type": "string"
+    }
+  }
+}

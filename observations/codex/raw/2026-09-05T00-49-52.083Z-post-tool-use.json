@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-09-05T00:49:52.083Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_execute",
+  "tool_use_id": "exec-f8aa6db8-1746-43d4-a7d2-f02081bc16f6",
+  "tool_input": {
+    "toolName": "wallet.queryUserWalletBalance",
+    "arguments": {
+      "quoteAsset": "USDT"
+    }
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "[{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"Spot\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"Funding\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"Cross Margin\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"Isolated Margin\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"USDⓈ-M Futures\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"COIN-M Futures\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"Earn\"},{\"activate\":false,\"balance\":\"[REDACTED]\",\"walletName\":\"Options\"},{\"activate\":false,\"balance\":\"[REDACTED]\",\"walletName\":\"Trading Bots\"},{\"activate\":true,\"balance\":\"[REDACTED]\",\"walletName\":\"Copy Trading\"}]"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "observedAt": "2026-09-04T22:59:20.564Z",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "mcp__binance_agentic__tool_search",
+  "tool_use_id": "exec-e1e94fff-f27c-4565-850e-ac9fdf86b150",
+  "tool_input": {
+    "category": "convert"
+  },
+  "tool_response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"tools\":[{\"name\":\"futures_usds.acceptTheOfferedQuote\",\"description\":\"Accept the offered quote (USER_DATA)\\nAccept the offered quote by quote ID.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"quoteId\":{\"type\":\"string\",\"example\":\"1\"},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"quoteId\"],\"additionalProperties\":false}},{\"name\":\"futures_usds.listAllConvertPairs\",\"description\":\"List All Convert Pairs\\nQuery for all convertible token pairs and the tokens’ respective upper/lower limits\\n\\nNotes:\\n- User needs to supply either or both of the input parameter\\n- If not defined for both fromAsset and toAsset, only partial token pairs will be returned\\n- Asset BNFCR is only available to convert for MICA region users.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"fromAsset\":{\"type\":\"string\",\"description\":\"User spends coin\",\"example\":\"BTC\"},\"toAsset\":{\"type\":\"string\",\"description\":\"User receives coin\",\"example\":\"USDT\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.orderStatus\",\"description\":\"Order status (USER_DATA)\\nQuery order status by order ID.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"orderId\":{\"type\":\"string\",\"description\":\"Either orderId or quoteId is required\",\"example\":\"933256278426274400\"},\"quoteId\":{\"type\":\"string\",\"description\":\"Either orderId or quoteId is required\",\"example\":\"1\"}},\"required\":[],\"additionalProperties\":false}},{\"name\":\"futures_usds.sendQuoteRequest\",\"description\":\"Send Quote Request (USER_DATA)\\nRequest a quote for the requested token pairs\\n\\nNotes:\\n- Either fromAmount or toAmount should be sent\\n- `quoteId` will be returned only if you have enough funds to convert\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"fromAsset\":{\"type\":\"string\",\"example\":\"BTC\"},\"toAsset\":{\"type\":\"string\",\"example\":\"USDT\"},\"fromAmount\":{\"type\":\"number\",\"description\":\"When specified, it is the amount you will be debited after the conversion\",\"format\":\"float\",\"example\":1},\"toAmount\":{\"type\":\"number\",\"description\":\"When specified, it is the amount you will be credited after the conversion\",\"format\":\"float\",\"example\":1},\"validTime\":{\"type\":\"string\",\"description\":\"10s, default 10s\",\"example\":\"10s\"},\"recvWindow\":{\"type\":\"integer\",\"format\":\"int64\",\"maximum\":60000,\"example\":5000}},\"required\":[\"fromAsset\",\"toAsset\"],\"additionalProperties\":false}}],\"nextStep\":\"Pick one tool from `tools` above, then call tool_execute with {\\\"toolName\\\": \\\"<name>\\\", \\\"arguments\\\": {...}} to execute it. Each tool's inputSchema describes required arguments.\"}"
+      }
+    ],
+    "structuredContent": {
+      "tools": [
+        {
+          "name": "futures_usds.acceptTheOfferedQuote",
+          "description": "Accept the offered quote (USER_DATA)\nAccept the offered quote by quote ID.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "quoteId": {
+                "type": "string",
+                "example": "1"
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [
+              "quoteId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.listAllConvertPairs",
+          "description": "List All Convert Pairs\nQuery for all convertible token pairs and the tokens’ respective upper/lower limits\n\nNotes:\n- User needs to supply either or both of the input parameter\n- If not defined for both fromAsset and toAsset, only partial token pairs will be returned\n- Asset BNFCR is only available to convert for MICA region users.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fromAsset": {
+                "type": "string",
+                "description": "User spends coin",
+                "example": "BTC"
+              },
+              "toAsset": {
+                "type": "string",
+                "description": "User receives coin",
+                "example": "USDT"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.orderStatus",
+          "description": "Order status (USER_DATA)\nQuery order status by order ID.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "orderId": {
+                "type": "string",
+                "description": "Either orderId or quoteId is required",
+                "example": "933256278426274400"
+              },
+              "quoteId": {
+                "type": "string",
+                "description": "Either orderId or quoteId is required",
+                "example": "1"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "futures_usds.sendQuoteRequest",
+          "description": "Send Quote Request (USER_DATA)\nRequest a quote for the requested token pairs\n\nNotes:\n- Either fromAmount or toAmount should be sent\n- `quoteId` will be returned only if you have enough funds to convert",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fromAsset": {
+                "type": "string",
+                "example": "BTC"
+              },
+              "toAsset": {
+                "type": "string",
+                "example": "USDT"
+              },
+              "fromAmount": {
+                "type": "number",
+                "description": "When specified, it is the amount you will be debited after the conversion",
+                "format": "float",
+                "example": 1
+              },
+              "toAmount": {
+                "type": "number",
+                "description": "When specified, it is the amount you will be credited after the conversion",
+                "format": "float",
+                "example": 1
+              },
+              "validTime": {
+                "type": "string",
+                "description": "10s, default 10s",
+                "example": "10s"
+              },
+              "recvWindow": {
+                "type": "integer",
+                "format": "int64",
+                "maximum": 60000,
+                "example": 5000
+              }
+            },
+            "required": [
+              "fromAsset",
+              "toAsset"
+            ],
+            "additionalProperties": false
+          }
+        }
+      ],
+      "nextStep": "Pick one tool from `tools` above, then call tool_execute with {\"toolName\": \"<name>\", \"arguments\": {...}} to execute it. Each tool's inputSchema describes required arguments."
+    },
+    "isError": false
+  }
+}
