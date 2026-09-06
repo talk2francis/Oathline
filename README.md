@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="site/public/brand/oathline-lockup-dark.png">
-  <img src="site/public/brand/oathline-lockup-light.png" alt="Oathline" width="760">
+  <source media="(prefers-color-scheme: dark)" srcset="site/public/brand/oathline-social.png">
+  <img src="brand-assets/Oathline dark logo on light background hero banner.png" alt="Oathline — integrity by design" width="960">
 </picture>
 
 # Oathline

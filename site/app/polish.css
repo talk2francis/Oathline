@@ -48,7 +48,7 @@ body::before {
 .hero-upgraded {
   position: relative;
   isolation: isolate;
-  min-height: min(880px, calc(100vh - 76px));
+  min-height: min(720px, calc(100vh - 76px));
   background:
     radial-gradient(circle at 70% 42%, rgba(184,148,47,.06), transparent 34%),
     linear-gradient(90deg, transparent 0 48%, rgba(255,255,255,.025) 48% 48.08%, transparent 48.08%);
@@ -303,7 +303,7 @@ body::before {
 }
 
 @media (max-width: 1080px) {
-  .hero-upgraded { grid-template-columns: minmax(0,.85fr) minmax(500px,1.15fr); gap: 42px; }
+  .hero-upgraded { grid-template-columns: minmax(0,.9fr) minmax(460px,1.1fr); gap: 36px; }
   .proof-rail { grid-template-columns: repeat(3,1fr); }
   .proof-stage:nth-child(4), .proof-stage:nth-child(5) { min-height: 240px; }
   .four-up { grid-template-columns: 1fr 1fr; }
@@ -335,13 +335,13 @@ body::before {
 
   .hero-upgraded {
     min-height: auto;
-    padding: 64px 18px 76px;
+    padding: 50px 18px 62px;
     display: block;
     background: radial-gradient(circle at 78% 22%, rgba(184,148,47,.06), transparent 25rem);
   }
-  .hero-copy h1 { max-width: 94%; font-size: clamp(50px, 14vw, 76px); }
+  .hero-copy h1 { max-width: 94%; font-size: clamp(42px, 11.5vw, 58px); line-height: .95; }
   .hero-copy > p { font-size: 16px; }
-  .hero-document-wrap { margin-top: 54px; }
+  .hero-document-wrap { margin-top: 40px; }
   .hero-document-wrap::before { inset: 14% 0 -4%; }
   .hero-document-wrap .ruling-card { transform: none; }
   .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
@@ -352,11 +352,11 @@ body::before {
   .proof-ribbon > div { padding-inline: 18px; }
 
   .page, .home-section { width: min(100% - 32px, 1160px); }
-  .home-section { padding: 86px 0; }
+  .home-section { padding: 68px 0; }
   .section-heading { grid-template-columns: 36px minmax(0,1fr); gap: 10px; margin-bottom: 40px; }
-  .section-heading h2 { font-size: clamp(34px, 10vw, 54px); }
+  .section-heading h2 { font-size: clamp(31px, 8.5vw, 44px); }
   .two-column, .three-column, .four-up { grid-template-columns: 1fr; }
-  .boundary-panel { min-height: 300px; }
+  .boundary-panel { min-height: 260px; }
 
   .proof-rail { grid-template-columns: 1fr; }
   .proof-stage { min-height: 210px; padding: 24px; }

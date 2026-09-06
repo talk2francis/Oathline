@@ -51,10 +51,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <a className="repo-link" href="https://github.com/talk2francis/Oathline">GitHub ↗</a>
         </header>
         <main>{children}</main>
-        <footer>
-          <Link href="/" className="footer-brand" aria-label="Oathline home"><img src="/brand/oathline-lockup-dark.png" alt="Oathline" width="1672" height="941" /></Link>
-          <span>Policy before execution. Evidence after.</span>
-          <a href="https://github.com/talk2francis/Oathline">Source ↗</a>
+        <footer className="site-footer">
+          <div className="footer-identity">
+            <Link href="/" className="footer-brand" aria-label="Oathline home"><img src="/brand/oathline-lockup-dark.png" alt="Oathline" width="1672" height="941" /></Link>
+            <p>Policy before execution.<br />Evidence after.</p>
+            <small>Official Agent OS OAuth · no Binance credential held</small>
+          </div>
+          <div className="footer-links">
+            <div><span>Product</span><Link href="/judge">Judge mode</Link><Link href="/replay">Replay</Link><Link href="/mandate">Mandate builder</Link></div>
+            <div><span>Evidence</span><Link href="/receipts/demo">Real receipt</Link><Link href="/verify">Chain verifier</Link><Link href="/surface">Observed surface</Link></div>
+            <div><span>Resources</span><Link href="/docs/install">Install</Link><Link href="/limits">Limitations</Link><a href="https://github.com/talk2francis/Oathline">GitHub source ↗</a></div>
+          </div>
+          <div className="footer-base"><span>Oathline · Binance Agent OS Track A</span><span>Real proof stays distinguishable from simulation.</span></div>
         </footer>
       </body>
     </html>

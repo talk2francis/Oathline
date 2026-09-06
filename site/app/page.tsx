@@ -32,6 +32,11 @@ export default function Home() {
         <div>{proofSignals.map((signal) => <span key={signal}><i />{signal}</span>)}</div>
       </div>
 
+      <Link href="/judge" className="brand-showcase" aria-label="Enter Oathline judge mode">
+        <img src="/brand/oathline-social.png" alt="Oathline — integrity by design. A more certain tomorrow." width="1672" height="941" />
+        <span>Enter the proof path →</span>
+      </Link>
+
       <section className="home-section home-section-proof">
         <SectionHeading number="01" title="One financial action. Five proofs.">The runtime is only half the product. Oathline follows authority from observed Agent OS surface to signed mandate, host enforcement, actual execution, and independent reconciliation.</SectionHeading>
         <ProofRail />
