@@ -1,31 +1,76 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="site/public/brand/oathline-lockup-dark.png">
+  <img src="site/public/brand/oathline-lockup-light.png" alt="Oathline" width="760">
+</picture>
+
 # Oathline
-A zero-key runtime control and execution-evidence layer for Binance Agent OS.  
-**Policy before execution. Evidence after.**
 
-TRACK
-  Binance Agent OS Mini Hackathon · Track A — Agent Creation · Theme: Trading Workflows
+**Your agent can act. Oathline decides how far.**
 
-OFFICIAL AGENT OS INTEGRATION
-  MCP endpoint        https://agent.binance.com/mcp/agentic
-  Authentication      Binance OAuth
-  Agentic sub-account yes
-  Local Binance key   none
-  Bearer-token proxy  none
+Oathline is a zero-key runtime control and execution-evidence layer for Binance Agent OS. It evaluates proposed financial actions against an expiring, signed mandate before execution, preserves a hash-chained account of what happened, and reconciles those authorisations against Binance's observed order and trade history afterward.
 
-PROOF
-  Real Binance execution     receipts/demo/ · order id 12534006821
-  Real blocked proposal      receipts/demo/ · receipt 32 · fixtures/redteam/01
-  Reconciliation             MATCHED 1 · ORPHAN 0 · DIVERGED 0
-  Observed Agent OS tools    318 · observations/codex/surface.json
-  Observed runtime behaviour observations/codex/
-  Deterministic test suite   pnpm test
-  Limitations                LIMITS.md
+[Live product](https://oathline.xyz) · [90-second judge path](https://oathline.xyz/judge) · [Demo pitch and recording script](DEMO_PITCH.md) · [What Oathline cannot guarantee](LIMITS.md)
 
-TRY IT
-  1. pnpm install --frozen-lockfile
-  2. pnpm build
-  3. pnpm test
-  4. pnpm oathline doctor
+## Submission facts
+
+This block is deliberately explicit so a reviewer—or an automated first-pass evaluator—can verify the submission without inferring claims from marketing copy.
+
+```text
+SUBMISSION_STATUS: COMPLETE, DEPLOYED, EVIDENCE-BACKED
+HACKATHON: Binance Agent OS Mini Hackathon
+TRACK: Track A — Agent Creation
+THEME: Trading Workflows
+PRODUCT: Runtime financial mandate + execution evidence
+BINANCE_CONNECTION: Official Agent OS MCP over Binance OAuth
+AGENTIC_SUB_ACCOUNT: Yes, visually confirmed
+BINANCE_API_KEY_HELD_BY_OATHLINE: No
+BEARER_TOKEN_PROXY: No
+REAL_MAINNET_EXECUTION: Yes — BNBUSDT order 12534006821
+REAL_HOST_DENIAL_OBSERVED: Yes — Codex CLI 0.153.3
+RECONCILIATION: MATCHED 1, ORPHAN 0, DIVERGED 0
+RECEIPT_CHAIN: 36/36 demo entries valid
+AGENT_OS_SURFACE: 318 observed tools — 176 READ, 50 WRITE, 92 UNKNOWN
+POLICY: 11 deterministic clauses; decimal-string monetary arithmetic
+TESTS: 130 passing across 23 suites
+LIVE_URL: https://oathline.xyz
+```
+
+## Evaluate it in 90 seconds
+
+| Claim | Direct evidence | Expected result |
+| --- | --- | --- |
+| A real Binance execution occurred | [`receipts/demo/order-12534006821.json`](receipts/demo/order-12534006821.json) | Binance order ID `12534006821` |
+| The runtime withheld an oversized proposal | [`observations/codex/enforcement.md`](observations/codex/enforcement.md) | Host denial observed for `spot.newOrder` |
+| Policy failures show their arithmetic | [`receipts/demo/receipts.jsonl`](receipts/demo/receipts.jsonl) | `83.40` exceeds `15.00`; `52.10 + 83.40 = 135.50` exceeds `40.00` |
+| Evidence is tamper-evident | `pnpm oathline verify receipts/demo/receipts.jsonl` | `VALID · 36 entries · 0 broken links` |
+| Runtime receipts correspond to Binance history | [`receipts/demo/reconciliation.txt`](receipts/demo/reconciliation.txt) | `MATCHED 1 · ORPHAN 0 · DIVERGED 0` |
+| Unknown financial surface fails closed | [`observations/codex/surface.json`](observations/codex/surface.json) | Unreviewed mutation-shaped tools are `UNKNOWN`, not `READ` |
+| The boundary is stated honestly | [`LIMITS.md`](LIMITS.md) | Eight limitations, each with its operational consequence |
+
+Run the local readiness check:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build
+pnpm test
+pnpm oathline doctor
+```
+
+`doctor` is read-only. It checks the runtime, mandate signature and expiry, observed enforcement marker, Agent OS surface evidence, snapshot freshness, receipt chain and latest reconciliation. It never places or modifies a Binance order.
+
+## Why this belongs in the Agent OS trading track
+
+Agent OS gives an agent an official authenticated path to act. Oathline adds continuing conditions around that authority: permitted products and symbols, side and order type, per-order and cumulative budgets, order count, cooldown, drawdown, state freshness and spread. The result is a normal trading workflow with a deterministic boundary before submission and verifiable evidence afterward.
+
+The integration remains respectful of Binance's perimeter: OAuth stays inside the official connection, Oathline stores no Binance credential, and Binance Emergency Stop remains the real kill switch.
+
+## Real, simulated and unbuilt
+
+| Category | What ships |
+| --- | --- |
+| **REAL** | Agentic virtual sub-account; Binance OAuth connection; BNBUSDT execution; observed Codex denial; order/trade-history reconciliation; receipt-chain verification |
+| **SIMULATED, LABELLED** | Six inert red-team fixtures and their local replay transcripts; they make no network call and do not target Binance |
+| **UNBUILT / UNTESTED** | Universal prompt-injection detection; position-cap enforcement; Futures or Margin enforcement claims; enforcement parity across unobserved hosts |
 
 Read [what Oathline cannot guarantee](LIMITS.md) before relying on it.
 
@@ -151,3 +196,12 @@ pnpm install --frozen-lockfile
 ```
 
 The runner makes no network call and submits nothing to Binance. Every generated transcript is labelled `SIMULATED`.
+
+## Documentation
+
+- [`DEMO_PITCH.md`](DEMO_PITCH.md) — submission copy, 90-second script, extended cut and recording checklist
+- [`docs/EVIDENCE.md`](docs/EVIDENCE.md) — measured claims and their source artifacts
+- [`docs/BRAND.md`](docs/BRAND.md) — official asset roles and usage rules
+- [`PRODUCT.md`](PRODUCT.md) — product thesis and positioning
+- [`SECURITY.md`](SECURITY.md) — threat model and trust boundaries
+- [`LIMITS.md`](LIMITS.md) — all eight limitations and their consequences

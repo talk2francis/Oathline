@@ -25,8 +25,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .site-header nav { display: flex; justify-content: center; gap: clamp(16px, 3vw, 34px); color: #a8a8ad; font-size: 13px; }
 .site-header nav a:hover, .repo-link:hover { color: var(--document); }
 .repo-link { justify-self: end; color: #c9c7c0; font-family: var(--mono); font-size: 12px; }
-.receipt-mark { position: relative; width: 55px; height: 42px; padding: 7px 8px; display: flex; flex-direction: column; justify-content: center; background: var(--document); color: var(--document-ink); font-family: var(--mono); font-size: 8px; font-weight: 700; line-height: 1.1; letter-spacing: .14em; }
-.receipt-mark::after { content: ""; position: absolute; right: 0; top: 0; border-style: solid; border-width: 0 12px 12px 0; border-color: transparent var(--ink) transparent transparent; }
+.brand-lockup, .footer-brand { position: relative; display: block; overflow: hidden; }
+.brand-lockup { width: 150px; height: 40px; }
+.brand-lockup img, .footer-brand img { position: absolute; max-width: none; height: auto; }
+.brand-lockup-full { width: 238px; left: -44px; top: -47px; }
+.brand-lockup-mark { display: none; }
+.footer-brand { width: 126px; height: 32px; }
+.footer-brand img { width: 200px; left: -37px; top: -40px; }
 
 main { min-height: calc(100vh - 160px); }
 .page, .home-section { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
@@ -186,7 +191,7 @@ footer span:nth-child(2) { text-align: center; }
 footer a { text-align: right; }
 
 @media (max-width: 900px) {
-  .site-header { grid-template-columns: 80px 1fr; }
+  .site-header { grid-template-columns: 116px 1fr; }
   .site-header nav { justify-content: flex-end; overflow-x: auto; }
   .site-header nav a:nth-last-child(-n+2), .repo-link { display: none; }
   .hero { min-height: auto; grid-template-columns: 1fr; padding-top: 68px; gap: 60px; }
@@ -202,6 +207,10 @@ footer a { text-align: right; }
 
 @media (max-width: 600px) {
   .site-header { padding: 0 18px; }
+  .site-header { grid-template-columns: 48px 1fr; }
+  .brand-lockup { width: 44px; height: 34px; }
+  .brand-lockup-full { display: none; }
+  .brand-lockup-mark { display: block; width: 90px; left: -23px; top: -17px; }
   .site-header nav { gap: 14px; }
   .site-header nav a:nth-last-child(-n+4) { display: none; }
   .page, .home-section { width: min(100% - 32px, 1160px); }

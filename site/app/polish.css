@@ -43,7 +43,7 @@ body::before {
 }
 
 .site-header nav a:hover { transform: translateY(-1px); }
-.receipt-mark { box-shadow: 0 0 0 1px rgba(244,241,232,.08); }
+.brand-lockup, .footer-brand { filter: contrast(1.04); }
 
 .hero-upgraded {
   position: relative;
@@ -317,7 +317,7 @@ body::before {
     grid-template-columns: auto 1fr auto;
     gap: 8px 14px;
   }
-  .receipt-mark { width: 45px; height: 34px; font-size: 6.5px; }
+  .brand-lockup { flex: 0 0 auto; }
   .repo-link { grid-column: 3; font-size: 9px; }
   .site-header nav {
     grid-column: 1 / -1;

@@ -1,6 +1,21 @@
 {
   "name": "oathline",
   "version": "0.1.0",
+  "description": "Zero-key runtime policy enforcement and execution evidence for Binance Agent OS.",
+  "keywords": [
+    "binance-agent-os",
+    "agentic-trading",
+    "policy-engine",
+    "signed-mandate",
+    "receipt-chain",
+    "reconciliation"
+  ],
+  "homepage": "https://oathline.xyz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talk2francis/Oathline.git"
+  },
+  "license": "MIT",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@9.15.9",

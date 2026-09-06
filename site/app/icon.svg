@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <path fill="#F4F1E8" d="M5 3h17l5 5v21H5z"/>
-  <path fill="#0A0A0B" d="M22 3v6h5zM9 12h14v2H9zm0 5h14v2H9zm0 5h9v2H9z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 52" role="img" aria-label="Oathline">
+  <rect width="68" height="52" rx="9" fill="#0A0A0B"/>
+  <path d="M7 34.5 22.8 9.2A5 5 0 0 1 27 7h17.2L31.5 27.4a7 7 0 0 1-5.9 3.3H15.1L12.7 34.5Z" fill="#F4F1E8"/>
+  <path d="M31.6 19.2h13.8a6 6 0 0 1 5.2 3l11 19.8H48.9a7 7 0 0 1-6-3.4Z" fill="#F4F1E8"/>
 </svg>
