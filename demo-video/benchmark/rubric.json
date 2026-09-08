@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "title": "Oathline demo-production benchmark",
+  "purpose": "Retrospective technical baseline plus newly formalized candidate evaluation rubric; not an existing external quality certification.",
+  "baseline": {
+    "commit": "7a96148d6c00308473f0afe25d77d7e88069967f",
+    "artifact": "demo-video/exports/oathline-demo-150s.mp4",
+    "sha256": "7ba30072b0d31e90150d0d83d976322a4eccafad5df0ead734ea66547b8e01fa",
+    "bytes": 22642176,
+    "durationSeconds": 150,
+    "frames": 4500,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "integratedLufs": -16.07,
+    "truePeakDbtp": -1.0,
+    "captionCues": 46,
+    "captionOverlaps": 0,
+    "humanListeningTestPerformed": false,
+    "subjectiveScore": null
+  },
+  "mandatoryGates": [
+    {"id": "truth", "requirement": "Every claimed event has inspected evidence; simulation, archive and explanation are labeled; causal continuity and coverage limits are preserved."},
+    {"id": "safety", "requirement": "No unapproved mainnet action, credential disclosure, historical mutation, paid service or external data transfer."},
+    {"id": "complete_media", "requirement": "Actual final MP4 contains picture, audible narration and licensed music; captions are visible without a player setting and a separate SRT is delivered."},
+    {"id": "format", "requirement": "150 seconds within 0.04s, 4500 frames, 1920x1080, 30 fps, H.264 yuv420p limited-range Rec.709, stereo 48kHz AAC; full decode succeeds."},
+    {"id": "timing", "requirement": "Exact per-scene audio sample lengths; no out-of-bounds or overlapping cues; inspect sync in the final export, not only sidecar metadata."},
+    {"id": "mix", "requirement": "Encoded integrated loudness between -17 and -15 LUFS; target true peak at or below -1 dBTP, maximum QA tolerance -0.8 dBTP; no missing or inaudible dialogue."},
+    {"id": "rights", "requirement": "Asset provenance and license obligations documented; required public-description music attribution included."},
+    {"id": "reproducibility", "requirement": "Source, needed assets, commands, evidence map, timing, QA, export hash and clear entrypoint supplied; accepted baseline preserved."}
+  ],
+  "scoring": {
+    "status": "Proposed review protocol; no baseline or candidate scores assigned by this file.",
+    "scale": {"0": "Absent or seriously defective", "1": "Major deficiencies", "2": "Usable with significant weaknesses", "3": "Clear and competent", "4": "Strong with minor weaknesses", "5": "Exceptional for the brief, supported by review evidence"},
+    "formula": "Sum(weight * score / 5) only when all categories are assessed and all mandatory gates pass.",
+    "unassessedRule": "Use null with a reason; do not substitute zero, renormalize missing categories, or claim a complete total.",
+    "categories": [
+      {"id": "story", "weight": 20, "review": "Concrete hook, comprehensible boundary/enforcement/evidence arc, meaningful progression, useful closing; explain the product after one viewing."},
+      {"id": "proof_presentation", "weight": 20, "review": "Readable genuine evidence, explicit provenance/scope, recognizable order continuity, no dependence on tiny disclaimers to rescue misleading main claims."},
+      {"id": "voice", "weight": 15, "review": "Actual listening: pronunciation, natural phrasing, pauses, technical clarity and a complete unhurried ending."},
+      {"id": "picture", "weight": 15, "review": "Output-size inspection and motion playback: legibility, hierarchy, crop quality, purposeful cursor activity, stable fonts and restrained motion."},
+      {"id": "music_mix", "weight": 10, "review": "Actual listening: musical fit, dialogue intelligibility, ducking without pumping, smooth edits and satisfying ending; supported by meters."},
+      {"id": "captions", "weight": 10, "review": "Visible, readable, grammatical, accurate and synchronized in playback; safe placement without masking proof or doubling subtitles."},
+      {"id": "craft_delivery", "weight": 10, "review": "Consistent finish, no dead/accidental frames, reproducible candidate, usable handoff and transparent limitations."}
+    ],
+    "requiredReviewRecord": ["candidateCommit", "artifactSha256", "reviewer", "reviewTimestamp", "reviewCapabilities", "gateResults", "measurements", "categoryScoresOrNull", "timestampedReasons", "remainingLimitations"]
+  }
+}

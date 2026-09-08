@@ -1,5 +1,7 @@
 # Oathline — 150-second production
 
+For the complete retrospective workflow, exact technical settings, pitfalls and comparison criteria, read the [production benchmark](../DEMO-PRODUCTION-BENCHMARK.md). A [ready-to-use agent brief](../benchmark/AGENT-BRIEF.md) is included.
+
 Final: [`../exports/oathline-demo-150s.mp4`](../exports/oathline-demo-150s.mp4).
 
 1920 × 1080, 30 fps, 150 seconds, H.264 / Rec.709, stereo AAC. English subtitles are burned into the picture so they are visible without enabling a player setting. A separate SRT is included. There is no second embedded text track that could cause duplicate subtitles.

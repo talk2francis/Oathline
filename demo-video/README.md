@@ -1,5 +1,7 @@
 # Oathline demo-video pipeline
 
+[Agent-neutral production benchmark and full technical playbook](DEMO-PRODUCTION-BENCHMARK.md) · [Copy-paste brief for another agent](benchmark/AGENT-BRIEF.md)
+
 ## Current film — 2 minutes 30 seconds
 
 [Watch / download the finished captioned MP4](exports/oathline-demo-150s.mp4) · [English subtitles](exports/oathline-demo-150s.srt) · [Upload description and music credit](exports/UPLOAD-DESCRIPTION.md)
