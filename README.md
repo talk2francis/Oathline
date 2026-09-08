@@ -11,6 +11,8 @@ Oathline is a zero-key runtime control and execution-evidence layer for Binance 
 
 [Live product](https://oathline.xyz) · [90-second judge path](https://oathline.xyz/judge) · [Demo pitch and recording script](DEMO_PITCH.md) · [What Oathline cannot guarantee](LIMITS.md)
 
+[Watch the 2m30s demo — voiceover, music and subtitles](demo-video/exports/oathline-demo-150s.mp4) · [Video source and evidence map](demo-video/v2/README.md)
+
 ## Submission facts
 
 This block is deliberately explicit so a reviewer—or an automated first-pass evaluator—can verify the submission without inferring claims from marketing copy.

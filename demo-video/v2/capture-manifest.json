@@ -1,0 +1,58 @@
+[
+  {
+    "id": "stale",
+    "url": "/studio/archive/stale",
+    "duration": 13.68,
+    "skip": 0.5330000000000001,
+    "recordedAt": "2026-09-08T08:59:15.375Z"
+  },
+  {
+    "id": "fresh",
+    "url": "/studio/archive/fresh",
+    "duration": 11.24,
+    "skip": 0.2750000000000011,
+    "recordedAt": "2026-09-08T08:59:31.013Z"
+  },
+  {
+    "id": "fill",
+    "url": "/receipts/demo/",
+    "duration": 16.92,
+    "skip": 1.4040000000000024,
+    "recordedAt": "2026-09-08T08:59:52.705Z"
+  },
+  {
+    "id": "reconcile",
+    "url": "/studio/archive/reconcile",
+    "duration": 13.96,
+    "skip": 0,
+    "recordedAt": "2026-09-08T09:00:15.407Z"
+  },
+  {
+    "id": "verify",
+    "url": "/verify/",
+    "duration": 14.28,
+    "skip": 0.6339999999999992,
+    "recordedAt": "2026-09-08T09:00:36.890Z"
+  },
+  {
+    "id": "tamper",
+    "url": "/verify/",
+    "duration": 13.56,
+    "skip": 0,
+    "recordedAt": "2026-09-08T09:00:56.879Z"
+  },
+  {
+    "id": "surface",
+    "url": "/surface/",
+    "duration": 10.72,
+    "skip": 0.836000000000001,
+    "recordedAt": "2026-09-08T09:01:12.321Z"
+  },
+  {
+    "id": "limits",
+    "url": "/limits/",
+    "duration": 10.04,
+    "skip": 0.659999999999999,
+    "recordedAt": "2026-09-08T09:01:27.154Z"
+  }
+]

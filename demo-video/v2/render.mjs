@@ -1,0 +1,11 @@
+import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';
+const root=path.resolve(import.meta.dirname,'..');
+const run=(cmd,args)=>{const p=spawnSync(cmd,args,{cwd:root,stdio:'inherit'});if(p.status!==0)throw Error(`${cmd} failed: ${p.status}`)};
+const browser=process.env.OATHLINE_CHROMIUM||'/root/.cache/ms-playwright/chromium_headless_shell-1187/chrome-linux/headless_shell';
+const out=path.join(root,'output/v2');fs.mkdirSync(out,{recursive:true});fs.mkdirSync(path.join(root,'exports'),{recursive:true});
+if(!fs.existsSync(path.join(out,'final-mix.wav')))throw Error('No final voice/music mix. Run prepare:v2 first. Silent fallback is forbidden.');
+if(!process.argv.includes('--mux-only'))run('pnpm',['exec','remotion','render','v2/index.tsx','Oathline150','output/v2/picture.mp4','--codec=h264','--crf=17','--pixel-format=yuv420p','--concurrency=3',`--browser-executable=${browser}`]);
+run('ffmpeg',['-y','-v','warning','-i','output/v2/picture.mp4','-i','output/v2/final-mix.wav','-map','0:v:0','-map','1:a:0','-vf','scale=in_range=pc:out_range=tv:in_color_matrix=bt601:out_color_matrix=bt709,format=yuv420p','-c:v','libx264','-preset','medium','-crf','18','-threads','3','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709','-color_range','tv','-c:a','aac','-b:a','256k','-metadata','title=Oathline — Give software a boundary','-metadata','comment=Music: Undertow by Scott Buckley, CC BY 4.0, scottbuckley.com.au. Edited and mixed. Archived evidence and recorded local interactions.','-t','150','-movflags','+faststart','exports/oathline-demo-150s.mp4']);
+fs.copyFileSync(path.join(out,'oathline-150.srt'),path.join(root,'exports/oathline-demo-150s.srt'));
+fs.copyFileSync(path.join(root,'v2/UPLOAD-DESCRIPTION.md'),path.join(root,'exports/UPLOAD-DESCRIPTION.md'));
+console.log('FINISHED: demo-video/exports/oathline-demo-150s.mp4');

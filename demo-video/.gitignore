@@ -5,3 +5,8 @@ public/audio/
 public/evidence/
 public/brand/
 .venv/
+.models/
+v2/raw/
+v2/cache/
+public/v2/audio/sample-*.wav
+public/v2/audio/machina.mp3

@@ -1,0 +1,110 @@
+{
+  "file": "exports/oathline-demo-150s.mp4",
+  "sha256": "7ba30072b0d31e90150d0d83d976322a4eccafad5df0ead734ea66547b8e01fa",
+  "bytes": 22642176,
+  "duration": 150,
+  "frames": 4500,
+  "video": {
+    "codec_name": "h264",
+    "pix_fmt": "yuv420p",
+    "color_space": "bt709",
+    "color_range": "tv",
+    "width": 1920,
+    "height": 1080,
+    "r_frame_rate": "30/1"
+  },
+  "audio": {
+    "codec_name": "aac",
+    "channels": 2,
+    "sample_rate": "48000",
+    "duration": "150.000000"
+  },
+  "captionCues": 46,
+  "captionOverlaps": 0,
+  "fullDecode": "PASS",
+  "audioLevels": {
+    "input_i": "-16.07",
+    "input_tp": "-1.00",
+    "input_lra": "2.80",
+    "input_thresh": "-26.22",
+    "output_i": "-15.95",
+    "output_tp": "-1.00",
+    "output_lra": "2.80",
+    "output_thresh": "-26.08",
+    "normalization_type": "dynamic",
+    "target_offset": "-0.05"
+  },
+  "narrationSegments": [
+    {
+      "id": "opening",
+      "seconds": 8.0,
+      "rms": 0.044141388348733476
+    },
+    {
+      "id": "authority",
+      "seconds": 8.0,
+      "rms": 0.04388363609748514
+    },
+    {
+      "id": "mandate",
+      "seconds": 16.0,
+      "rms": 0.04270613115580709
+    },
+    {
+      "id": "replay",
+      "seconds": 12.0,
+      "rms": 0.04337853539902513
+    },
+    {
+      "id": "block",
+      "seconds": 14.0,
+      "rms": 0.04005354086176598
+    },
+    {
+      "id": "stale",
+      "seconds": 12.0,
+      "rms": 0.04427189873821771
+    },
+    {
+      "id": "fresh",
+      "seconds": 10.0,
+      "rms": 0.04324673495603297
+    },
+    {
+      "id": "fill",
+      "seconds": 14.0,
+      "rms": 0.04054720063669104
+    },
+    {
+      "id": "reconcile",
+      "seconds": 14.0,
+      "rms": 0.044496147354923875
+    },
+    {
+      "id": "verify",
+      "seconds": 10.0,
+      "rms": 0.041033009540865174
+    },
+    {
+      "id": "tamper",
+      "seconds": 10.0,
+      "rms": 0.040832051880828515
+    },
+    {
+      "id": "surface",
+      "seconds": 8.0,
+      "rms": 0.04306540966347877
+    },
+    {
+      "id": "limits",
+      "seconds": 7.0,
+      "rms": 0.043230773195720225
+    },
+    {
+      "id": "ending",
+      "seconds": 7.0,
+      "rms": 0.04239403576554397
+    }
+  ],
+  "humanListeningTest": "Not performed by this automated QA. No perceptual taste guarantee."
+}

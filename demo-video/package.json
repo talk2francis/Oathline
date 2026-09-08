@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "capture:v2": "node v2/capture.mjs",
+    "prepare:v2": ".venv/bin/python v2/narrate.py && .venv/bin/python v2/prepare.py",
+    "render:v2": "node v2/render.mjs",
     "capture": "node scripts/capture.mjs",
     "prepare": "node scripts/prepare-assets.mjs && node scripts/synth-music.mjs",
     "studio": "remotion studio src/index.ts",

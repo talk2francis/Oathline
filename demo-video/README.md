@@ -1,6 +1,16 @@
 # Oathline demo-video pipeline
 
-Reproducible 90-second evidence film built from the real Oathline UI and committed first-party artifacts. It never calls Binance.
+## Current film — 2 minutes 30 seconds
+
+[Watch / download the finished captioned MP4](exports/oathline-demo-150s.mp4) · [English subtitles](exports/oathline-demo-150s.srt) · [Upload description and music credit](exports/UPLOAD-DESCRIPTION.md)
+
+The new film includes local neural voiceover, Scott Buckley's licensed “Undertow,” narration-aware music ducking, burned-in synchronized subtitles, recorded product interactions, and clearly labeled historical Binance/Codex evidence. No new Binance trade is placed.
+
+Production source, exact commands and evidence scope: [v2/README.md](v2/README.md). The old 90-second outputs below are superseded drafts, not the current submission.
+
+## Archived 90-second draft
+
+The original pipeline is retained for reference. Use `render:v2` for the current film.
 
 ## Outputs
 

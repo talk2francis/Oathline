@@ -1,0 +1,183 @@
+1
+00:00:00,320 --> 00:00:03,569
+This agent proposed an eighty-three dollar trade.
+
+2
+00:00:03,727 --> 00:00:07,462
+The mandate allowed fifteen. Oathline stopped the call.
+
+3
+00:00:08,320 --> 00:00:12,401
+Binance Agent OS provides account access through OAuth.
+
+4
+00:00:12,559 --> 00:00:15,462
+Oathline sets the financial conditions.
+
+5
+00:00:16,320 --> 00:00:19,349
+Let's set the boundary. BNB spot trading.
+
+6
+00:00:19,509 --> 00:00:22,645
+Fifteen per order. Forty in daily gross.
+
+7
+00:00:22,805 --> 00:00:25,792
+Three orders, a cooldown, and an expiry.
+
+8
+00:00:25,952 --> 00:00:29,589
+Sign locally. The mandate becomes a portable, signed
+
+9
+00:00:29,589 --> 00:00:30,219
+document.
+
+10
+00:00:32,320 --> 00:00:35,936
+This local red-team replay shows untrusted text claiming
+
+11
+00:00:35,936 --> 00:00:36,904
+prior approval.
+
+12
+00:00:37,046 --> 00:00:38,865
+It is explicitly simulated.
+
+13
+00:00:39,007 --> 00:00:41,988
+Oathline checks the resulting action, without asking
+
+14
+00:00:41,988 --> 00:00:43,478
+another model to judge it.
+
+15
+00:00:44,320 --> 00:00:47,696
+This separate Codex recording shows an eighty-three
+
+16
+00:00:47,696 --> 00:00:48,821
+forty market buy.
+
+17
+00:00:48,981 --> 00:00:50,880
+Both budget limits fail.
+
+18
+00:00:51,040 --> 00:00:54,453
+PreToolUse: blocked. Binance was not called.
+
+19
+00:00:58,320 --> 00:01:01,638
+A seven USDT buy is within budget.
+
+20
+00:01:01,795 --> 00:01:05,242
+But the observed state is thirty-one point eight seconds
+
+21
+00:01:05,242 --> 00:01:05,488
+old.
+
+22
+00:01:05,645 --> 00:01:08,727
+The mandate permits thirty. Oathline withholds
+
+23
+00:01:08,727 --> 00:01:09,463
+the action.
+
+24
+00:01:10,320 --> 00:01:13,031
+A Binance balance read refreshes the state.
+
+25
+00:01:13,174 --> 00:01:16,376
+The same proposal passes with a snapshot just zero
+
+26
+00:01:16,376 --> 00:01:17,914
+point three seconds old.
+
+27
+00:01:18,056 --> 00:01:19,478
+Inside mandate.
+
+28
+00:01:20,320 --> 00:01:23,029
+Here is the actual Binance response.
+
+29
+00:01:23,189 --> 00:01:26,981
+Market buy. Filled. Nine thousandths of a BNB,
+
+30
+00:01:26,981 --> 00:01:28,629
+for about six fifty.
+
+31
+00:01:28,789 --> 00:01:31,115
+Keep this order number in view.
+
+32
+00:01:34,320 --> 00:01:37,577
+Compare the receipts with observed Binance history.
+
+33
+00:01:37,723 --> 00:01:40,960
+The same order joins to a prior authorization.
+
+34
+00:01:41,106 --> 00:01:43,994
+One matched. No orphans or divergences.
+
+35
+00:01:44,140 --> 00:01:47,475
+This covers the stated window, not the entire account.
+
+36
+00:01:48,320 --> 00:01:50,411
+Load the shipped evidence chain.
+
+37
+00:01:50,571 --> 00:01:54,304
+Thirty-six entries verify locally in the browser.
+
+38
+00:01:54,464 --> 00:01:55,936
+No broken links.
+
+39
+00:01:58,320 --> 00:02:01,861
+Change one field in a separate copy. Upload it.
+
+40
+00:02:02,021 --> 00:02:06,096
+Verification finds the first mismatch: sequence five.
+
+41
+00:02:08,320 --> 00:02:11,860
+The catalog records three hundred and eighteen tools.
+
+42
+00:02:12,010 --> 00:02:15,470
+Unrecognized financial actions require approval.
+
+43
+00:02:16,320 --> 00:02:18,923
+Enforcement depends on the host.
+
+44
+00:02:19,083 --> 00:02:22,325
+Financial boundaries, not promises of profit.
+
+45
+00:02:23,320 --> 00:02:26,605
+Policy before execution. Evidence after.
+
+46
+00:02:26,765 --> 00:02:29,240
+Oathline. Give software a boundary.

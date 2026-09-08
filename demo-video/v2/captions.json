@@ -1,0 +1,278 @@
+[
+  {
+    "start": 0.32,
+    "end": 3.569,
+    "text": "This agent proposed an eighty-three dollar trade.",
+    "scene": "opening"
+  },
+  {
+    "start": 3.727,
+    "end": 7.462,
+    "text": "The mandate allowed fifteen. Oathline stopped the call.",
+    "scene": "opening"
+  },
+  {
+    "start": 8.32,
+    "end": 12.401,
+    "text": "Binance Agent OS provides account access through OAuth.",
+    "scene": "authority"
+  },
+  {
+    "start": 12.559,
+    "end": 15.462,
+    "text": "Oathline sets the financial conditions.",
+    "scene": "authority"
+  },
+  {
+    "start": 16.32,
+    "end": 19.349,
+    "text": "Let's set the boundary. BNB spot trading.",
+    "scene": "mandate"
+  },
+  {
+    "start": 19.509,
+    "end": 22.645,
+    "text": "Fifteen per order. Forty in daily gross.",
+    "scene": "mandate"
+  },
+  {
+    "start": 22.805,
+    "end": 25.792,
+    "text": "Three orders, a cooldown, and an expiry.",
+    "scene": "mandate"
+  },
+  {
+    "start": 25.952,
+    "end": 29.589,
+    "text": "Sign locally. The mandate becomes a portable, signed",
+    "scene": "mandate"
+  },
+  {
+    "start": 29.589,
+    "end": 30.219,
+    "text": "document.",
+    "scene": "mandate"
+  },
+  {
+    "start": 32.32,
+    "end": 35.936,
+    "text": "This local red-team replay shows untrusted text claiming",
+    "scene": "replay"
+  },
+  {
+    "start": 35.936,
+    "end": 36.904,
+    "text": "prior approval.",
+    "scene": "replay"
+  },
+  {
+    "start": 37.046,
+    "end": 38.865,
+    "text": "It is explicitly simulated.",
+    "scene": "replay"
+  },
+  {
+    "start": 39.007,
+    "end": 41.988,
+    "text": "Oathline checks the resulting action, without asking",
+    "scene": "replay"
+  },
+  {
+    "start": 41.988,
+    "end": 43.478,
+    "text": "another model to judge it.",
+    "scene": "replay"
+  },
+  {
+    "start": 44.32,
+    "end": 47.696,
+    "text": "This separate Codex recording shows an eighty-three",
+    "scene": "block"
+  },
+  {
+    "start": 47.696,
+    "end": 48.821,
+    "text": "forty market buy.",
+    "scene": "block"
+  },
+  {
+    "start": 48.981,
+    "end": 50.88,
+    "text": "Both budget limits fail.",
+    "scene": "block"
+  },
+  {
+    "start": 51.04,
+    "end": 54.453,
+    "text": "PreToolUse: blocked. Binance was not called.",
+    "scene": "block"
+  },
+  {
+    "start": 58.32,
+    "end": 61.638,
+    "text": "A seven USDT buy is within budget.",
+    "scene": "stale"
+  },
+  {
+    "start": 61.795,
+    "end": 65.242,
+    "text": "But the observed state is thirty-one point eight seconds",
+    "scene": "stale"
+  },
+  {
+    "start": 65.242,
+    "end": 65.488,
+    "text": "old.",
+    "scene": "stale"
+  },
+  {
+    "start": 65.645,
+    "end": 68.727,
+    "text": "The mandate permits thirty. Oathline withholds",
+    "scene": "stale"
+  },
+  {
+    "start": 68.727,
+    "end": 69.463,
+    "text": "the action.",
+    "scene": "stale"
+  },
+  {
+    "start": 70.32,
+    "end": 73.031,
+    "text": "A Binance balance read refreshes the state.",
+    "scene": "fresh"
+  },
+  {
+    "start": 73.174,
+    "end": 76.376,
+    "text": "The same proposal passes with a snapshot just zero",
+    "scene": "fresh"
+  },
+  {
+    "start": 76.376,
+    "end": 77.914,
+    "text": "point three seconds old.",
+    "scene": "fresh"
+  },
+  {
+    "start": 78.056,
+    "end": 79.478,
+    "text": "Inside mandate.",
+    "scene": "fresh"
+  },
+  {
+    "start": 80.32,
+    "end": 83.029,
+    "text": "Here is the actual Binance response.",
+    "scene": "fill"
+  },
+  {
+    "start": 83.189,
+    "end": 86.981,
+    "text": "Market buy. Filled. Nine thousandths of a BNB,",
+    "scene": "fill"
+  },
+  {
+    "start": 86.981,
+    "end": 88.629,
+    "text": "for about six fifty.",
+    "scene": "fill"
+  },
+  {
+    "start": 88.789,
+    "end": 91.115,
+    "text": "Keep this order number in view.",
+    "scene": "fill"
+  },
+  {
+    "start": 94.32,
+    "end": 97.577,
+    "text": "Compare the receipts with observed Binance history.",
+    "scene": "reconcile"
+  },
+  {
+    "start": 97.723,
+    "end": 100.96,
+    "text": "The same order joins to a prior authorization.",
+    "scene": "reconcile"
+  },
+  {
+    "start": 101.106,
+    "end": 103.994,
+    "text": "One matched. No orphans or divergences.",
+    "scene": "reconcile"
+  },
+  {
+    "start": 104.14,
+    "end": 107.475,
+    "text": "This covers the stated window, not the entire account.",
+    "scene": "reconcile"
+  },
+  {
+    "start": 108.32,
+    "end": 110.411,
+    "text": "Load the shipped evidence chain.",
+    "scene": "verify"
+  },
+  {
+    "start": 110.571,
+    "end": 114.304,
+    "text": "Thirty-six entries verify locally in the browser.",
+    "scene": "verify"
+  },
+  {
+    "start": 114.464,
+    "end": 115.936,
+    "text": "No broken links.",
+    "scene": "verify"
+  },
+  {
+    "start": 118.32,
+    "end": 121.861,
+    "text": "Change one field in a separate copy. Upload it.",
+    "scene": "tamper"
+  },
+  {
+    "start": 122.021,
+    "end": 126.096,
+    "text": "Verification finds the first mismatch: sequence five.",
+    "scene": "tamper"
+  },
+  {
+    "start": 128.32,
+    "end": 131.86,
+    "text": "The catalog records three hundred and eighteen tools.",
+    "scene": "surface"
+  },
+  {
+    "start": 132.01,
+    "end": 135.47,
+    "text": "Unrecognized financial actions require approval.",
+    "scene": "surface"
+  },
+  {
+    "start": 136.32,
+    "end": 138.923,
+    "text": "Enforcement depends on the host.",
+    "scene": "limits"
+  },
+  {
+    "start": 139.083,
+    "end": 142.325,
+    "text": "Financial boundaries, not promises of profit.",
+    "scene": "limits"
+  },
+  {
+    "start": 143.32,
+    "end": 146.605,
+    "text": "Policy before execution. Evidence after.",
+    "scene": "ending"
+  },
+  {
+    "start": 146.765,
+    "end": 149.24,
+    "text": "Oathline. Give software a boundary.",
+    "scene": "ending"
+  }
+]

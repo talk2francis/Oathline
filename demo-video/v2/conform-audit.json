@@ -1,0 +1,100 @@
+[
+  {
+    "scene": "opening",
+    "start": 0,
+    "seconds": 8,
+    "speechSpeed": 1.0111,
+    "speechEnds": 7.62
+  },
+  {
+    "scene": "authority",
+    "start": 8,
+    "seconds": 8,
+    "speechSpeed": 1.0141,
+    "speechEnds": 15.62
+  },
+  {
+    "scene": "mandate",
+    "start": 16,
+    "seconds": 16,
+    "speechSpeed": 1,
+    "speechEnds": 30.379
+  },
+  {
+    "scene": "replay",
+    "start": 32,
+    "seconds": 12,
+    "speechSpeed": 1.1261,
+    "speechEnds": 43.62
+  },
+  {
+    "scene": "block",
+    "start": 44,
+    "seconds": 14,
+    "speechSpeed": 1,
+    "speechEnds": 54.613
+  },
+  {
+    "scene": "stale",
+    "start": 58,
+    "seconds": 12,
+    "speechSpeed": 1.0223,
+    "speechEnds": 69.62
+  },
+  {
+    "scene": "fresh",
+    "start": 70,
+    "seconds": 10,
+    "speechSpeed": 1.1252,
+    "speechEnds": 79.62
+  },
+  {
+    "scene": "fill",
+    "start": 80,
+    "seconds": 14,
+    "speechSpeed": 1,
+    "speechEnds": 91.275
+  },
+  {
+    "scene": "reconcile",
+    "start": 94,
+    "seconds": 14,
+    "speechSpeed": 1.1004,
+    "speechEnds": 107.62
+  },
+  {
+    "scene": "verify",
+    "start": 108,
+    "seconds": 10,
+    "speechSpeed": 1,
+    "speechEnds": 116.096
+  },
+  {
+    "scene": "tamper",
+    "start": 118,
+    "seconds": 10,
+    "speechSpeed": 1,
+    "speechEnds": 126.256
+  },
+  {
+    "scene": "surface",
+    "start": 128,
+    "seconds": 8,
+    "speechSpeed": 1.0667,
+    "speechEnds": 135.62
+  },
+  {
+    "scene": "limits",
+    "start": 136,
+    "seconds": 7,
+    "speechSpeed": 1,
+    "speechEnds": 142.485
+  },
+  {
+    "scene": "ending",
+    "start": 143,
+    "seconds": 7,
+    "speechSpeed": 1,
+    "speechEnds": 149.4
+  }
+]
