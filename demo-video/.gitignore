@@ -1,0 +1,7 @@
+captures/
+output/
+public/captures/
+public/audio/
+public/evidence/
+public/brand/
+.venv/

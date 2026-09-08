@@ -1,0 +1,7 @@
+GOOD CHAIN
+VALID · 36 entries · 0 broken links
+
+TAMPERED SCRATCH COPY
+BROKEN at sequence 5: receipt sequence 5 has an invalid hash
+
+The tampered file was a temporary copy under /tmp. The committed chain was not modified.

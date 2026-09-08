@@ -1,0 +1,19 @@
+An agent can hold permission to trade. That does not mean every trade should pass.
+
+Binance Agent OS keeps authentication in its official OAuth connection. Oathline adds a separate, expiring boundary on how that authority may be used.
+
+This signed mandate permits B N B U S D T Spot, with fifteen dollars per order, forty dollars per day, and state no older than thirty seconds.
+
+Now untrusted context pushes the agent toward an eighty-three-dollar market order. Oathline does not guess why the reasoning failed. It evaluates the action.
+
+Eighty-three forty exceeds fifteen per order — and eighty-three forty exceeds the entire daily limit. Outside mandate. Binance submission: not called.
+
+In this observed Codex zero point one five three point three run, the host honored that denial before spot dot new order was submitted.
+
+A valid seven-dollar order takes the other path — but only with current evidence. Oathline first withholds it on stale state. A fresh Binance read arrives. The same action now passes, and Binance fills it.
+
+Order twelve five-three-four, zero-zero six-eight, two-one: real B N B U S D T, matched back to the authorization that preceded it.
+
+The full chain verifies locally: thirty-six entries, zero broken links. Reconciliation reports one matched execution, zero orphans, zero divergences.
+
+Policy before execution. Evidence after. Oathline gives software a boundary.
